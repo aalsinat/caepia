@@ -17,10 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -61,6 +58,10 @@ public class JwtTokenProvider {
 		           .setExpiration(validity)//
 		           .signWith(SignatureAlgorithm.HS256, secretKey)//
 		           .compact();
+	}
+
+	public String createToken(String username) {
+		return this.createToken(username, Arrays.asList(Role.ROLE_ADMIN));
 	}
 
 	public Authentication getAuthentication(String token) {

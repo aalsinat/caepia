@@ -1,6 +1,6 @@
 package com.caepia.app.api.security;
 
-import com.caepia.app.api.model.User;
+import com.caepia.app.api.model.DatabaseUser;
 import com.caepia.app.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,16 +17,16 @@ public class MyUserDetails implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userRepository.findByUsername(username);
+		final DatabaseUser databaseUser = userRepository.findByUsername(username);
 
-		if (user == null) {
-			throw new UsernameNotFoundException("IUser '" + username + "' not found");
+		if (databaseUser == null) {
+			throw new UsernameNotFoundException("DatabaseUser '" + username + "' not found");
 		}
 
 		return org.springframework.security.core.userdetails.User//
 		                                                         .withUsername(username)//
-		                                                         .password(user.getPassword())//
-		                                                         .authorities(user.getRoles())//
+		                                                         .password(databaseUser.getPassword())//
+		                                                         //.authorities(databaseUser.getRoles())//
 		                                                         .accountExpired(false)//
 		                                                         .accountLocked(false)//
 		                                                         .credentialsExpired(false)//

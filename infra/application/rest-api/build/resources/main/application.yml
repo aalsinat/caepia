@@ -4,10 +4,14 @@ spring:
       enabled: true
       path: /console
   datasource:
-    url: jdbc:h2:mem:caepia
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:caepia
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+    url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaLoginDB
+    username: CaepiaLoginAppUsr
+    password: CLAUusr2018login
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   tomcat:
     max-wait: 20000
     max-active: 50
@@ -15,13 +19,17 @@ spring:
     min-idle: 15
   jpa:
     hibernate:
-      ddl-auto: create-drop
+#      ddl-auto: create-drop
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+#        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
         format_sql: true
-        id:
-          new_generator_mappings: false
+#        id:
+#          new_generator_mappings: false
     show-sql: true
 security:
   jwt:

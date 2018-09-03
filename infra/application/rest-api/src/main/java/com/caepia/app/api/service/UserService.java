@@ -3,7 +3,7 @@ package com.caepia.app.api.service;
 import javax.servlet.http.HttpServletRequest;
 
 import com.caepia.app.api.exception.CustomException;
-import com.caepia.app.api.model.User;
+import com.caepia.app.api.model.DatabaseUser;
 import com.caepia.app.api.repository.UserRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +32,19 @@ public class UserService {
 	public String signin(String username, String password) {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-			return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+			//return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+			return jwtTokenProvider.createToken(username);
 		} catch (AuthenticationException e) {
 			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
 
-	public String signup(User user) {
-		if (!userRepository.existsByUsername(user.getUsername())) {
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userRepository.save(user);
-			return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+	public String signup(DatabaseUser databaseUser) {
+		if (!userRepository.existsByUsername(databaseUser.getUsername())) {
+			databaseUser.setPassword(passwordEncoder.encode(databaseUser.getPassword()));
+			userRepository.save(databaseUser);
+			//return jwtTokenProvider.createToken(databaseUser.getUsername(), databaseUser.getRoles());
+			return jwtTokenProvider.createToken(databaseUser.getUsername());
 		} else {
 			throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
@@ -52,15 +54,15 @@ public class UserService {
 		userRepository.deleteByUsername(username);
 	}
 
-	public User search(String username) {
-		User user = userRepository.findByUsername(username);
-		if (user == null) {
-			throw new CustomException("The user doesn't exist", HttpStatus.NOT_FOUND);
+	public DatabaseUser search(String username) {
+		DatabaseUser databaseUser = userRepository.findByUsername(username);
+		if (databaseUser == null) {
+			throw new CustomException("The databaseUser doesn't exist", HttpStatus.NOT_FOUND);
 		}
-		return user;
+		return databaseUser;
 	}
 
-	public User whoami(HttpServletRequest req) {
+	public DatabaseUser whoami(HttpServletRequest req) {
 		return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
 	}
 

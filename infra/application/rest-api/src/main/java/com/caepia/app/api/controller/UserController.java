@@ -2,11 +2,12 @@ package com.caepia.app.api.controller;
 
 import com.caepia.app.api.dto.UserDataDTO;
 import com.caepia.app.api.dto.UserResponseDTO;
-import com.caepia.app.api.model.User;
+import com.caepia.app.api.model.DatabaseUser;
 import com.caepia.app.api.service.UserService;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,14 +25,14 @@ public class UserController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@PostMapping("/signin")
+	@PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "${UserController.signin}")
-	@ApiResponses(value = {//
-			@ApiResponse(code = 400, message = "Something went wrong"), //
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = "Something went wrong"),
 			@ApiResponse(code = 422, message = "Invalid username/password supplied")})
-	public String login(//
-	                    @ApiParam("Username") @RequestParam String username, //
-	                    @ApiParam("Password") @RequestParam String password) {
+	public String login(
+			@ApiParam("Username") @RequestParam String username,
+			@ApiParam("Password") @RequestParam String password) {
 		return userService.signin(username, password);
 	}
 
@@ -42,8 +43,8 @@ public class UserController {
 			@ApiResponse(code = 403, message = "Access denied"), //
 			@ApiResponse(code = 422, message = "Username is already in use"), //
 			@ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-	public String signup(@ApiParam("Signup IUser") @RequestBody UserDataDTO user) {
-		return userService.signup(modelMapper.map(user, User.class));
+	public String signup(@ApiParam("Signup DatabaseUser") @RequestBody UserDataDTO user) {
+		return userService.signup(modelMapper.map(user, DatabaseUser.class));
 	}
 
 	@DeleteMapping(value = "/{username}")

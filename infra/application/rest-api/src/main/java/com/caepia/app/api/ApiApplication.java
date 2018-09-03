@@ -1,7 +1,7 @@
 package com.caepia.app.api;
 
+import com.caepia.app.api.model.DatabaseUser;
 import com.caepia.app.api.model.Role;
-import com.caepia.app.api.model.User;
 import com.caepia.app.api.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +30,24 @@ public class ApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... params) throws Exception {
-		User admin = new User();
-		admin.setUsername("admin");
-		admin.setPassword("admin");
-		admin.setEmail("admin@email.com");
-		admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+//		DatabaseUser admin = new DatabaseUser();
+//		admin.setUsername("admin");
+//		admin.setPassword("admin");
+//		admin.setStatus(1);
+//		//admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+//
+//		userService.signup(admin);
+//
+//		DatabaseUser client = new DatabaseUser();
+//		client.setUsername("client");
+//		client.setPassword("client");
+//		client.setStatus(1);
+//		//client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
+//
+//		userService.signup(client);
 
-		userService.signup(admin);
 
-		User client = new User();
-		client.setUsername("client");
-		client.setPassword("client");
-		client.setEmail("client@email.com");
-		client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
-
-		userService.signup(client);
+		final DatabaseUser user = userService.search("Usuari DEMO 1");
+		System.out.println("params = [" + user + "]");
 	}
 }
