@@ -1,13 +1,15 @@
 package com.caepia.app.api.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(description = "User creation request model", value = "User creation request")
 public class UserDataDTO {
 
 //	@ApiModelProperty(position = 2)
 //	List<Role> roles;
 
-	@ApiModelProperty(position = 0)
+	@ApiModelProperty()
 	private String id;
 
 	@ApiModelProperty(position = 1)

@@ -4,15 +4,23 @@ import usermanager.api.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
+import java.lang.reflect.Array;
 import java.util.Objects;
 
 @Entity
 @Table(name = "CaepiaAppUsers")
+@NamedStoredProcedureQueries(value = {
+		@NamedStoredProcedureQuery(name = "UserRepository.login",
+				procedureName = "spApiPostLogin",
+				resultClasses = Array.class,
+				//resultClasses = {LoginResponseFromStored.class},
+				parameters = {
+						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pUser", type = String.class),
+						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pPassword", type = String.class),
+						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pVersion", type = Integer.class)
+				})
+})
 public class DatabaseUser implements User {
-
-//	@ElementCollection(fetch = FetchType.EAGER)
-//	List<Role> roles;
 	@Id
 	@Column(name = "PK_User")
 	private String id;
@@ -28,14 +36,6 @@ public class DatabaseUser implements User {
 	private Integer status;
 	@Column(name = "FK_Client")
 	private Integer clientId;
-
-//	public List<Role> getRoles() {
-//		return roles;
-//	}
-//
-//	public void setRoles(List<Role> roles) {
-//		this.roles = roles;
-//	}
 
 	public String getId() {
 		return id;

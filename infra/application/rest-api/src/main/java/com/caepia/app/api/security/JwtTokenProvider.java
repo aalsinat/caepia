@@ -24,10 +24,6 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenProvider {
 
-	/**
-	 * THIS IS NOT A SECURE PRACTICE! For simplicity, we are storing a static key here. Ideally, in a
-	 * microservices environment, this key would be kept on a config-server.
-	 */
 	@Value("${security.jwt.token.secret-key:secret-key}")
 	private String secretKey;
 
@@ -46,18 +42,18 @@ public class JwtTokenProvider {
 
 		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("auth",
-		           roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull)
-		                .collect(Collectors.toList()));
+				roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull)
+						.collect(Collectors.toList()));
 
 		Date now = new Date();
 		Date validity = new Date(now.getTime() + validityInMilliseconds);
 
 		return Jwts.builder()//
-		           .setClaims(claims)//
-		           .setIssuedAt(now)//
-		           .setExpiration(validity)//
-		           .signWith(SignatureAlgorithm.HS256, secretKey)//
-		           .compact();
+				.setClaims(claims)//
+				.setIssuedAt(now)//
+				.setExpiration(validity)//
+				.signWith(SignatureAlgorithm.HS256, secretKey)//
+				.compact();
 	}
 
 	public String createToken(String username) {
@@ -75,8 +71,9 @@ public class JwtTokenProvider {
 
 	public String resolveToken(HttpServletRequest req) {
 		String bearerToken = req.getHeader("Authorization");
-		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-			return bearerToken.substring(7, bearerToken.length());
+		if (bearerToken != null /*&& bearerToken.startsWith("Bearer ")*/) {
+			// return bearerToken.substring(7, bearerToken.length());
+			return bearerToken;
 		}
 		return null;
 	}

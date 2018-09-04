@@ -1,9 +1,13 @@
-package com.caepia.app.api.security;
+package com.caepia.app.api.config;
 
+import com.caepia.app.api.security.CustomAuthenticationProvider;
+import com.caepia.app.api.security.JwtTokenFilterConfigurer;
+import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,7 +21,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
+	private CustomAuthenticationProvider authenticationProvider;
+	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) {
+		auth.authenticationProvider(authenticationProvider);
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -30,10 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Entry points
 		http.authorizeRequests()//
-		    .antMatchers("/users/signin").permitAll()
-		    .antMatchers("/users/signup").permitAll()
-		    .antMatchers("/console/**").permitAll()
-		    .anyRequest().authenticated();
+				.antMatchers("/users/signin").permitAll()
+				.antMatchers("/users/signup").permitAll()
+				.antMatchers("/console/**").permitAll()
+				.anyRequest().authenticated();
 
 		// If a user try to access a resource without having enough permissions
 		http.exceptionHandling().accessDeniedPage("/login");
@@ -48,15 +59,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		// Allow swagger to be accessed without authentication
 		web.ignoring().antMatchers("/v2/api-docs")
-		   .antMatchers("/swagger-resources/**")
-		   .antMatchers("/swagger-ui.html")
-		   .antMatchers("/configuration/**")
-		   .antMatchers("/webjars/**")
-		   .antMatchers("/public")
-		   .antMatchers("/actuator/**");
+				.antMatchers("/swagger-resources/**")
+				.antMatchers("/swagger-ui.html")
+				.antMatchers("/configuration/**")
+				.antMatchers("/webjars/**")
+				.antMatchers("/public")
+				.antMatchers("/actuator/**");
 	}
 
 	@Bean

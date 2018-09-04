@@ -1,7 +1,6 @@
 package com.caepia.app.api;
 
 import com.caepia.app.api.model.DatabaseUser;
-import com.caepia.app.api.model.Role;
 import com.caepia.app.api.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class ApiApplication implements CommandLineRunner {
@@ -31,6 +27,7 @@ public class ApiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... params) throws Exception {
 //		DatabaseUser admin = new DatabaseUser();
+//		admin.setId("admin");
 //		admin.setUsername("admin");
 //		admin.setPassword("admin");
 //		admin.setStatus(1);

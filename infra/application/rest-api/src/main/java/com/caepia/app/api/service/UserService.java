@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.caepia.app.api.exception.CustomException;
 import com.caepia.app.api.model.DatabaseUser;
+import com.caepia.app.api.model.Role;
 import com.caepia.app.api.repository.UserRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -31,7 +36,11 @@ public class UserService {
 
 	public String signin(String username, String password) {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password, Arrays.asList(Role.ROLE_ADMIN)));
+
+			userRepository.login(username, password, 1);
+			//System.out.println("username = [" + username + "], password = [" + password + "]" + "-> status = [" + loginStatus + "]");
+
 			//return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
 			return jwtTokenProvider.createToken(username);
 		} catch (AuthenticationException e) {
