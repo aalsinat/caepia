@@ -17,6 +17,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleNotExistingUser(NotExistingUserException ex) {
 		final ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED);
 		apiError.setMessage(ex.getMessage());
+		apiError.setCode("90001");
+		apiError.setDebugMessage("User does not exist on the database");
 		return buildResponseEntity(apiError);
 	}
 

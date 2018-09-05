@@ -10,15 +10,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "CaepiaAppUsers")
 @NamedStoredProcedureQueries(value = {
-		@NamedStoredProcedureQuery(name = "UserRepository.login",
-				procedureName = "spApiPostLogin",
-				resultClasses = Array.class,
-				//resultClasses = {LoginResponseFromStored.class},
-				parameters = {
-						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pUser", type = String.class),
-						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pPassword", type = String.class),
-						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pVersion", type = Integer.class)
-				})
+		@NamedStoredProcedureQuery(name = "signin",
+				procedureName = "spApiPostLogin"//,
+//				parameters = {
+//						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pUser", type = String.class),
+//						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pPassword", type = String.class),
+//						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pVersion", type = Integer.class)
+//				}
+				)
 })
 public class DatabaseUser implements User {
 	@Id

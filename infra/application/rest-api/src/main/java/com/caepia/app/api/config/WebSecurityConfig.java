@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated();
 
 		// If a user try to access a resource without having enough permissions
-		http.exceptionHandling().accessDeniedPage("/login");
+		http.exceptionHandling().accessDeniedPage("/signin");
 
 		// Apply JWT
 		http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
@@ -62,12 +62,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) {
 		// Allow swagger to be accessed without authentication
 		web.ignoring().antMatchers("/v2/api-docs")
-				.antMatchers("/swagger-resources/**")
-				.antMatchers("/swagger-ui.html")
-				.antMatchers("/configuration/**")
-				.antMatchers("/webjars/**")
-				.antMatchers("/public")
-				.antMatchers("/actuator/**");
+			 .antMatchers("/swagger-resources/**")
+			 .antMatchers("/swagger-ui.html")
+			 .antMatchers("/configuration/**")
+			 .antMatchers("/webjars/**")
+			 .antMatchers("/public")
+			 .antMatchers("/actuator/**");
 	}
 
 	@Bean
