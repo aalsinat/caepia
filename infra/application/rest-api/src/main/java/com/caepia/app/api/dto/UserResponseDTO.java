@@ -1,9 +1,6 @@
 package com.caepia.app.api.dto;
 
-import com.caepia.app.api.model.Role;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.List;
 
 public class UserResponseDTO {
 

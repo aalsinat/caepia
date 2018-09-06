@@ -2,8 +2,8 @@ package com.caepia.app.api.security;
 
 import com.caepia.app.api.dto.LoginResult;
 import com.caepia.app.api.exception.NotExistingUserException;
-import com.caepia.app.api.model.Role;
-import com.caepia.app.api.repository.UserRepository;
+import com.caepia.app.api.model.authentication.Role;
+import com.caepia.app.api.repository.authentication.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

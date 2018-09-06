@@ -1,7 +1,7 @@
 package com.caepia.app.api.security;
 
 import com.caepia.app.api.exception.CustomException;
-import com.caepia.app.api.model.Role;
+import com.caepia.app.api.model.authentication.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

@@ -1,7 +1,7 @@
 package com.caepia.app.api.security;
 
-import com.caepia.app.api.model.DatabaseUser;
-import com.caepia.app.api.repository.UserRepository;
+import com.caepia.app.api.model.authentication.DatabaseUser;
+import com.caepia.app.api.repository.authentication.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

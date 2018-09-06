@@ -1,4 +1,4 @@
-package com.caepia.app.api.model;
+package com.caepia.app.api.model.authentication;
 
 import org.springframework.security.core.GrantedAuthority;
 

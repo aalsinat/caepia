@@ -1,4 +1,4 @@
-package com.caepia.app.api.repository;
+package com.caepia.app.api.repository.authentication;
 
 import com.caepia.app.api.dto.LoginResult;
 import org.springframework.stereotype.Repository;

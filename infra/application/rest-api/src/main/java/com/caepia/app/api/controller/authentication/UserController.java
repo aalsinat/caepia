@@ -1,10 +1,10 @@
-package com.caepia.app.api.controller;
+package com.caepia.app.api.controller.authentication;
 
 import com.caepia.app.api.dto.LoginDataDTO;
 import com.caepia.app.api.dto.LoginResponseDTO;
 import com.caepia.app.api.dto.UserDataDTO;
 import com.caepia.app.api.dto.UserResponseDTO;
-import com.caepia.app.api.model.DatabaseUser;
+import com.caepia.app.api.model.authentication.DatabaseUser;
 import com.caepia.app.api.service.UserService;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;

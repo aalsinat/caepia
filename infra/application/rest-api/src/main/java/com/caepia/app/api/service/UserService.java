@@ -1,10 +1,8 @@
 package com.caepia.app.api.service;
 
-import com.caepia.app.api.dto.LoginResult;
 import com.caepia.app.api.exception.CustomException;
-import com.caepia.app.api.model.DatabaseUser;
-import com.caepia.app.api.model.Role;
-import com.caepia.app.api.repository.UserRepository;
+import com.caepia.app.api.model.authentication.DatabaseUser;
+import com.caepia.app.api.repository.authentication.UserRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Service
 public class UserService {
@@ -34,13 +31,13 @@ public class UserService {
 
 	public String signin(String username, String password) {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password, Arrays.asList(Role.ROLE_ADMIN)));
+			DatabaseUser user = userRepository.findByUsername(username);
+			System.out.println("username = [" + user.getUsername() + "], password = [" + this.passwordEncoder
+					.matches(password, user.getPassword()) + "]");
 
-//			LoginResult loginResult = userRepository.signin(username, password, 1);
-//			System.out
-//					.println("username = [" + username + "], password = [" + password + "]" + "-> status = [" + loginResult + "]");
+			authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(username, password));//, Arrays.asList(Role.ROLE_ADMIN)));
 
-			//return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
 			return jwtTokenProvider.createToken(username);
 		} catch (AuthenticationException e) {
 			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);

@@ -1,10 +1,9 @@
-package com.caepia.app.api.model;
+package com.caepia.app.api.model.authentication;
 
 import usermanager.api.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.lang.reflect.Array;
 import java.util.Objects;
 
 @Entity
