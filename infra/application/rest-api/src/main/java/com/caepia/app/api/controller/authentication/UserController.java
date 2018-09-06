@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
 	private ModelMapper modelMapper;
 
 	@PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -35,6 +39,7 @@ public class UserController {
 
 	public ResponseEntity<LoginResponseDTO> login(@ApiParam("Signin information") @RequestBody LoginDataDTO login) {
 		final LoginResponseDTO response = new LoginResponseDTO();
+
 		response.setToken(userService.signin(login.getUsername(), login.getPassword()));
 		return ResponseEntity.ok(response);
 	}

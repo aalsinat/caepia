@@ -17,11 +17,11 @@ spring:
     console:
       enabled: true
       path: /console
-#  datasource:
-#    url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaLoginDB
-#    username: CaepiaLoginAppUsr
-#    password: CLAUusr2018login
-#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  #  datasource:
+  #    url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaLoginDB
+  #    username: CaepiaLoginAppUsr
+  #    password: CLAUusr2018login
+  #    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   tomcat:
     max-wait: 20000
     max-active: 50

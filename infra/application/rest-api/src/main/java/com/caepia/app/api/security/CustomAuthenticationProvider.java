@@ -13,27 +13,27 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
-	@Autowired
-	UserRepository repository;
-
-	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		final String name = authentication.getName();
-		final String password = authentication.getCredentials().toString();
-
-		LoginResult loginResult = repository.signin(name, password, 1);
-		System.out
-				.println("username = [" + name + "], password = [" + password + "]" + "-> status = [" + loginResult + "]");
-
-		if (loginResult.getErrorCode() != 0) throw new NotExistingUserException("Username does not exist");
-
-		return new UsernamePasswordAuthenticationToken(name, password, Arrays.asList(Role.ROLE_ADMIN));
-	}
-
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	}
+//@Component
+public class CustomAuthenticationProvider { //implements AuthenticationProvider {
+//	@Autowired
+//	UserRepository repository;
+//
+//	@Override
+//	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+//		final String name = authentication.getName();
+//		final String password = authentication.getCredentials().toString();
+//
+//		LoginResult loginResult = repository.signin(name, password, 1);
+//		System.out
+//				.println("username = [" + name + "], password = [" + password + "]" + "-> status = [" + loginResult + "]");
+//
+//		if (loginResult.getErrorCode() != 0) throw new NotExistingUserException("Username does not exist");
+//
+//		return new UsernamePasswordAuthenticationToken(name, password, Arrays.asList(Role.ROLE_ADMIN));
+//	}
+//
+//	@Override
+//	public boolean supports(Class<?> authentication) {
+//		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+//	}
 }
