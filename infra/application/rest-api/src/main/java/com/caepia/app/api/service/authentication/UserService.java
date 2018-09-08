@@ -1,9 +1,11 @@
-package com.caepia.app.api.service;
+package com.caepia.app.api.service.authentication;
 
+import com.caepia.app.api.dto.LoginResponseDTO;
 import com.caepia.app.api.exception.CustomException;
 import com.caepia.app.api.model.authentication.DatabaseUser;
-import com.caepia.app.api.model.authentication.Role;
+import com.caepia.app.api.model.domain.UserApplicationDetails;
 import com.caepia.app.api.repository.authentication.UserRepository;
+import com.caepia.app.api.repository.domain.UserApplicationDetailsRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,18 +13,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserApplicationDetailsRepository userApplicationDetailsRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -33,12 +36,16 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public String signin(String username, String password) {
-        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+    public LoginResponseDTO signin(String username, String password) {
+        final Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        final UserApplicationDetails userApplicationDetails = userApplicationDetailsRepository.findByLoginId(username);
 
-        return jwtTokenProvider.createToken(username);
+        return LoginResponseDTO.builder().token(jwtTokenProvider.createToken(username))
+                               .centers(userApplicationDetails.getCenters()).build();
+
     }
 
     public String signup(DatabaseUser databaseUser) {

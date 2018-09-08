@@ -1,7 +1,7 @@
 package com.caepia.app.api;
 
 import com.caepia.app.api.model.authentication.DatabaseUser;
-import com.caepia.app.api.service.UserService;
+import com.caepia.app.api.service.authentication.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
