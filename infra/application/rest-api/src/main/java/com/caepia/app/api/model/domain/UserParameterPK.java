@@ -3,13 +3,12 @@ package com.caepia.app.api.model.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
-@Entity
-@IdClass(UserApplicationParameterPK.class)
-@Table(name = "vApiUserParams")
-public class UserApplicationParameter {
+public class UserParameterPK implements Serializable {
     @Id
     @Column(name = "PK_User")
     @JsonIgnore

@@ -10,11 +10,11 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@IdClass(UserApplicationCenterPK.class)
+@IdClass(UserCenterPK.class)
 @Table(name = "vApiUserCenters")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel(value = "User Centers", description = "Centers allowed to be managed by the user.")
-public class UserApplicationCenter implements Serializable {
+public class UserCenter implements Serializable {
     @Id
     @Column(name = "PK_User")
     @JsonIgnore

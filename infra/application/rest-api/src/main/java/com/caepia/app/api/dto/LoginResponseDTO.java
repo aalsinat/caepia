@@ -1,8 +1,8 @@
 package com.caepia.app.api.dto;
 
-import com.caepia.app.api.model.domain.UserApplicationCenter;
-import com.caepia.app.api.model.domain.UserApplicationParameter;
-import com.caepia.app.api.model.domain.UserApplicationPermission;
+import com.caepia.app.api.model.domain.UserCenter;
+import com.caepia.app.api.model.domain.UserParameter;
+import com.caepia.app.api.model.domain.UserPermission;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -18,11 +18,11 @@ public class LoginResponseDTO {
     private String token;
 
     @ApiModelProperty
-    private Collection<UserApplicationCenter> centers;
+    private Collection<UserCenter> centers;
 
     @ApiModelProperty
-    private Collection<UserApplicationPermission> permissions;
+    private Collection<UserPermission> permissions;
 
     @ApiModelProperty
-    private Collection<UserApplicationParameter> parameters;
+    private Collection<UserParameter> parameters;
 }

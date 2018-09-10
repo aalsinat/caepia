@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
 @Repository
-public class UserRepositoryImpl implements UserAuthenticationRepository {
+public class UserAccountRepositoryImpl implements UserAuthenticationRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

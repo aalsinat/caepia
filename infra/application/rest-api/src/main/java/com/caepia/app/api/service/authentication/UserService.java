@@ -2,10 +2,10 @@ package com.caepia.app.api.service.authentication;
 
 import com.caepia.app.api.dto.LoginResponseDTO;
 import com.caepia.app.api.exception.CustomException;
-import com.caepia.app.api.model.authentication.DatabaseUser;
-import com.caepia.app.api.model.domain.UserApplicationDetails;
-import com.caepia.app.api.repository.authentication.UserRepository;
-import com.caepia.app.api.repository.domain.UserApplicationDetailsRepository;
+import com.caepia.app.api.model.authentication.UserAccount;
+import com.caepia.app.api.model.domain.UserInfo;
+import com.caepia.app.api.repository.authentication.UserAccountRepository;
+import com.caepia.app.api.repository.domain.UserInfoRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserAccountRepository userAccountRepository;
 
     @Autowired
-    private UserApplicationDetailsRepository userApplicationDetailsRepository;
+    private UserInfoRepository userInfoRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,40 +43,40 @@ public class UserService {
                 .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final UserApplicationDetails userApplicationDetails = userApplicationDetailsRepository.findByLoginId(username);
+        final UserInfo userInfo = userInfoRepository.findByUsername(username);
 
         return LoginResponseDTO.builder().token(jwtTokenProvider.createToken(username))
-                               .centers(userApplicationDetails.getCenters())
-                               .permissions(userApplicationDetails.getPermissions())
-                               .parameters(userApplicationDetails.getParameters()).build();
+                               .centers(userInfo.getCenters())
+                               .permissions(userInfo.getPermissions())
+                               .parameters(userInfo.getParameters()).build();
 
     }
 
-    public String signup(DatabaseUser databaseUser) {
-        if (!userRepository.existsByUsername(databaseUser.getName())) {
-            databaseUser.setPassword(passwordEncoder.encode(databaseUser.getPassword()));
-            userRepository.save(databaseUser);
-            //return jwtTokenProvider.createToken(databaseUser.getName(), databaseUser.getRoles());
-            return jwtTokenProvider.createToken(databaseUser.getName());
+    public String signup(UserAccount userAccount) {
+        if (!userAccountRepository.existsByUsername(userAccount.getName())) {
+            userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
+            userAccountRepository.save(userAccount);
+            //return jwtTokenProvider.createToken(userAccount.getName(), userAccount.getRoles());
+            return jwtTokenProvider.createToken(userAccount.getName());
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
     public void delete(String username) {
-        userRepository.deleteByUsername(username);
+        userAccountRepository.deleteByUsername(username);
     }
 
-    public DatabaseUser search(String username) {
-        DatabaseUser databaseUser = userRepository.findByUsername(username);
-        if (databaseUser == null) {
-            throw new CustomException("The databaseUser doesn't exist", HttpStatus.NOT_FOUND);
+    public UserAccount search(String username) {
+        UserAccount userAccount = userAccountRepository.findByUsername(username);
+        if (userAccount == null) {
+            throw new CustomException("The userAccount doesn't exist", HttpStatus.NOT_FOUND);
         }
-        return databaseUser;
+        return userAccount;
     }
 
-    public DatabaseUser whoami(HttpServletRequest req) {
-        return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+    public UserAccount whoami(HttpServletRequest req) {
+        return userAccountRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
     }
 
 }

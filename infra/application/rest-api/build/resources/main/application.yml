@@ -13,6 +13,8 @@ app:
     password: CDAUusr2018demo
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 spring:
+  main:
+    banner-mode: console
   h2:
     console:
       enabled: true
@@ -38,6 +40,7 @@ spring:
         dialect: org.hibernate.dialect.SQLServer2012Dialect
         format_sql: true
     show-sql: true
+
 security:
   jwt:
     token:

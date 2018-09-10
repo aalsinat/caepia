@@ -31,7 +31,7 @@ public class JwtTokenProvider {
 	private Long validityInMilliseconds = Long.valueOf(360000);
 
 	@Autowired
-	private MyUserDetails myUserDetails;
+	private JwtUserDetails jwtUserDetails;
 
 	@PostConstruct
 	protected void init() {
@@ -61,7 +61,7 @@ public class JwtTokenProvider {
 	}
 
 	public Authentication getAuthentication(String token) {
-		UserDetails userDetails = myUserDetails.loadUserByUsername(getUsername(token));
+		UserDetails userDetails = jwtUserDetails.loadUserByUsername(getUsername(token));
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
 	}
 

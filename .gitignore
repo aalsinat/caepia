@@ -44,7 +44,7 @@ gradle-app.setting
 
 # User-specific files
 *.suo
-*.databaseUser
+*.userAccount
 *.userosscache
 *.sln.docstates
 
@@ -155,7 +155,7 @@ $tf/
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
-*.DotSettings.databaseUser
+*.DotSettings.userAccount
 
 # JustCode is a .NET coding add-in
 .JustCode

@@ -25,7 +25,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    @Qualifier("myUserDetails")
+    @Qualifier("jwtUserDetails")
     @Autowired
     private UserDetailsService userDetailsService;
 

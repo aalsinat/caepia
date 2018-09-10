@@ -1,5 +1,6 @@
 package com.caepia.app.api.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,6 +20,11 @@ import javax.sql.DataSource;
                        entityManagerFactoryRef = "applicationEntityManagerFactory",
                        transactionManagerRef = "applicationTransactionManager")
 public class ApplicationConfiguration {
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
     @Bean
     @ConfigurationProperties("app.datasource")
     public DataSourceProperties applicationDataSourceProperties() {

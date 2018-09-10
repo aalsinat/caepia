@@ -10,32 +10,31 @@ import java.util.Set;
 @Table(name = "UsersApp")
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserApplicationDetails {
+public class UserInfo {
     @Id
     @Column(name = "PK_User")
     private Integer userId;
 
-    @Column(name = "UK_UserLogin")
-    private String loginId;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "PK_User ")
+    Set<UserCenter> centers;
 
     @Column(name = "Name")
     private String name;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "PK_User")
+    Set<UserPermission> permissions;
 
     @Column(name = "Email")
     private String email;
 
     @Column(name = "Status")
     private Integer status;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PK_User ")
-    Set<UserApplicationCenter> centers;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "PK_User")
-    Set<UserApplicationPermission> permissions;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PK_User")
-    Set<UserApplicationParameter> parameters;
+    Set<UserParameter> parameters;
+    @Column(name = "UK_UserLogin")
+    private String username;
+    @Column(name = "Surname")
+    private String surname;
 }

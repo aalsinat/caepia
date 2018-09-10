@@ -18,7 +18,7 @@ import java.util.Objects;
 //				}
                                    )
 })
-public class DatabaseUser implements User {
+public class UserAccount implements User {
     @Id
     @Column(name = "PK_User")
     @Size(min = 3, max = 128, message = "Minimum name length: 3 characters")
@@ -83,7 +83,7 @@ public class DatabaseUser implements User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DatabaseUser that = (DatabaseUser) o;
+        UserAccount that = (UserAccount) o;
         return Objects.equals(username, that.username) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(password, that.password) &&
@@ -99,7 +99,7 @@ public class DatabaseUser implements User {
 
     @Override
     public String toString() {
-        return "DatabaseUser{" +
+        return "UserAccount{" +
                 "username='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

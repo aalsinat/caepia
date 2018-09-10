@@ -7,12 +7,12 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
-public class UserApplicationCenterPK implements Serializable {
+public class UserPermissionPK implements Serializable {
     @Id
     @Column(name = "PK_User")
     private Integer userId;
 
     @Id
-    @Column(name = "PK_CostCenter")
-    private Integer costCenter;
+    @Column(name = "PK_Profile")
+    private String profile;
 }
