@@ -15,6 +15,7 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.servlet.ServletContext;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,7 @@ public class SwaggerConfiguration {
 
 	@SuppressWarnings("unchecked")
 	@Bean
-	public Docket swaggerPlugin() {
+    public Docket swaggerPlugin(ServletContext servletContext) {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.paths(PathSelectors.any())

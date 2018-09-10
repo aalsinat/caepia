@@ -3,6 +3,7 @@ package com.caepia.app.api.config;
 import com.caepia.app.api.security.JwtTokenFilterConfigurer;
 import com.caepia.app.api.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,11 +22,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    //	@Autowired
-//	private CustomAuthenticationProvider authenticationProvider;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Qualifier("myUserDetails")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -78,7 +78,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
            .antMatchers("/public")
            .antMatchers("/actuator/**");
     }
-
 
 	@Bean
 	@Override

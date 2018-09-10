@@ -45,8 +45,8 @@ security:
       expire-length: 36000
 
 UserController:
-  signin: Authenticates user and returns its JWT token.
-  signup: Creates user and returns its JWT token
+  signin: Sign in to Caepia application, authenticates user and returns its JWT token
+  signup: Creates a new user into Caepia application and returns its JWT token
   delete: Deletes specific user by username
   search: Returns specific user by username
-  me: Returns current user's data
+  me: Returns current signed in user's data

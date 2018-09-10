@@ -26,7 +26,7 @@ public class MyUserDetails implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final DatabaseUser databaseUser = userRepository.findByUsername(username);
-        UserApplicationDetails userApplicationDetails = userApplicationDetailsRepository.findByLoginId(username);
+        final UserApplicationDetails userApplicationDetails = userApplicationDetailsRepository.findByLoginId(username);
 
         if (databaseUser == null) {
             throw new UsernameNotFoundException("DatabaseUser '" + username + "' not found");
@@ -42,5 +42,6 @@ public class MyUserDetails implements UserDetailsService {
                 .disabled(false)
                 .build();
     }
+
 
 }

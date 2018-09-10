@@ -33,11 +33,11 @@ public class UserController {
     private ModelMapper modelMapper;
 
     @PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation("${UserController.signin}")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "User signed in successfully", response = LoginResponseDTO.class),
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-
     public ResponseEntity<LoginResponseDTO> login(@ApiParam("Signin information") @RequestBody LoginDataDTO login) {
         final LoginResponseDTO response = userService.signin(login.getUsername(), login.getPassword());
         return ResponseEntity.ok(response);

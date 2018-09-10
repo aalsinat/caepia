@@ -28,7 +28,7 @@ public class ApiApplication implements CommandLineRunner {
 	public void run(String... params) throws Exception {
 
 
-		final DatabaseUser user = userService.search("Usuari DEMO 1");
+		final DatabaseUser user = userService.search("admin");
 		System.out.println("params = [" + user + "]");
 	}
 }

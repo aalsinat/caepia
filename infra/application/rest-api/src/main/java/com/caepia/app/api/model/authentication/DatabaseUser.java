@@ -9,100 +9,102 @@ import java.util.Objects;
 @Entity
 @Table(name = "CaepiaAppUsers")
 @NamedStoredProcedureQueries(value = {
-		@NamedStoredProcedureQuery(name = "signin",
-				procedureName = "spApiPostLogin"//,
+        @NamedStoredProcedureQuery(name = "signin",
+                                   procedureName = "spApiPostLogin"//,
 //				parameters = {
 //						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pUser", type = String.class),
 //						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pPassword", type = String.class),
 //						@StoredProcedureParameter(mode = ParameterMode.IN, name = "pVersion", type = Integer.class)
 //				}
-				)
+                                   )
 })
 public class DatabaseUser implements User {
-	@Id
-	@Column(name = "PK_User")
-	private String id;
+    @Id
+    @Column(name = "PK_User")
+    @Size(min = 3, max = 128, message = "Minimum name length: 3 characters")
+    private String username;
 
-	@Size(min = 3, max = 128, message = "Minimum username length: 3 characters")
-	@Column(name = "Name")
-	private String username;
+    @Column(name = "Name")
+    private String name;
 
-	@Size(max = 128)
-	@Column(name = "Password")
-	private String password;
-	@Column(name = "Status")
-	private Integer status;
-	@Column(name = "FK_Client")
-	private Integer clientId;
+    @Size(max = 128)
+    @Column(name = "Password")
+    private String password;
 
-	public String getId() {
-		return id;
-	}
+    @Column(name = "Status")
+    private Integer status;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    @Column(name = "FK_Client")
+    private Integer clientId;
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Integer getClientId() {
-		return clientId;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setClientId(Integer clientId) {
-		this.clientId = clientId;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		DatabaseUser that = (DatabaseUser) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(username, that.username) &&
-				Objects.equals(password, that.password) &&
-				Objects.equals(status, that.status) &&
-				Objects.equals(clientId, that.clientId);
-	}
+    public Integer getClientId() {
+        return clientId;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, username, password, status, clientId);
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
+    }
 
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DatabaseUser that = (DatabaseUser) o;
+        return Objects.equals(username, that.username) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(clientId, that.clientId);
+    }
 
-	@Override
-	public String toString() {
-		return "DatabaseUser{" +
-				"id='" + id + '\'' +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", status=" + status +
-				", clientId=" + clientId +
-				'}';
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, name, password, status, clientId);
+
+    }
+
+    @Override
+    public String toString() {
+        return "DatabaseUser{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", clientId=" + clientId +
+                '}';
+    }
 }

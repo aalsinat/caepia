@@ -7,6 +7,7 @@ import com.caepia.app.api.model.domain.UserApplicationDetails;
 import com.caepia.app.api.repository.authentication.UserRepository;
 import com.caepia.app.api.repository.domain.UserApplicationDetailsRepository;
 import com.caepia.app.api.security.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     @Autowired
@@ -44,16 +46,18 @@ public class UserService {
         final UserApplicationDetails userApplicationDetails = userApplicationDetailsRepository.findByLoginId(username);
 
         return LoginResponseDTO.builder().token(jwtTokenProvider.createToken(username))
-                               .centers(userApplicationDetails.getCenters()).build();
+                               .centers(userApplicationDetails.getCenters())
+                               .permissions(userApplicationDetails.getPermissions())
+                               .parameters(userApplicationDetails.getParameters()).build();
 
     }
 
     public String signup(DatabaseUser databaseUser) {
-        if (!userRepository.existsByUsername(databaseUser.getUsername())) {
+        if (!userRepository.existsByUsername(databaseUser.getName())) {
             databaseUser.setPassword(passwordEncoder.encode(databaseUser.getPassword()));
             userRepository.save(databaseUser);
-            //return jwtTokenProvider.createToken(databaseUser.getUsername(), databaseUser.getRoles());
-            return jwtTokenProvider.createToken(databaseUser.getUsername());
+            //return jwtTokenProvider.createToken(databaseUser.getName(), databaseUser.getRoles());
+            return jwtTokenProvider.createToken(databaseUser.getName());
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
