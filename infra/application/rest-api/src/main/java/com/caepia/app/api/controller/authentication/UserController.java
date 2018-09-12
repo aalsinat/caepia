@@ -1,5 +1,6 @@
 package com.caepia.app.api.controller.authentication;
 
+import com.caepia.app.api.dto.ApiError;
 import com.caepia.app.api.dto.LoginDataDTO;
 import com.caepia.app.api.dto.UserDataDTO;
 import com.caepia.app.api.dto.UserResponseDTO;
@@ -13,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,10 +40,12 @@ public class UserController {
     @PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation("${UserController.signin}")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User signed in successfully",
+            @ApiResponse(code = 200,
+                         message = "User signed in successfully",
                          response = JwtAuthenticationResponse.class),
-            @ApiResponse(code = 400, message = "Something went wrong"),
-            @ApiResponse(code = 422, message = "Invalid username/password supplied")})
+            @ApiResponse(code = 401,
+                         message = "Unauthorized",
+                         response = ApiError.class)})
     public ResponseEntity<JwtAuthenticationResponse> signin(@ApiParam(
             "Signin information") @RequestBody LoginDataDTO login) {
 
@@ -70,7 +72,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UserController.delete}")
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
@@ -83,7 +85,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${UserController.search}", response = UserResponseDTO.class)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),
@@ -95,7 +97,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/me")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${UserController.me}", response = UserResponseDTO.class)
     @ApiResponses(value = {
             @ApiResponse(code = 400, message = "Something went wrong"),

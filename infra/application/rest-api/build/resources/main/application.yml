@@ -1,5 +1,10 @@
 server:
   port: 9090
+  address:
+    127.0.0.1
+  use-forward-headers: true
+  servlet:
+    context-path: /api
 auth:
   datasource:
     url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaLoginDB
