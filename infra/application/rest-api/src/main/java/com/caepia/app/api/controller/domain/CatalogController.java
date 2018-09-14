@@ -20,7 +20,7 @@ public class CatalogController {
     private final VendorService vendorService;
 
     @GetMapping(value = "/centers/{centerId}/vendors")
-    @ApiOperation("${CatalogController.getVendorsByCenterId")
+    @ApiOperation("${CatalogController.getVendorsByCenterId}")
     public ResponseEntity<Iterable<Vendor>> getVendorsByCenterId(@ApiParam("Center identifier") @PathVariable Integer centerId) {
         return ResponseEntity.ok(vendorService.getAllVendorsAuthorizedToProvidedCenter(centerId));
     }
