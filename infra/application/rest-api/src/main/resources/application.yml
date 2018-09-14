@@ -58,3 +58,5 @@ UserController:
   delete: Deletes specific user by username
   search: Returns specific user by username
   me: Returns current signed in user's data
+CatalogController:
+  getVendorsByCenterId: Retrives a list of authorized vendors for a particular center.

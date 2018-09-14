@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/users")
-@Api(tags = "users")
+@Api(tags = "Users")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
 
