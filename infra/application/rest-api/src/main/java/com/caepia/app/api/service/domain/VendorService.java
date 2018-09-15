@@ -18,7 +18,7 @@ public class VendorService {
      * @param centerId identifier for the center
      * @return
      */
-    public Iterable<Vendor> getAllVendorsAuthorizedToProvidedCenter(Integer centerId) {
+    public Iterable<Vendor> getVendorsByCenterId(Integer centerId) {
         return vendorRepository.findAllByCenterId(centerId);
     }
 
@@ -30,7 +30,7 @@ public class VendorService {
      * @param size     requested page size
      * @return a page of authorized {@link Vendor}s
      */
-    public Iterable<Vendor> getAllVendorsAuthorizedToProvidedCenter(Integer centerId, Integer page, Integer size) {
+    public Iterable<Vendor> getVendorsByCenterId(Integer centerId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return vendorRepository.findAllByCenterId(centerId, pageable);
     }
@@ -42,7 +42,7 @@ public class VendorService {
      * @param vendorId identifier for the found vendor
      * @return information about requested {@link Vendor}
      */
-    public Vendor getAuthorizedVendorToProvidedCenter(Integer centerId, Integer vendorId) {
+    public Vendor getVendorByCenterIdAndVendorId(Integer centerId, Integer vendorId) {
         return vendorRepository.findByCenterIdAndId(centerId, vendorId);
     }
 }

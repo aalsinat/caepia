@@ -59,6 +59,7 @@ UserController:
   search: Returns specific user by username
   me: Returns current signed in user's data
 CatalogController:
-  getAuthorizedVendorsToProvidedCenter: Retrieves a list of authorized vendors for a particular center
-  getAuthorizedVendorToProvidedCenter: Retrieves information of an authorized vendor
-  getFamiliesforAuthorizedVendor: Retrieves all families for a particular vendor
+  getVendorsByCenterId: Retrieves a list of authorized vendors for a particular center
+  getVendorByCenterId: Retrieves information of an authorized vendor
+  getVendorFamilies: Retrieves all families for a particular vendor
+  getVendorProducts: Retrieves all products for a particular vendor and family
