@@ -33,6 +33,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(CenterNotAccessibleException.class)
+    protected ResponseEntity<Object> handleCenterNotAccessible(CenterNotAccessibleException ex) {
+        final ApiError apiError = new ApiError(HttpStatus.FORBIDDEN);
+        apiError.setMessage(ex.getMessage());
+        apiError.setCode("90010");
+        apiError.setDebugMessage(String
+                .format("Current logged user is not authorized to access to center with id: %d", ex.getCenterId()));
+        return buildResponseEntity(apiError);
+    }
+
+    // -----------------------------
+    //  Class support methods
+    // -----------------------------
+
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }

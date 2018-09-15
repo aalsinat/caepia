@@ -15,7 +15,7 @@ public class VendorService {
     /**
      * Retrieves all authorizes {@link Vendor}s for a particular {@code Center}
      *
-     * @param centerId
+     * @param centerId identifier for the center
      * @return
      */
     public Iterable<Vendor> getAllVendorsAuthorizedToProvidedCenter(Integer centerId) {

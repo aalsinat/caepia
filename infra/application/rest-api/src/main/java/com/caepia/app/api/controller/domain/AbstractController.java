@@ -1,6 +1,8 @@
 package com.caepia.app.api.controller.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
@@ -10,11 +12,13 @@ import java.util.Date;
 @Slf4j
 @RestController
 public abstract class AbstractController {
+
     public final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ"); // ISO 8601
 
-    // ---------------
-    // Support methods
-    // ---------------
+    // -----------------------------
+    //  Class support methods
+    // -----------------------------
+
     protected boolean isPageRequest(Integer page, Integer size) {
         return (!(page == null || (size == null)));
     }
@@ -34,6 +38,10 @@ public abstract class AbstractController {
 
     protected boolean isNull(Object obj) {
         return (obj == null);
+    }
+
+    public SecurityContext getContext() {
+        return SecurityContextHolder.getContext();
     }
 
 }
