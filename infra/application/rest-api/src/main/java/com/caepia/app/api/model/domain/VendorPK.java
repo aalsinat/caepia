@@ -13,5 +13,5 @@ public class VendorPK implements Serializable {
     private Integer centerId;
     @Id
     @Column(name = "PK_Vendor")
-    private Integer vendorId;
+    private Integer id;
 }
