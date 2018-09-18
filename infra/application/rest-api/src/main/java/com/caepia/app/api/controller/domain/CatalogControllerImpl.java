@@ -1,26 +1,28 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.exception.CenterNotAccessibleException;
+import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.model.domain.ThirdLevelFamily;
 import com.caepia.app.api.model.domain.Vendor;
 import com.caepia.app.api.security.JwtUser;
+import com.caepia.app.api.service.domain.ProductService;
 import com.caepia.app.api.service.domain.VendorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CatalogControllerImpl extends AbstractController implements CatalogController {
 
     private final VendorService vendorService;
+    private final ProductService productService;
 
     /**
-     * Get all authorizes {@link Vendor}s for a particular {@code Center}
+     * Get all authorized {@link Vendor}s for a particular {@code Center}
      *
      * @param centerId identifier for the center
      * @param page     requested page number
@@ -44,9 +46,11 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
 
     /**
-     * @param centerId
-     * @param vendorId
-     * @return
+     * Get information about a particular {@link Vendor} authorized to a concrete {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param vendorId identifier for the vendor
+     * @return requested {@link Vendor} information
      */
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}")
@@ -54,11 +58,14 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
+        // TODO: Check if requested vendor really exists and is authorized to Center.
         return ResponseEntity.ok(vendorService.getVendorByCenterIdAndVendorId(centerId, vendorId));
     }
 
     /**
-     * @param centerId
+     * Get all {@link ThirdLevelFamily} related to a particular {@link Vendor} authorized to a concrete {@code Center}.
+     *
+     * @param centerId identifier for the center
      * @param vendorId
      * @param page
      * @param size
@@ -78,7 +85,37 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products")
-    public ResponseEntity<String> getVendorProducts(Integer centerId, Integer vendorId, Integer page, Integer size) {
+    public ResponseEntity<Iterable<Product>> getVendorProducts(@PathVariable Integer centerId,
+                                                               @PathVariable Integer vendorId,
+                                                               @RequestParam(value = "page", required = false) Integer page,
+                                                               @RequestParam(value = "size", required = false) Integer size) {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Check if requested vendor really exists and is authorized to Center.
+        Iterable<Product> products = isPageRequest(page, size) ?
+                                     productService.getProductsByVendorIdAndCenterId(centerId, vendorId, page, size) :
+                                     productService.getProductsByVendorIdAndCenterId(centerId, vendorId);
+        return ResponseEntity.ok(products);
+    }
+
+    @Override
+    @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
+    public ResponseEntity<String> getVendorProduct(@PathVariable Integer centerId,
+                                                   @PathVariable Integer vendorId,
+                                                   @PathVariable Integer productId) {
+        return null;
+    }
+
+    @Override
+    @PatchMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
+    public ResponseEntity<String> updateBookmark(@PathVariable Integer centerId,
+                                                 @PathVariable Integer vendorId,
+                                                 @PathVariable Integer productId,
+                                                 @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked) {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Check if requested vendor really exists and is authorized to Center.
+        productService.updateBookmark(centerId, vendorId, productId, isBookmarked);
         return null;
     }
 
@@ -96,6 +133,26 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     private boolean isEligible(Integer centerId) {
         return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream()
                                                                           .anyMatch(centerId::equals);
+    }
+
+    private Object includeProperties(Object source, List<String> properties) {
+        // Create ObjectMapper instance
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        // Converting POJO to Map
+//        Map<String, Object> map = mapper.convertValue(source, new TypeReference<Map<String, Object>>() {
+//        });
+//
+//        //
+//        for(Map.Entry<String, Object> entry : map.entrySet()){
+//            if(entry.getKey()){
+//                System.out.println(entry.getKey() + "-->" + entry.getValue());
+//            }
+//        }
+//        // Convert Map to POJO
+//        Object anotherFoo = mapper.convertValue(map, Object.class);
+//        return anotherFoo;
+        return null;
     }
 
 

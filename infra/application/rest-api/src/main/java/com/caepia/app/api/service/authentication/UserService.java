@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static java.lang.Math.toIntExact;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -52,12 +54,18 @@ public class UserService {
 
     }
 
-    public String signup(UserAccount userAccount) {
+    public UserInfo signup(UserAccount userAccount, UserInfo userInfo) {
         if (!userAccountRepository.existsByUsername(userAccount.getName())) {
             userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
             userAccountRepository.save(userAccount);
+
+            long count = userInfoRepository.count();
+            userInfo.setUserId(toIntExact(++count));
+            userInfoRepository.save(userInfo);
+
             //return jwtTokenProvider.createToken(userAccount.getName(), userAccount.getRoles());
-            return jwtTokenProvider.createToken(userAccount.getName());
+            //return jwtTokenProvider.createToken(userAccount.getName());
+            return userInfo;
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -73,6 +81,12 @@ public class UserService {
             throw new CustomException("The userAccount doesn't exist", HttpStatus.NOT_FOUND);
         }
         return userAccount;
+    }
+
+    public UserAccount changePassword(String username, String password) {
+        final UserAccount search = this.search(username);
+        search.setPassword(passwordEncoder.encode(password));
+        return userAccountRepository.save(search);
     }
 
     public UserAccount whoami(HttpServletRequest req) {

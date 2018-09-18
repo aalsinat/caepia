@@ -2,53 +2,31 @@ package com.caepia.app.api.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+@Data
 @ApiModel(description = "User creation request model", value = "User creation request")
 public class UserDataDTO {
 
-//	@ApiModelProperty(position = 2)
-//	List<Role> roles;
+    @ApiModelProperty(position = 1, required = true)
+    private String name;
 
-	@ApiModelProperty()
-	private String id;
+    @ApiModelProperty(position = 2)
+    private String surname;
 
-	@ApiModelProperty(position = 1)
-	private String username;
+    @ApiModelProperty(position = 3)
+    private String email;
 
+    @ApiModelProperty(position = 4, required = true)
+    private String username;
 
-	@ApiModelProperty(position = 2)
-	private Integer clientId;
+    @ApiModelProperty(position = 5)
+    private Integer clientId;
 
-	public String getId() {
-		return id;
-	}
+    @ApiModelProperty(position = 6, required = true)
+    private String password;
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public Integer getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(Integer clientId) {
-		this.clientId = clientId;
-	}
-
-	//	public List<Role> getRoles() {
-//		return roles;
-//	}
-//
-//	public void setRoles(List<Role> roles) {
-//		this.roles = roles;
-//	}
+    @ApiModelProperty(position = 7, required = true)
+    private Integer status;
 
 }

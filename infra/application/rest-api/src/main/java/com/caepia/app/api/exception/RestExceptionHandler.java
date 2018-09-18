@@ -39,7 +39,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(ex.getMessage());
         apiError.setCode("90010");
         apiError.setDebugMessage(String
-                .format("Current logged user is not authorized to access to center with id: %d", ex.getCenterId()));
+                .format("Current logged user is not authorized to access to center with userId: %d", ex.getCenterId()));
         return buildResponseEntity(apiError);
     }
 

@@ -10,7 +10,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
      * Retrieves application information using a login identifier.
      *
      * @param username Identifier of a login user
-     * @return {@link UserInfo} information for provided login id
+     * @return {@link UserInfo} information for provided login userId
      */
     UserInfo findByUsername(String username);
 }

@@ -1,9 +1,11 @@
 package com.caepia.app.api.controller.authentication;
 
 import com.caepia.app.api.dto.LoginDataDTO;
+import com.caepia.app.api.dto.PasswordDTO;
 import com.caepia.app.api.dto.UserDataDTO;
 import com.caepia.app.api.dto.UserResponseDTO;
 import com.caepia.app.api.model.authentication.UserAccount;
+import com.caepia.app.api.model.domain.UserInfo;
 import com.caepia.app.api.security.JwtAuthenticationResponse;
 import com.caepia.app.api.security.JwtTokenProvider;
 import com.caepia.app.api.service.authentication.UserService;
@@ -51,8 +53,10 @@ public class UserControllerImpl implements UserController {
 
     @Override
     @PostMapping("/signup")
-    public String signup(@RequestBody UserDataDTO user) {
-        return userService.signup(modelMapper.map(user, UserAccount.class));
+    public ResponseEntity<UserInfo> signup(@RequestBody UserDataDTO user) {
+        UserAccount userAccount = modelMapper.map(user, UserAccount.class);
+        UserInfo userInfo = modelMapper.map(user, UserInfo.class);
+        return ResponseEntity.ok(userService.signup(userAccount, userInfo));
     }
 
     @Override
@@ -66,6 +70,14 @@ public class UserControllerImpl implements UserController {
     @GetMapping(value = "/{username}")
     public UserResponseDTO search(@PathVariable String username) {
         return modelMapper.map(userService.search(username), UserResponseDTO.class);
+    }
+
+    @Override
+    @PatchMapping(value = "/{username}")
+    public ResponseEntity<UserResponseDTO> changePassword(@PathVariable String username,
+                                                          @RequestBody PasswordDTO newPassword) {
+        return ResponseEntity.ok(modelMapper
+                .map(userService.changePassword(username, newPassword.getPassword()), UserResponseDTO.class));
     }
 
     @Override

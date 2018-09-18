@@ -58,8 +58,11 @@ UserController:
   delete: Deletes specific user by username
   search: Returns specific user by username
   me: Returns current signed in user's data
+  changePassword: Change password for requested user
 CatalogController:
   getVendorsByCenterId: Retrieves a list of authorized vendors for a particular center
-  getVendorByCenterId: Retrieves information of an authorized vendor
+  getVendorByCenterId: Retrieves information about an authorized vendor
   getVendorFamilies: Retrieves all families for a particular vendor
   getVendorProducts: Retrieves all products for a particular vendor and family
+  getVendorProduct: Retrieves information about a particular product
+  changeVendorProductBookmark: Adds or removes a product from bookmarks
