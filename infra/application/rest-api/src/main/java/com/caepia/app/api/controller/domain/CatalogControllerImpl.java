@@ -73,14 +73,19 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      */
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/categoriesL3")
-    public ResponseEntity<ThirdLevelFamily> getVendorFamilies(@PathVariable Integer centerId,
+    public ResponseEntity<Iterable<ThirdLevelFamily>> getVendorFamilies(@PathVariable Integer centerId,
                                                               @PathVariable Integer vendorId,
                                                               @RequestParam(value = "page", required = false) Integer page,
                                                               @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: To be implented
-        return null;
+
+        Iterable<ThirdLevelFamily> thirdLevelFamilyIterable = super.isPageRequest(page, size) ?
+                vendorService.getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId,vendorId, page, size) :
+                vendorService.getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
+
+        return ResponseEntity.ok(thirdLevelFamilyIterable);
     }
 
     @Override

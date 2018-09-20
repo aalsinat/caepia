@@ -35,7 +35,7 @@ public interface CatalogController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of families for a particular vendor", response = ThirdLevelFamily.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
-    ResponseEntity<ThirdLevelFamily> getVendorFamilies(
+    ResponseEntity<Iterable<ThirdLevelFamily>> getVendorFamilies(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
             @ApiParam(value = "Page number, starting from zero") Integer page,
