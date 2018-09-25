@@ -10,6 +10,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, ProductPK>, ProductManagementRepository {
 
+
+    /**
+     * Query for fetching information about an authorized {@link Product} to a particular {@code Center}, a particular  {@code Vendor}.
+     *
+     * @param centerId identifier for the center
+     * @param vendorId identifier for the vendor
+     * @param productId identifier for the product
+     * @param logisticChainId identifier for the product
+     * @return information about requested product
+     */
+    public Product findByCenterIdAndVendorIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId, Integer productId, Integer logisticChainId);
+
+
     /**
      * Query for fetching all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
      *

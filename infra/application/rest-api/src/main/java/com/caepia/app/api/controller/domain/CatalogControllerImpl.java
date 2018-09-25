@@ -105,10 +105,13 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
-    public ResponseEntity<String> getVendorProduct(@PathVariable Integer centerId,
+    public ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
                                                    @PathVariable Integer vendorId,
                                                    @PathVariable Integer productId) {
-        return null;
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+        return ResponseEntity.ok(productService.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId,1));
     }
 
     @Override

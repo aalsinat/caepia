@@ -17,6 +17,20 @@ public class ProductService {
     private final Integer RESULT_OK = 0;
     private final ProductRepository productRepository;
 
+
+    /**
+     * Retrieves all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param vendorId identifier for the vendor
+     * @param productId identifier for the product
+     * @param logisticChainId identifier for the product
+     * @return information about requested product
+     */
+    public Product getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId, Integer productId, Integer logisticChainId) {
+        return productRepository.findByCenterIdAndVendorIdAndIdAndLogisticChainId(centerId, vendorId, productId, logisticChainId);
+    }
+
     /**
      * Retrieves all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
      *

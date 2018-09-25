@@ -52,7 +52,7 @@ public interface CatalogController {
             @ApiParam(value = "Size of requested page") Integer size);
 
     @ApiOperation(value = "${CatalogController.getVendorProduct}", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<String> getVendorProduct(@PathVariable Integer centerId,
+    ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
                                             @PathVariable Integer vendorId,
                                             @PathVariable Integer productId);
 
