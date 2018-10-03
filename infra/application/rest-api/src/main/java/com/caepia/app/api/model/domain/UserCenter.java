@@ -23,4 +23,7 @@ public class UserCenter implements Serializable {
     @Id
     @Column(name = "PK_CostCenter")
     private Integer costCenter;
+
+    @Column(name = "CostCenterName")
+    private String costCenterName;
 }

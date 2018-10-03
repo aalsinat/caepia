@@ -31,9 +31,6 @@ public class JwtUser implements UserDetails {
         return String.format("%s, %s", name, surname);
     }
 
-    public List<Integer> getCenters() {
-        return this.centers.stream().map(UserCenter::getCostCenter).collect(Collectors.toList());
-    }
 
     public List<String> getParameters() {
         return this.parameters.stream().map(UserParameter::getParamId).collect(Collectors.toList());
