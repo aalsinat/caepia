@@ -10,7 +10,7 @@ import javax.persistence.StoredProcedureQuery;
 
 @Repository
 public class UserAccountRepositoryImpl implements UserAuthenticationRepository {
-    @PersistenceContext
+    @PersistenceContext(unitName = "authentication")
     private EntityManager entityManager;
 
     @Override

@@ -66,3 +66,7 @@ CatalogController:
   getVendorProducts: Retrieves all products for a particular vendor and family
   getVendorProduct: Retrieves information about a particular product
   changeVendorProductBookmark: Adds or removes a product from bookmarks
+OrderController:
+  getOrdersByCenterId: Retrieves a list of orders header for a particular center
+  getOrderByOrderId: Retrieves header information about a particular order
+  getOrdersRowsByOrderId: Retrieves rows information about a particular order

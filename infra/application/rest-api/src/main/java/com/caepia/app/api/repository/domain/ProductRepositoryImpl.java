@@ -10,13 +10,13 @@ import javax.persistence.StoredProcedureQuery;
 
 @Repository
 public class ProductRepositoryImpl implements ProductManagementRepository {
-    @PersistenceContext
+    @PersistenceContext(unitName = "application")
     private EntityManager entityManager;
 
     @Override
     public StoredProcedureResult updateBookmark(Integer vendorId, Integer centerId, Integer productId,
                                                 Integer isBookmarked) {
-        StoredProcedureQuery query = this.entityManager.createStoredProcedureQuery("spApiPutCatalogBookmark")
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateBookmark")
                                                        .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
                                                        .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
                                                        .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN)
@@ -25,6 +25,7 @@ public class ProductRepositoryImpl implements ProductManagementRepository {
              .setParameter(3, isBookmarked);
         query.execute();
         Object[] result = (Object[]) query.getSingleResult();
+
 
         return StoredProcedureResult.builder()
                                     .errorCode((Integer) result[0])

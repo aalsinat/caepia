@@ -8,6 +8,10 @@ import javax.persistence.*;
 @Entity
 @IdClass(ProductPK.class)
 @Table(name = "vApiVendorCostCentersProducts")
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "updateBookmark",
+                procedureName = "spApiPutCatalogBookmark")})
+
 public class Product {
     @Id
     @Column(name = "PK_CostCenter")
