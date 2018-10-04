@@ -139,8 +139,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      * @return true if center is eligible, false otherwise
      */
     private boolean isEligible(Integer centerId) {
-        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream()
-                                                                          .anyMatch(centerId::equals);
+        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
     }
 
     private Object includeProperties(Object source, List<String> properties) {
