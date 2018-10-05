@@ -1,10 +1,12 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.exception.CenterNotAccessibleException;
+import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.model.domain.ThirdLevelFamily;
 import com.caepia.app.api.model.domain.Vendor;
 import com.caepia.app.api.security.JwtUser;
+import com.caepia.app.api.service.domain.OrderService;
 import com.caepia.app.api.service.domain.ProductService;
 import com.caepia.app.api.service.domain.VendorService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     private final VendorService vendorService;
     private final ProductService productService;
+    private final OrderService orderService;
 
     /**
      * Get all authorized {@link Vendor}s for a particular {@code Center}
@@ -125,6 +128,30 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
         // TODO: Check if requested vendor really exists and is authorized to Center.
         productService.updateBookmark(centerId, vendorId, productId, isBookmarked);
         return null;
+    }
+
+
+    /**
+     * Get all authorized {@link OrderHeader}s for a particular {@code Center}
+     *
+     * @param centerId identifier for the center
+     * @param page     requested page number
+     * @param size     size of requested page
+     * @return
+     */
+    @Override
+    @GetMapping(value = "/centers/{centerId}/orders")
+    public ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
+            @PathVariable Integer centerId,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "size", required = false) Integer size) {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+        Iterable<OrderHeader> orders = super.isPageRequest(page, size) ?
+                orderService.getOrdersByCenterId(centerId, page, size) :
+                orderService.getOrdersByCenterId(centerId);
+        return ResponseEntity.ok(orders);
     }
 
 

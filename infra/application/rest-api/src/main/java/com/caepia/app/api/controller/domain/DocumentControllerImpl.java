@@ -1,48 +1,35 @@
 package com.caepia.app.api.controller.domain;
 
-import com.caepia.app.api.exception.CenterNotAccessibleException;
-import com.caepia.app.api.model.domain.OrderHeader;
-import com.caepia.app.api.model.domain.OrderRow;
+import com.caepia.app.api.model.domain.Document;
 import com.caepia.app.api.security.JwtUser;
-import com.caepia.app.api.service.domain.OrderService;
+import com.caepia.app.api.service.domain.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class OrderControllerImpl extends AbstractController implements OrderController {
+public class DocumentControllerImpl extends AbstractController implements DocumentController {
 
-    private final OrderService orderService;
-
-    @Override
-    @GetMapping(value = "/order/{orderId}/header")
-    public ResponseEntity<OrderHeader> getOrderByOrderId(@PathVariable Integer orderId) {
-        return ResponseEntity.ok(orderService.getOrderByOrderId(orderId));
-    }
+    private final DocumentService documentService;
 
 
     /**
-     * Get all authorized {@link OrderRow}s for a particular {@code Order}
+     * Get all authorized {@link Document}s
      *
-     * @param orderId identifier for the order
-     * @param page     requested page number
-     * @param size     size of requested page
      * @return
      */
     @Override
-    @GetMapping(value = "/order/{orderId}/rows")
-    public ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
-            @PathVariable Integer orderId,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "size", required = false) Integer size) {
+    @GetMapping(value = "/documents/status")
+    public ResponseEntity<Iterable<Document>> getAllDocuments() {
 
-        Iterable<OrderRow> orderRows = super.isPageRequest(page, size) ?
-                orderService.getOrdersRowsByOrderId(orderId, page, size) :
-                orderService.getOrdersRowsByOrderId(orderId);
+        Iterable<Document> orderRows = documentService.getAllDocuments();
         return ResponseEntity.ok(orderRows);
     }
 

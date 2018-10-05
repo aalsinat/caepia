@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
+import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.model.domain.ThirdLevelFamily;
 import com.caepia.app.api.model.domain.Vendor;
@@ -61,4 +62,14 @@ public interface CatalogController {
                                           @PathVariable Integer vendorId,
                                           @PathVariable Integer productId,
                                           @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);
+
+    @ApiOperation(value = "${OrderController.getOrdersByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of orders for this center", response = OrderHeader.class, responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
+            @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Page number, starting from zero") Integer page,
+            @ApiParam(value = "Size of requested page") Integer size);
+
 }
