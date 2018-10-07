@@ -42,7 +42,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
         Iterable<Vendor> authorizedVendors = super.isPageRequest(page, size) ?
-                                             vendorService.getVendorsByCenterId(centerId, page, size) :
+                                             vendorService.getVendorsByCenterId(centerId, super.transformDefaultPage(page), size) :
                                              vendorService.getVendorsByCenterId(centerId);
         return ResponseEntity.ok(authorizedVendors);
     }
@@ -86,7 +86,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
         Iterable<ThirdLevelFamily> thirdLevelFamilyIterable = super.isPageRequest(page, size) ?
                                                               vendorService
-                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId, page, size) :
+                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId, super.transformDefaultPage(page), size) :
                                                               vendorService
                                                                       .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
 
@@ -105,7 +105,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         Iterable<Product> products = super.isPageRequest(page, size) ?
                                      productService
-                                             .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType, page, size) :
+                                             .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType, super.transformDefaultPage(page), size) :
                                      productService
                                              .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType);
         return ResponseEntity.ok(products);
@@ -154,7 +154,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
         Iterable<OrderHeader> orders = super.isPageRequest(page, size) ?
-                                       orderService.getOrdersByCenterId(centerId, page, size) :
+                                       orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
                                        orderService.getOrdersByCenterId(centerId);
         return ResponseEntity.ok(orders);
     }
@@ -175,6 +175,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                                                           .map(s -> s.getCostCenter())
                                                                           .anyMatch(centerId::equals);
     }
+
 
     private Object includeProperties(Object source, List<String> properties) {
         // Create ObjectMapper instance

@@ -23,6 +23,19 @@ public abstract class AbstractController {
         return (!(page == null || (size == null)));
     }
 
+    /**
+     * Decrease the page number to adapt the API to the default page
+     *
+     * @param page identifier for the center
+     * @return true if center is eligible, false otherwise
+     */
+
+    protected Integer transformDefaultPage(Integer page) {
+        return (page-- <= 0 ? page = 0 : page);
+
+    }
+
+
     protected Date getDate(String date) {
 
         try {

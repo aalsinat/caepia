@@ -41,7 +41,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
             @RequestParam(value = "size", required = false) Integer size) {
 
         Iterable<OrderRow> orderRows = super.isPageRequest(page, size) ?
-                orderService.getOrdersRowsByOrderId(orderId, page, size) :
+                orderService.getOrdersRowsByOrderId(orderId, super.transformDefaultPage(page), size) :
                 orderService.getOrdersRowsByOrderId(orderId);
         return ResponseEntity.ok(orderRows);
     }
