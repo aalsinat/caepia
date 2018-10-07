@@ -77,16 +77,18 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/categoriesL3")
     public ResponseEntity<Iterable<ThirdLevelFamily>> getVendorFamilies(@PathVariable Integer centerId,
-                                                              @PathVariable Integer vendorId,
-                                                              @RequestParam(value = "page", required = false) Integer page,
-                                                              @RequestParam(value = "size", required = false) Integer size) {
+                                                                        @PathVariable Integer vendorId,
+                                                                        @RequestParam(value = "page", required = false) Integer page,
+                                                                        @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: To be implented
 
         Iterable<ThirdLevelFamily> thirdLevelFamilyIterable = super.isPageRequest(page, size) ?
-                vendorService.getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId,vendorId, page, size) :
-                vendorService.getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
+                                                              vendorService
+                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId, page, size) :
+                                                              vendorService
+                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
 
         return ResponseEntity.ok(thirdLevelFamilyIterable);
     }
@@ -95,39 +97,42 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products")
     public ResponseEntity<Iterable<Product>> getVendorProducts(@PathVariable Integer centerId,
                                                                @PathVariable Integer vendorId,
+                                                               @RequestParam(value = "status", defaultValue = "1") Integer status,
+                                                               @RequestParam(value = "logisticChainType", defaultValue = "1") Integer logisticChainType,
                                                                @RequestParam(value = "page", required = false) Integer page,
                                                                @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
-        // TODO: Check if requested vendor really exists and is authorized to Center.
         Iterable<Product> products = isPageRequest(page, size) ?
-                                     productService.getProductsByVendorIdAndCenterId(centerId, vendorId, page, size) :
-                                     productService.getProductsByVendorIdAndCenterId(centerId, vendorId);
+                                     productService
+                                             .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType, page, size) :
+                                     productService
+                                             .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType);
         return ResponseEntity.ok(products);
     }
 
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
     public ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
-                                                   @PathVariable Integer vendorId,
-                                                   @PathVariable Integer productId) {
+                                                    @PathVariable Integer vendorId,
+                                                    @PathVariable Integer productId) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
-        return ResponseEntity.ok(productService.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId,1));
+        return ResponseEntity.ok(productService
+                .getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, 1));
     }
 
     @Override
     @PatchMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
-    public ResponseEntity<String> updateBookmark(@PathVariable Integer centerId,
-                                                 @PathVariable Integer vendorId,
-                                                 @PathVariable Integer productId,
-                                                 @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked) {
+    public ResponseEntity<Product> updateBookmark(@PathVariable Integer centerId,
+                                                  @PathVariable Integer vendorId,
+                                                  @PathVariable Integer productId,
+                                                  @RequestParam(value = "isBookmarked") Integer isBookmarked) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Check if requested vendor really exists and is authorized to Center.
-        productService.updateBookmark(centerId, vendorId, productId, isBookmarked);
-        return null;
+        return ResponseEntity.ok(productService.updateBookmark(centerId, vendorId, productId, isBookmarked));
     }
 
 
@@ -149,8 +154,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
         Iterable<OrderHeader> orders = super.isPageRequest(page, size) ?
-                orderService.getOrdersByCenterId(centerId, page, size) :
-                orderService.getOrdersByCenterId(centerId);
+                                       orderService.getOrdersByCenterId(centerId, page, size) :
+                                       orderService.getOrdersByCenterId(centerId);
         return ResponseEntity.ok(orders);
     }
 
@@ -166,7 +171,9 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      * @return true if center is eligible, false otherwise
      */
     private boolean isEligible(Integer centerId) {
-        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
+        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream()
+                                                                          .map(s -> s.getCostCenter())
+                                                                          .anyMatch(centerId::equals);
     }
 
     private Object includeProperties(Object source, List<String> properties) {

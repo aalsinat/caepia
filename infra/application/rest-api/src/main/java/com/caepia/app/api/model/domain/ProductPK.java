@@ -1,12 +1,14 @@
 package com.caepia.app.api.model.domain;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
+@RequiredArgsConstructor
 public class ProductPK implements Serializable {
     @Id
     @Column(name = "PK_CostCenter")

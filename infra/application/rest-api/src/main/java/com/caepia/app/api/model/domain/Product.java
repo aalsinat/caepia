@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "updateBookmark",
                 procedureName = "spApiPutCatalogBookmark")})
-
 public class Product {
     @Id
     @Column(name = "PK_CostCenter")
@@ -40,5 +39,11 @@ public class Product {
 
     @Column(name = "swBookmark")
     private Integer isBookmarked;
+
+    @Column(name = "LogisticChainType")
+    private Integer logisticChainType;
+
+    @Column(name = "Status")
+    private Integer status;
 
 }

@@ -49,19 +49,21 @@ public interface CatalogController {
     ResponseEntity<Iterable<Product>> getVendorProducts(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
+            @ApiParam(value = "Product status", required = true, defaultValue = "1") Integer status,
+            @ApiParam(value = "logisticChainType", required = true, defaultValue = "1") Integer logisticChainType,
             @ApiParam(value = "Page number, starting from zero") Integer page,
             @ApiParam(value = "Size of requested page") Integer size);
 
     @ApiOperation(value = "${CatalogController.getVendorProduct}", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
-                                            @PathVariable Integer vendorId,
-                                            @PathVariable Integer productId);
+                                             @PathVariable Integer vendorId,
+                                             @PathVariable Integer productId);
 
     @ApiOperation(value = "${CatalogController.changeVendorProductBookmark}", httpMethod = "PATCH", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<String> updateBookmark(@PathVariable Integer centerId,
-                                          @PathVariable Integer vendorId,
-                                          @PathVariable Integer productId,
-                                          @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);
+    ResponseEntity<Product> updateBookmark(@PathVariable Integer centerId,
+                                           @PathVariable Integer vendorId,
+                                           @PathVariable Integer productId,
+                                           @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);
 
     @ApiOperation(value = "${OrderController.getOrdersByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {

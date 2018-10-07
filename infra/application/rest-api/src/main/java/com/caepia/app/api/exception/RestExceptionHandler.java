@@ -43,6 +43,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(UpdateProductBookmarkException.class)
+    protected ResponseEntity<Object> handleUpdateProductBookmark(UpdateProductBookmarkException ex) {
+        final ApiError apiError = new ApiError(HttpStatus.NOT_MODIFIED);
+        apiError.setMessage(ex.getMessage());
+        apiError.setCode("10001");
+        apiError.setDebugMessage("Operation for updating product failed when trying to change bookmark flag");
+        return buildResponseEntity(apiError);
+    }
     // -----------------------------
     //  Class support methods
     // -----------------------------
