@@ -103,7 +103,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                                                @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
-        Iterable<Product> products = isPageRequest(page, size) ?
+        Iterable<Product> products = super.isPageRequest(page, size) ?
                                      productService
                                              .getProductsByVendorIdAndCenterIdAndStatusAndLogisticChainType(centerId, vendorId, status, logisticChainType, page, size) :
                                      productService
