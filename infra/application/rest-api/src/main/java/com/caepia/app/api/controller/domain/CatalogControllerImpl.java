@@ -1,13 +1,11 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.exception.CenterNotAccessibleException;
-import com.caepia.app.api.model.domain.OrderHeader;
-import com.caepia.app.api.model.domain.Product;
-import com.caepia.app.api.model.domain.ThirdLevelFamily;
-import com.caepia.app.api.model.domain.Vendor;
+import com.caepia.app.api.model.domain.*;
 import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.OrderService;
 import com.caepia.app.api.service.domain.ProductService;
+import com.caepia.app.api.service.domain.PurchasesTrendsService;
 import com.caepia.app.api.service.domain.VendorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     private final VendorService vendorService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final PurchasesTrendsService purchasesTrendsService;
 
     /**
      * Get all authorized {@link Vendor}s for a particular {@code Center}
@@ -157,6 +156,21 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                        orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
                                        orderService.getOrdersByCenterId(centerId);
         return ResponseEntity.ok(orders);
+    }
+
+
+
+    @Override
+    @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}/PurchasesTrends")
+    public ResponseEntity<Iterable<PurchasesTrends>> getPurchasesTrendsByCenterIdVendorIdProductId(@PathVariable Integer centerId,
+                                                                      @PathVariable Integer vendorId,
+                                                                      @PathVariable Integer productId) {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+        Iterable<PurchasesTrends> purchasesTrends = purchasesTrendsService.getAllByCenterIdAndVendorIdAndProductId(centerId, vendorId, productId);
+
+        return ResponseEntity.ok(purchasesTrends);
     }
 
 

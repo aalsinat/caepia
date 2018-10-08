@@ -1,10 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
-import com.caepia.app.api.model.domain.OrderHeader;
-import com.caepia.app.api.model.domain.Product;
-import com.caepia.app.api.model.domain.ThirdLevelFamily;
-import com.caepia.app.api.model.domain.Vendor;
+import com.caepia.app.api.model.domain.*;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -73,5 +70,14 @@ public interface CatalogController {
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Page number, starting from zero") Integer page,
             @ApiParam(value = "Size of requested page") Integer size);
+
+    @ApiOperation(value = "${CatalogController.getPurchasesTrendsByCenterIdVendorIdProductId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of authorized PurchasesTrends for this center, vendor and product", response = PurchasesTrends.class, responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<PurchasesTrends>> getPurchasesTrendsByCenterIdVendorIdProductId(
+            @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
+            @ApiParam(value = "Product identifier", required = true) Integer productId);
 
 }
