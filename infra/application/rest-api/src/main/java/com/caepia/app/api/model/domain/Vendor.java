@@ -84,4 +84,8 @@ public class Vendor {
     @Column(name = "ProductsBookmarkCount")
     private Integer bookmarkedProductsCount;
 
+    @Column(name = "swCatalogFixed")
+    private Integer swCatalogFixed;
+
+
 }

@@ -25,25 +25,117 @@ public class Product {
     @Column(name = "PK_Product")
     private Integer id;
 
-    @Column(name = "ProductName")
-    private String productName;
+    @Column(name = "LogisticChainType")
+    private Integer logisticChainType;
 
-    @Column(name = "CostBaseUnits")
-    private Float costBaseUnits;
+    @Column(name = "FK_Pack")
+    private Integer packId;
 
-    @Column(name = "UnitShortName")
-    private String unitShortName;
+    @Column(name = "PackItems")
+    private Float packItems;
 
-    @Column(name = "CostBaseUnitsFormat")
-    private String costBaseUnitsFormat;
+    @Column(name = "VendorRef")
+    private String vendorRef;
+
+    @Column(name = "swOrderEnabled")
+    private Integer swOrderEnabled;
+
+    @Column(name = "CurrentCost")
+    private Float currentCost;
+
+    @Column(name = "CurrentCostFormat")
+    private String currentCostFormat;
+
+    @Column(name = "CurrentCostTax")
+    private Float currentCostTax;
+
+    @Column(name = "CurrentCostTrend")
+    private Integer currentCostTrend;
 
     @Column(name = "swBookmark")
     private Integer isBookmarked;
 
-    @Column(name = "LogisticChainType")
-    private Integer logisticChainType;
+    @Column(name = "MinimumOrder")
+    private Float minimumOrder;
 
     @Column(name = "Status")
     private Integer status;
+
+    @Column(name = "PackName")
+    private String packName;
+
+    @Column(name = "ProductName")
+    private String productName;
+
+    @Column(name = "FK_CategoryL3")
+    private Integer categoryL3Id;
+
+    @Column(name = "CategoryL3Name")
+    private String categoryL3Name;
+
+    @Column(name = "FK_Unit")
+    private Integer unitId;
+
+    @Column(name = "UnitName")
+    private String unitName;
+
+    @Column(name = "UnitShortName")
+    private String unitShortName;
+
+    @Column(name = "CostBaseUnits")
+    private Float costBaseUnits;
+
+    @Column(name = "CostBaseUnitsFormat")
+    private String costBaseUnitsFormat;
+
+    @Column(name = "BaseUnitShortName")
+    private String baseUnitShortName;
+
+    @Column(name = "EAN")
+    private String EAN;
+
+    @Column(name = "TaxCode", nullable = true)
+    private Integer taxCode;
+
+    @Column(name = "VendorDesc")
+    private String vendorDesc;
+
+    @Column(name = "VendorFeatures", nullable = true)
+    private Integer vendorFeatures;
+
+    @Column(name = "VendorCategory", nullable = true)
+    private String vendorCategory;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
