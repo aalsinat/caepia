@@ -23,6 +23,11 @@ public abstract class AbstractController {
         return (!(page == null || (size == null)));
     }
 
+    protected boolean isStatusFilter(Integer status) {
+        return (!(status == null));
+    }
+
+
     /**
      * Decrease the page number to adapt the API to the default page
      *

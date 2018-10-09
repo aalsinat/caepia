@@ -25,6 +25,19 @@ public class VendorService {
         return vendorRepository.findAllByCenterId(centerId);
     }
 
+
+    /**
+     * Retrieves all authorizes {@link Vendor}s for a particular {@code Center}
+     *
+     * @param centerId identifier for the center
+     * @param status filter status
+     * @return
+     */
+    public Iterable<Vendor> getVendorsByCenterIdAndStatus(Integer centerId, Integer status) {
+        return vendorRepository.findAllByCenterIdAndStatus(centerId, status);
+    }
+
+
     /**
      * Retrieves, page by page, all authorized {@link Vendor}s for a particular {@code Center}.
      *
@@ -37,6 +50,21 @@ public class VendorService {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return vendorRepository.findAllByCenterId(centerId, pageable);
     }
+
+    /**
+     * Retrieves, page by page, all authorized {@link Vendor}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status    status filters
+     * @param page     requested page number
+     * @param size     requested page size
+     * @return a page of authorized {@link Vendor}s
+     */
+    public Iterable<Vendor> getVendorsByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
+        PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
+        return vendorRepository.findAllByCenterIdAndStatus(centerId, status, pageable);
+    }
+
 
     /**
      * Retrieves information about an authorized {@link Vendor} to a particular {@code Center}

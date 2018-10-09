@@ -36,13 +36,25 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     public ResponseEntity<Iterable<Vendor>> getVendorsByCenterId(
             @PathVariable Integer centerId,
             @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "size", required = false) Integer size) {
+            @RequestParam(value = "size", required = false) Integer size,
+            @RequestParam(value = "status", required = false) Integer status) {
+
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
-        Iterable<Vendor> authorizedVendors = super.isPageRequest(page, size) ?
-                                             vendorService.getVendorsByCenterId(centerId, super.transformDefaultPage(page), size) :
-                                             vendorService.getVendorsByCenterId(centerId);
+        Iterable<Vendor> authorizedVendors;
+
+        if(super.isStatusFilter(status)) {
+            authorizedVendors = super.isPageRequest(page, size) ?
+                    vendorService.getVendorsByCenterIdAndStatus(centerId, status, super.transformDefaultPage(page), size) :
+                    vendorService.getVendorsByCenterIdAndStatus(centerId, status);
+        }
+        else {
+            authorizedVendors = super.isPageRequest(page, size) ?
+                    vendorService.getVendorsByCenterId(centerId, super.transformDefaultPage(page), size) :
+                    vendorService.getVendorsByCenterId(centerId);
+
+        }
         return ResponseEntity.ok(authorizedVendors);
     }
 

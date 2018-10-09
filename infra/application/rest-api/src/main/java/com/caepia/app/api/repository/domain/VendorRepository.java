@@ -16,6 +16,17 @@ public interface VendorRepository extends JpaRepository<Vendor, Integer> {
      */
     Iterable<Vendor> findAllByCenterId(Integer centerId);
 
+
+    /**
+     * Query for fetching all authorized {@link Vendor}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status identifier for the center
+     * @return a list of authorized {@link Vendor}s.
+     */
+    Iterable<Vendor> findAllByCenterIdAndStatus(Integer centerId, Integer status);
+
+
     /**
      * Query for fetching, page by page, all authorizes {@link Vendor}s for a particular {@code Center}.
      *
@@ -25,6 +36,15 @@ public interface VendorRepository extends JpaRepository<Vendor, Integer> {
      */
     Page<Vendor> findAllByCenterId(Integer centerId, Pageable page);
 
+    /**
+     * Query for fetching, page by page, all authorizes {@link Vendor}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status    status filter
+     * @param page     requested page
+     * @return a page of authorized {@link Vendor}s
+     */
+    Page<Vendor> findAllByCenterIdAndStatus(Integer centerId, Integer status, Pageable page);
 
     /**
      * Query for fetching information about an authorized {@link Vendor} to a particular {@code Center}.

@@ -18,7 +18,8 @@ public interface CatalogController {
     ResponseEntity<Iterable<Vendor>> getVendorsByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Page number, starting from zero") Integer page,
-            @ApiParam(value = "Size of requested page") Integer size);
+            @ApiParam(value = "Size of requested page") Integer size,
+            @ApiParam(value = "Status filter") Integer status);
 
     @ApiOperation(value = "${CatalogController.getVendorByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
