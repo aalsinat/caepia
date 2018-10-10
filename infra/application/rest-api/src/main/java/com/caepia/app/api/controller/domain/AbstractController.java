@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Slf4j
 @RestController
@@ -33,6 +34,14 @@ public abstract class AbstractController {
 
     protected boolean isOwnerFilter(Integer owner) {
         return (!(owner == null));
+    }
+
+    protected boolean isProductionOrderFilter(Integer productionOrder) {
+        return (!(productionOrder == null));
+    }
+
+    protected boolean isOrderDateFilter(SimpleDateFormat orderDate) {
+        return (!(orderDate == null));
     }
 
 

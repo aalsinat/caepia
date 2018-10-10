@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @RestController
@@ -174,6 +176,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             @PathVariable Integer centerId,
             @RequestParam(value = "status", required = false) Integer status,
             @RequestParam(value = "owner", required = false) Integer owner,
+            @RequestParam(value = "productionOrderId", required = false) Integer productionOrderId,
+            @RequestParam(value = "orderDate", required = false) SimpleDateFormat orderDate,
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
@@ -183,31 +187,120 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
         Iterable<OrderHeader> orders;
 
+        System.out.println(orderDate.toString());
+
         if(super.isStatusFilter(status)) {
             if(super.isOwnerFilter(owner)) {
-                orders = super.isPageRequest(page, size) ?
-                        orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner, super.transformDefaultPage(page), size) :
-                        orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner);
+                if(super.isProductionOrderFilter(productionOrderId)) {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, owner, orderDate);
 
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, productionOrderId, owner);
+                    }
+                }
+                else {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
+
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner);
+                    }
+                }
             }
             else {
+                if(super.isProductionOrderFilter(productionOrderId)) {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
 
-                orders = super.isPageRequest(page, size) ?
-                        orderService.getOrdersByCenterIdAndStatus(centerId, status, super.transformDefaultPage(page), size) :
-                        orderService.getOrdersByCenterIdAndStatus(centerId, status);
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId);
+                    }
+                }
+                else {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndStatus(centerId, status, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndStatus(centerId, status);
+                    }
+                }
             }
         }
         else {
             if(super.isOwnerFilter(owner)) {
-                orders = super.isPageRequest(page, size) ?
-                        orderService.getOrdersByCenterIdAndOwner(centerId, owner, super.transformDefaultPage(page), size) :
-                        orderService.getOrdersByCenterIdAndOwner(centerId,owner);
+                if(super.isProductionOrderFilter(productionOrderId)) {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId);
+                    }
+                }
+                else {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
+
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndOwner(centerId, owner, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndOwner(centerId, owner);
+                    }
+                }
 
             }
             else {
-                orders = super.isPageRequest(page, size) ?
-                        orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
-                        orderService.getOrdersByCenterId(centerId);
+                if(super.isProductionOrderFilter(productionOrderId)) {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate);
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId);
+                    }
+                }
+                else {
+                    if(super.isOrderDateFilter(orderDate)) {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate);
+
+                    }
+                    else {
+                        orders = super.isPageRequest(page, size) ?
+                                orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
+                                orderService.getOrdersByCenterId(centerId);
+                    }
+                }
             }
 
         }

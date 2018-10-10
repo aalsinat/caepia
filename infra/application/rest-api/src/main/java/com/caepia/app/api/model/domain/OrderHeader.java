@@ -3,6 +3,7 @@ package com.caepia.app.api.model.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 @Data
@@ -24,7 +25,7 @@ public class OrderHeader {
     private Integer vendorId;
 
     @Column(name = "OrderDate")
-    private GregorianCalendar orderDate;
+    private SimpleDateFormat orderDate;
 
     @Column(name = "TotalAmount")
     private Float TotalAmount;
@@ -36,10 +37,10 @@ public class OrderHeader {
     private Float TotalTax;
 
     @Column(name = "DeliveryDate")
-    private GregorianCalendar deliveryDate;
+    private SimpleDateFormat deliveryDate;
 
     @Column(name = "DeliveryPlanDate")
-    private GregorianCalendar deliveryPlanDate;
+    private SimpleDateFormat deliveryPlanDate;
 
     @Column(name = "Comments")
     private String comments;
