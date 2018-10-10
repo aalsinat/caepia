@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
      * @param logisticChainId identifier for the product
      * @return information about requested product
      */
-    Product findByCenterIdAndVendorIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
+    Iterable<Product> findByCenterIdAndVendorIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
                                                              Integer productId, Integer logisticChainId);
 
 
@@ -32,7 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
      * @param productId       identifier for the product
      * @return information about requested product
      */
-    Product findByCenterIdAndVendorIdAndId(Integer centerId, Integer vendorId,
+    Iterable<Product> findByCenterIdAndVendorIdAndId(Integer centerId, Integer vendorId,
                                                              Integer productId);
 
 

@@ -53,13 +53,13 @@ public interface CatalogController {
             @ApiParam(value = "Size of requested page") Integer size);
 
     @ApiOperation(value = "${CatalogController.getVendorProduct}", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
+    ResponseEntity<Iterable<Product>> getVendorProduct(@PathVariable Integer centerId,
                                              @PathVariable Integer vendorId,
-                                             @ApiParam(value = "logisticChainType") Integer logisticChainType,
-                                             @PathVariable Integer productId);
+                                             @PathVariable Integer productId,
+                                             @ApiParam(value = "logisticChainType") Integer logisticChainType);
 
     @ApiOperation(value = "${CatalogController.changeVendorProductBookmark}", httpMethod = "PATCH", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<Product> updateBookmark(@PathVariable Integer centerId,
+    ResponseEntity<Iterable<Product>> updateBookmark(@PathVariable Integer centerId,
                                            @PathVariable Integer vendorId,
                                            @PathVariable Integer productId,
                                            @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);

@@ -124,31 +124,31 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
-    public ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
+    public ResponseEntity<Iterable<Product>> getVendorProduct(@PathVariable Integer centerId,
                                                     @PathVariable Integer vendorId,
                                                     @PathVariable Integer productId,
-                                                    @RequestParam(value = "logisticChainType") Integer logisticChainType) {
+                                                    @RequestParam(value = "logisticChainType", required = false) Integer logisticChainType) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
 
-        Product product;
+        Iterable<Product> products;
         if(super.isLogisticChainTypeFilter(logisticChainType)) {
-            product = productService.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, logisticChainType);
+            products = productService.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, logisticChainType);
         }
         else {
 
-            product = productService.getProductByVendorIdAndCenterIdAndId(centerId, vendorId, productId);
+            products = productService.getProductByVendorIdAndCenterIdAndId(centerId, vendorId, productId);
 
         }
 
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(products);
 
     }
 
     @Override
     @PatchMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
-    public ResponseEntity<Product> updateBookmark(@PathVariable Integer centerId,
+    public ResponseEntity<Iterable<Product>> updateBookmark(@PathVariable Integer centerId,
                                                   @PathVariable Integer vendorId,
                                                   @PathVariable Integer productId,
                                                   @RequestParam(value = "isBookmarked") Integer isBookmarked) {

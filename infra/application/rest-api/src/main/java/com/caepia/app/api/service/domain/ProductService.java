@@ -28,7 +28,7 @@ public class ProductService {
      * @param logisticChainId identifier for the product
      * @return information about requested product
      */
-    public Product getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
+    public Iterable<Product> getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
                                                                           Integer productId, Integer logisticChainId) {
         return productRepository
                 .findByCenterIdAndVendorIdAndIdAndLogisticChainId(centerId, vendorId, productId, logisticChainId);
@@ -42,7 +42,7 @@ public class ProductService {
      * @param productId       identifier for the product
      * @return information about requested product
      */
-    public Product getProductByVendorIdAndCenterIdAndId(Integer centerId, Integer vendorId,
+    public Iterable<Product> getProductByVendorIdAndCenterIdAndId(Integer centerId, Integer vendorId,
                                                                           Integer productId) {
         return productRepository
                 .findByCenterIdAndVendorIdAndId(centerId, vendorId, productId);
@@ -107,7 +107,7 @@ public class ProductService {
      * @param productId    identifier for the product
      * @param isBookmarked true if product is marked as bookmark, false otherwise
      */
-    public Product updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
+    public Iterable<Product> updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
         StoredProcedureResult result = productRepository.updateBookmark(vendorId, centerId, productId, isBookmarked);
         if (result.getErrorCode() == 0) {
             return this.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, 1);
