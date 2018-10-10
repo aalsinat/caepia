@@ -177,7 +177,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             @RequestParam(value = "status", required = false) Integer status,
             @RequestParam(value = "owner", required = false) Integer owner,
             @RequestParam(value = "productionOrderId", required = false) Integer productionOrderId,
-            @RequestParam(value = "orderDate", required = false) SimpleDateFormat orderDate,
+            @RequestParam(value = "orderDate", required = false) String orderDate,
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
@@ -186,8 +186,6 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
 
         Iterable<OrderHeader> orders;
-
-        System.out.println(orderDate.toString());
 
         if(super.isStatusFilter(status)) {
             if(super.isOwnerFilter(owner)) {

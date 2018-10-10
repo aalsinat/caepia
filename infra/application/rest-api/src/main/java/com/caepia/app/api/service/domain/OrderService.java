@@ -34,7 +34,7 @@ public class OrderService {
      * @param orderDate filter for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId ,orderDate);
     }
 
@@ -57,7 +57,7 @@ public class OrderService {
      * @param orderDate filter for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId,productionOrderId, orderDate);
     }
 
@@ -80,7 +80,7 @@ public class OrderService {
      * @param orderDate status for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
     }
 
@@ -103,7 +103,7 @@ public class OrderService {
      * @param orderDate filter for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
     }
 
@@ -127,7 +127,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
     }
 
@@ -153,7 +153,7 @@ public class OrderService {
      * @param orderDate filter for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
     }
 
@@ -180,7 +180,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId, orderDate, pageable);
     }
@@ -209,7 +209,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, pageable);
     }
@@ -238,7 +238,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, pageable);
     }
@@ -270,7 +270,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, pageable);
     }
@@ -302,7 +302,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, pageable);
     }
@@ -332,7 +332,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, pageable);
     }
@@ -377,7 +377,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, pageable);
     }
@@ -391,7 +391,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner,SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
     }
 
@@ -421,7 +421,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, SimpleDateFormat orderDate, Integer page, Integer size) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
     }
@@ -447,7 +447,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, SimpleDateFormat orderDate) {
+    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
     }
 

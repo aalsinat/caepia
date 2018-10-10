@@ -76,7 +76,7 @@ public interface CatalogController {
             @ApiParam(value = "Status filter") Integer status,
             @ApiParam(value = "Owner filter") Integer owner,
             @ApiParam(value = "ProductionOrderId filter") Integer productionOrderId,
-            @ApiParam(value = "OrderData filter 2017-10-17T22:00:00.000+0000") SimpleDateFormat orderDate,
+            @ApiParam(value = "OrderData filter") String orderDate,
             @ApiParam(value = "Page number, starting from zero") Integer page,
             @ApiParam(value = "Size of requested page") Integer size);
 
