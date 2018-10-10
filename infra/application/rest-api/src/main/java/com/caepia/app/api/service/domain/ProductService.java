@@ -37,6 +37,21 @@ public class ProductService {
     /**
      * Retrieves all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
      *
+     * @param centerId        identifier for the center
+     * @param vendorId        identifier for the vendor
+     * @param productId       identifier for the product
+     * @return information about requested product
+     */
+    public Product getProductByVendorIdAndCenterIdAndId(Integer centerId, Integer vendorId,
+                                                                          Integer productId) {
+        return productRepository
+                .findByCenterIdAndVendorIdAndId(centerId, vendorId, productId);
+    }
+
+
+    /**
+     * Retrieves all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
+     *
      * @param centerId identifier for the center
      * @param vendorId identifier for the vendor
      * @return list of all products

@@ -27,6 +27,11 @@ public abstract class AbstractController {
         return (!(status == null));
     }
 
+    protected boolean isLogisticChainTypeFilter(Integer logisticChainType) {
+        return (!(logisticChainType == null));
+    }
+
+
 
     /**
      * Decrease the page number to adapt the API to the default page

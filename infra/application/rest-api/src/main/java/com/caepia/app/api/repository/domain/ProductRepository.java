@@ -25,6 +25,19 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
 
 
     /**
+     * Query for fetching information about an authorized {@link Product} to a particular {@code Center}, a particular  {@code Vendor}.
+     *
+     * @param centerId        identifier for the center
+     * @param vendorId        identifier for the vendor
+     * @param productId       identifier for the product
+     * @return information about requested product
+     */
+    Product findByCenterIdAndVendorIdAndId(Integer centerId, Integer vendorId,
+                                                             Integer productId);
+
+
+
+    /**
      * Query for fetching all {@link Product}s supplied by a particular {@code Vendor} for the provided {@code Center}.
      *
      * @param centerId identifier for the center

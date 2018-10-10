@@ -55,6 +55,7 @@ public interface CatalogController {
     @ApiOperation(value = "${CatalogController.getVendorProduct}", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<Product> getVendorProduct(@PathVariable Integer centerId,
                                              @PathVariable Integer vendorId,
+                                             @ApiParam(value = "logisticChainType") Integer logisticChainType,
                                              @PathVariable Integer productId);
 
     @ApiOperation(value = "${CatalogController.changeVendorProductBookmark}", httpMethod = "PATCH", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
