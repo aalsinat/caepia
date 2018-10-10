@@ -163,6 +163,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      * Get all authorized {@link OrderHeader}s for a particular {@code Center}
      *
      * @param centerId identifier for the center
+     * @param status identifier for the order
      * @param page     requested page number
      * @param size     size of requested page
      * @return
@@ -171,16 +172,49 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     @GetMapping(value = "/centers/{centerId}/orders")
     public ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
             @PathVariable Integer centerId,
+            @RequestParam(value = "status", required = false) Integer status,
+            @RequestParam(value = "owner", required = false) Integer owner,
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "size", required = false) Integer size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
-        Iterable<OrderHeader> orders = super.isPageRequest(page, size) ?
-                                       orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
-                                       orderService.getOrdersByCenterId(centerId);
+
+
+        Iterable<OrderHeader> orders;
+
+        if(super.isStatusFilter(status)) {
+            if(super.isOwnerFilter(owner)) {
+                orders = super.isPageRequest(page, size) ?
+                        orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner, super.transformDefaultPage(page), size) :
+                        orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner);
+
+            }
+            else {
+
+                orders = super.isPageRequest(page, size) ?
+                        orderService.getOrdersByCenterIdAndStatus(centerId, status, super.transformDefaultPage(page), size) :
+                        orderService.getOrdersByCenterIdAndStatus(centerId, status);
+            }
+        }
+        else {
+            if(super.isOwnerFilter(owner)) {
+                orders = super.isPageRequest(page, size) ?
+                        orderService.getOrdersByCenterIdAndOwner(centerId, owner, super.transformDefaultPage(page), size) :
+                        orderService.getOrdersByCenterIdAndOwner(centerId,owner);
+
+            }
+            else {
+                orders = super.isPageRequest(page, size) ?
+                        orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page), size) :
+                        orderService.getOrdersByCenterId(centerId);
+            }
+
+        }
         return ResponseEntity.ok(orders);
     }
+
+
 
 
 

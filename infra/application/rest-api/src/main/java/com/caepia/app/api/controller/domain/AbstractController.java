@@ -31,6 +31,10 @@ public abstract class AbstractController {
         return (!(logisticChainType == null));
     }
 
+    protected boolean isOwnerFilter(Integer owner) {
+        return (!(owner == null));
+    }
+
 
 
     /**

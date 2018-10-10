@@ -70,6 +70,8 @@ public interface CatalogController {
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Status filter") Integer status,
+            @ApiParam(value = "Owner filter") Integer owner,
             @ApiParam(value = "Page number, starting from zero") Integer page,
             @ApiParam(value = "Size of requested page") Integer size);
 
