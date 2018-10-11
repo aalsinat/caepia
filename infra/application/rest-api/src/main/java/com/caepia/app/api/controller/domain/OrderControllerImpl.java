@@ -1,6 +1,5 @@
 package com.caepia.app.api.controller.domain;
 
-import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import com.caepia.app.api.security.JwtUser;
@@ -8,9 +7,13 @@ import com.caepia.app.api.service.domain.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -37,11 +40,11 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     @GetMapping(value = "/order/{orderId}/rows")
     public ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
             @PathVariable Integer orderId,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "size", required = false) Integer size) {
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) {
 
         Iterable<OrderRow> orderRows = super.isPageRequest(page, size) ?
-                orderService.getOrdersRowsByOrderId(orderId, super.transformDefaultPage(page), size) :
+                orderService.getOrdersRowsByOrderId(orderId, super.transformDefaultPage(page.get()), size.get()) :
                 orderService.getOrdersRowsByOrderId(orderId);
         return ResponseEntity.ok(orderRows);
     }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -19,8 +20,8 @@ public abstract class AbstractController {
     //  Class support methods
     // -----------------------------
 
-    protected boolean isPageRequest(Integer page, Integer size) {
-        return (!(page == null || (size == null)));
+    protected boolean isPageRequest(Optional<Integer> page, Optional<Integer> size) {
+        return page.isPresent() && size.isPresent();
     }
 
     protected boolean isStatusFilter(Integer status) {
