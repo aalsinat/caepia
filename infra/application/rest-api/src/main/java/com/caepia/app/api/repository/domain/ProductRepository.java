@@ -81,6 +81,12 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
 
     Iterable<Product> getAllByCenterIdAndVendorIdAndCategoryL3IdAndIsBookmarked(Integer centerId, Integer vendorId, Integer categoryL3Id, Integer isBookmarked);
 
+    /*
+        Starting with bookmark filter
+     */
+
+    Iterable<Product> getAllByCenterIdAndVendorIdAndIsBookmarked(Integer centerId, Integer vendorId, Integer isBookmarked);
+
 
     /*
         With pagination 
@@ -131,4 +137,10 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
     Page<Product> getAllByCenterIdAndVendorIdAndCategoryL3Id(Integer centerId, Integer vendorId, Integer categoryL3Id, Pageable page);
 
     Page<Product> getAllByCenterIdAndVendorIdAndCategoryL3IdAndIsBookmarked(Integer centerId, Integer vendorId, Integer categoryL3Id, Integer isBookmarked, Pageable page);
+
+    /*
+        Starting with bookmark filter
+     */
+
+    Page<Product> getAllByCenterIdAndVendorIdAndIsBookmarked(Integer centerId, Integer vendorId, Integer isBookmarked, Pageable page);
 }
