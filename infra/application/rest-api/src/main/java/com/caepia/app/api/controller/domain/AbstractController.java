@@ -1,14 +1,19 @@
 package com.caepia.app.api.controller.domain;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @RestController
@@ -44,7 +49,75 @@ public abstract class AbstractController {
         return (!(orderDate == null));
     }
 
+    /**
+     * Method for
+     * @param source
+     * @param properties
+     * @param <T>
+     * @return
+     */
+    protected <T> Iterable<T> includeProperties(Iterable<T> source, List<String> properties) {
+        if (source instanceof List) {
+            return StreamSupport.stream(source.spliterator(), false)
+                                .map(item -> this.filterProperties(item, properties))
+                                .collect(Collectors.toList());
+        } else {
+            List<T> listOfFoos = ((PageImpl<T>) source).getContent().stream()
+                                                       .map(item -> this.filterProperties(item, properties))
+                                                       .collect(Collectors.toList());
+            return new PageImpl<>(listOfFoos, PageRequest
+                    .of(((PageImpl<T>) source).getNumber(), ((PageImpl<T>) source).getSize(), ((PageImpl<T>) source)
+                            .getSort()), listOfFoos.size());
+        }
+    }
 
+
+    /**
+     * Support method for filter object properties using a list of requested ones.
+     *
+     * @param source     object whose properties must be filtered
+     * @param properties list of required properties
+     * @return source object with only filtered properties
+     */
+    protected <T> T filterProperties(T source, List<String> properties) {
+        // Create ObjectMapper instance
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Converting POJO to Map
+        Map<String, Object> map = mapper.convertValue(source, new TypeReference<Map<String, Object>>() {
+        });
+
+        // Fitlering POJO properties
+        Map<String, Object> filtered = map.entrySet().stream()
+                                          .filter(entry -> this.itemInList(entry.getKey(), properties))
+                                          .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        // Convert Map to POJO
+        T anotherFoo = (T) mapper.convertValue(filtered, source.getClass());
+        return anotherFoo;
+    }
+
+
+    /**
+     * Support method to search for a particular item within a list.
+     *
+     * @param item item to be found
+     * @param list list of elements to search in
+     * @return {@literal true} if item is within the list, {@literal false} otherwise
+     */
+    private boolean itemInList(String item, List<String> list) {
+        return list.stream().anyMatch(itemList -> itemList.equalsIgnoreCase(item));
+    }
+
+
+    /**
+     * Support method for retrieving a list from a comma-separated string
+     *
+     * @param inline a string with comma separated elements
+     * @return a list of string elements
+     */
+    protected List<String> getListFromString(String inline) {
+        return Arrays.asList(inline.trim().split(","));
+    }
 
     /**
      * Decrease the page number to adapt the API to the default page
@@ -79,5 +152,4 @@ public abstract class AbstractController {
     public SecurityContext getContext() {
         return SecurityContextHolder.getContext();
     }
-
 }

@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,6 +28,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      * Get all authorized {@link Vendor}s for a particular {@code Center}
      *
      * @param centerId identifier for the center
+     * @param status   filter for vendor statuses
+     * @param fields   properties of {@link Vendor} that must be returned
      * @param page     requested page number
      * @param size     size of requested page
      * @return list of all authorized {@link Vendor}s
@@ -37,6 +38,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     @GetMapping(value = "/centers/{centerId}/vendors")
     public ResponseEntity<Iterable<Vendor>> getVendorsByCenterId(
             @PathVariable Integer centerId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
             @RequestParam(value = "page", required = false) Optional<Integer> page,
             @RequestParam(value = "size", required = false) Optional<Integer> size,
             @RequestParam(value = "status", required = false) Integer status) {
@@ -48,15 +50,21 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
         if (super.isStatusFilter(status)) {
             authorizedVendors = super.isPageRequest(page, size) ?
-                    vendorService.getVendorsByCenterIdAndStatus(centerId, status, super
-                            .transformDefaultPage(page.get()), size.get()) :
-                    vendorService.getVendorsByCenterIdAndStatus(centerId, status);
+                                vendorService.getVendorsByCenterIdAndStatus(centerId, status, super
+                                        .transformDefaultPage(page.get()), size.get()) :
+                                vendorService.getVendorsByCenterIdAndStatus(centerId, status);
         } else {
             authorizedVendors = super.isPageRequest(page, size) ?
-                    vendorService.getVendorsByCenterId(centerId, super.transformDefaultPage(page.get()), size.get()) :
-                    vendorService.getVendorsByCenterId(centerId);
+                                vendorService
+                                        .getVendorsByCenterId(centerId, super.transformDefaultPage(page.get()), size
+                                                .get()) :
+                                vendorService.getVendorsByCenterId(centerId);
 
         }
+        // Filter vendor entity properties to return only those requested using field parameter
+        authorizedVendors = fields.isPresent() ?
+                            super.includeProperties(authorizedVendors, super.getListFromString(fields.get())) :
+                            authorizedVendors;
         return ResponseEntity.ok(authorizedVendors);
     }
 
@@ -70,12 +78,15 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
      */
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}")
-    public ResponseEntity<Vendor> getVendorByCenterId(@PathVariable Integer centerId, @PathVariable Integer vendorId) {
+    public ResponseEntity<Vendor> getVendorByCenterId(@PathVariable Integer centerId,
+                                                      @PathVariable Integer vendorId,
+                                                      @RequestParam(value = "fields", required = false) Optional<String> fields) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
-        // TODO: Filter vendor entity properties to return only those requested using field parameter
-        // TODO: Check if requested vendor really exists and is authorized to Center.
-        return ResponseEntity.ok(vendorService.getVendorByCenterIdAndVendorId(centerId, vendorId));
+        // Filter vendor entity properties to return only those requested using field parameter
+        Vendor vendor = vendorService.getVendorByCenterIdAndVendorId(centerId, vendorId);
+        vendor = fields.isPresent() ? super.filterProperties(vendor, super.getListFromString(fields.get())) : vendor;
+        return ResponseEntity.ok(vendor);
     }
 
     /**
@@ -92,19 +103,20 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     public ResponseEntity<Iterable<ThirdLevelFamily>> getVendorFamilies(@PathVariable Integer centerId,
                                                                         @PathVariable Integer vendorId,
                                                                         @RequestParam(value = "page",
-                                                                                      required = false) Optional<Integer> page,
+                                                                                required = false) Optional<Integer> page,
                                                                         @RequestParam(value = "size",
-                                                                                      required = false) Optional<Integer> size) {
+                                                                                required = false) Optional<Integer> size) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: To be implented
 
         Iterable<ThirdLevelFamily> thirdLevelFamilyIterable = super.isPageRequest(page, size) ?
-                vendorService
-                        .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId, super
-                                .transformDefaultPage(page.get()), size.get()) :
-                vendorService
-                        .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
+                                                              vendorService
+                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId, super
+                                                                              .transformDefaultPage(page.get()), size
+                                                                              .get()) :
+                                                              vendorService
+                                                                      .getVendorThirdLevelFamilyByCenterIdAndVendorId(centerId, vendorId);
 
         return ResponseEntity.ok(thirdLevelFamilyIterable);
     }
@@ -121,7 +133,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                                                @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
-        return ResponseEntity.ok(productService.getProductsByVendorAndCenter(centerId, vendorId, status, logisticChainType, categoryL3, isBookmarked, page, size));
+        return ResponseEntity.ok(productService
+                .getProductsByVendorAndCenter(centerId, vendorId, status, logisticChainType, categoryL3, isBookmarked, page, size));
     }
 
 
@@ -131,7 +144,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                                               @PathVariable Integer vendorId,
                                                               @PathVariable Integer productId,
                                                               @RequestParam(value = "logisticChainType",
-                                                                            required = false) Integer logisticChainType) {
+                                                                      required = false) Integer logisticChainType) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
@@ -195,65 +208,66 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                 if (super.isProductionOrderFilter(productionOrderId)) {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, owner, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, owner, orderDate);
 
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, productionOrderId, owner);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, productionOrderId, owner);
                     }
                 } else {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
 
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner);
+                                 orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndStatusAndOwner(centerId, status, owner);
                     }
                 }
             } else {
                 if (super.isProductionOrderFilter(productionOrderId)) {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
 
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId);
                     }
                 } else {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndStatus(centerId, status, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndStatus(centerId, status);
+                                 orderService.getOrdersByCenterIdAndStatus(centerId, status, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndStatus(centerId, status);
                     }
                 }
             }
@@ -262,31 +276,31 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                 if (super.isProductionOrderFilter(productionOrderId)) {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId);
+                                 orderService
+                                         .getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId);
                     }
                 } else {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
+                                 orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
 
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndOwner(centerId, owner, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndOwner(centerId, owner);
+                                 orderService.getOrdersByCenterIdAndOwner(centerId, owner, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndOwner(centerId, owner);
                     }
                 }
 
@@ -294,29 +308,29 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                 if (super.isProductionOrderFilter(productionOrderId)) {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService
-                                        .getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, super
-                                                .transformDefaultPage(page.get()), size.get()) :
-                                orderService
-                                        .getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate);
+                                 orderService
+                                         .getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, super
+                                                 .transformDefaultPage(page.get()), size.get()) :
+                                 orderService
+                                         .getOrdersByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate);
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId);
+                                 orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndProductionOrderId(centerId, productionOrderId);
                     }
                 } else {
                     if (super.isOrderDateFilter(orderDate)) {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate, super
-                                        .transformDefaultPage(page.get()), size.get()) :
-                                orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate);
+                                 orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate, super
+                                         .transformDefaultPage(page.get()), size.get()) :
+                                 orderService.getOrdersByCenterIdAndOrderDate(centerId, orderDate);
 
                     } else {
                         orders = super.isPageRequest(page, size) ?
-                                orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page.get()), size
-                                        .get()) :
-                                orderService.getOrdersByCenterId(centerId);
+                                 orderService.getOrdersByCenterId(centerId, super.transformDefaultPage(page.get()), size
+                                         .get()) :
+                                 orderService.getOrdersByCenterId(centerId);
                     }
                 }
             }
@@ -328,9 +342,10 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     @Override
     @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}/PurchasesTrends")
-    public ResponseEntity<Iterable<PurchasesTrends>> getPurchasesTrendsByCenterIdVendorIdProductId(@PathVariable Integer centerId,
-                                                                                                   @PathVariable Integer vendorId,
-                                                                                                   @PathVariable Integer productId) {
+    public ResponseEntity<Iterable<PurchasesTrends>> getPurchasesTrendsByCenterIdVendorIdProductId(
+            @PathVariable Integer centerId,
+            @PathVariable Integer vendorId,
+            @PathVariable Integer productId) {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
@@ -356,29 +371,6 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
                                                                           .map(s -> s.getCostCenter())
                                                                           .anyMatch(centerId::equals);
     }
-
-
-    private Object includeProperties(Object source, List<String> properties) {
-        // Create ObjectMapper instance
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        // Converting POJO to Map
-//        Map<String, Object> map = mapper.convertValue(source, new TypeReference<Map<String, Object>>() {
-//        });
-//
-//        //
-//        for(Map.Entry<String, Object> entry : map.entrySet()){
-//            if(entry.getKey()){
-//                System.out.println(entry.getKey() + "-->" + entry.getValue());
-//            }
-//        }
-//        // Convert Map to POJO
-//        Object anotherFoo = mapper.convertValue(map, Object.class);
-//        return anotherFoo;
-        return null;
-    }
-
-
 }
 
 

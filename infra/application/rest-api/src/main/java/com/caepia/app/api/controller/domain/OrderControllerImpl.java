@@ -63,27 +63,6 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
         return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
     }
 
-    private Object includeProperties(Object source, List<String> properties) {
-        // Create ObjectMapper instance
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        // Converting POJO to Map
-//        Map<String, Object> map = mapper.convertValue(source, new TypeReference<Map<String, Object>>() {
-//        });
-//
-//        //
-//        for(Map.Entry<String, Object> entry : map.entrySet()){
-//            if(entry.getKey()){
-//                System.out.println(entry.getKey() + "-->" + entry.getValue());
-//            }
-//        }
-//        // Convert Map to POJO
-//        Object anotherFoo = mapper.convertValue(map, Object.class);
-//        return anotherFoo;
-        return null;
-    }
-
-
 }
 
 
