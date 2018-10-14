@@ -1,5 +1,6 @@
 package com.caepia.app.api.service.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.ThirdLevelFamily;
 import com.caepia.app.api.model.domain.Vendor;
 import com.caepia.app.api.repository.domain.ThirdLevelFamilyRepository;
@@ -21,7 +22,7 @@ public class VendorService {
      * @param centerId identifier for the center
      * @return
      */
-    public Iterable<Vendor> getVendorsByCenterId(Integer centerId) {
+    public Iterable<ModelEntity> getVendorsByCenterId(Integer centerId) {
         return vendorRepository.findAllByCenterId(centerId);
     }
 
@@ -33,7 +34,7 @@ public class VendorService {
      * @param status filter status
      * @return
      */
-    public Iterable<Vendor> getVendorsByCenterIdAndStatus(Integer centerId, Integer status) {
+    public Iterable<ModelEntity> getVendorsByCenterIdAndStatus(Integer centerId, Integer status) {
         return vendorRepository.findAllByCenterIdAndStatus(centerId, status);
     }
 
@@ -46,7 +47,7 @@ public class VendorService {
      * @param size     requested page size
      * @return a page of authorized {@link Vendor}s
      */
-    public Iterable<Vendor> getVendorsByCenterId(Integer centerId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getVendorsByCenterId(Integer centerId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return vendorRepository.findAllByCenterId(centerId, pageable);
     }
@@ -60,7 +61,7 @@ public class VendorService {
      * @param size     requested page size
      * @return a page of authorized {@link Vendor}s
      */
-    public Iterable<Vendor> getVendorsByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
+    public Iterable<ModelEntity> getVendorsByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return vendorRepository.findAllByCenterIdAndStatus(centerId, status, pageable);
     }

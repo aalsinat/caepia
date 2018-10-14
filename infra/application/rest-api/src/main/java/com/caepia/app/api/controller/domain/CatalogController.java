@@ -16,10 +16,9 @@ public interface CatalogController {
 
     @ApiOperation(value = "${CatalogController.getVendorsByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of authorized vendors for this center", response = Vendor.class,
-                    responseContainer = "List"),
+            @ApiResponse(code = 200, message = "List of authorized vendors for this center", response = Vendor.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<Vendor>> getVendorsByCenterId(
+    ResponseEntity<Iterable<ModelEntity>> getVendorsByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
@@ -38,8 +37,7 @@ public interface CatalogController {
 
     @ApiOperation(value = "${CatalogController.getVendorFamilies}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of families for a particular vendor",
-                    response = ThirdLevelFamily.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "List of families for a particular vendor", response = ThirdLevelFamily.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<ThirdLevelFamily>> getVendorFamilies(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
@@ -49,40 +47,38 @@ public interface CatalogController {
 
     @ApiOperation(value = "${CatalogController.getVendorProducts}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of products for a particular vendor", response = Product.class,
-                    responseContainer = "List"),
+            @ApiResponse(code = 200, message = "List of products for a particular vendor", response = Product.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<Product>> getVendorProducts(
+    ResponseEntity<Iterable<ModelEntity>> getVendorProducts(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
             @ApiParam(value = "Product status") Optional<Integer> status,
             @ApiParam(value = "logisticChainType") Optional<Integer> logisticChainType,
             @ApiParam(value = "categoryL3") Optional<Integer> categoryL3,
             @ApiParam(value = "isBookmarked") Optional<Integer> isBookmarked,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
-            @ApiParam(
-                    value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
     @ApiOperation(value = "${CatalogController.getVendorProduct}", httpMethod = "GET",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<Iterable<Product>> getVendorProduct(@PathVariable Integer centerId,
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<Iterable<ModelEntity>> getVendorProduct(@PathVariable Integer centerId,
                                                        @PathVariable Integer vendorId,
                                                        @PathVariable Integer productId,
-                                                       @ApiParam(
-                                                               value = "logisticChainType") Integer logisticChainType);
+                                                       @ApiParam(value = "Selected fields") Optional<String> fields,
+                                                       @ApiParam(value = "logisticChainType") Integer logisticChainType);
 
     @ApiOperation(value = "${CatalogController.changeVendorProductBookmark}", httpMethod = "PATCH",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<Iterable<Product>> updateBookmark(@PathVariable Integer centerId,
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<Iterable<ModelEntity>> updateBookmark(@PathVariable Integer centerId,
                                                      @PathVariable Integer vendorId,
                                                      @PathVariable Integer productId,
-                                                     @RequestParam(value = "isBookmarked",
-                                                             required = true) Integer isBookmarked);
+                                                     @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);
 
     @ApiOperation(value = "${OrderController.getOrdersByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of orders for this center", response = OrderHeader.class,
-                    responseContainer = "List"),
+                         responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
@@ -94,10 +90,10 @@ public interface CatalogController {
             @ApiParam(value = "Size of requested page") Optional<Integer> size);
 
     @ApiOperation(value = "${CatalogController.getPurchasesTrendsByCenterIdVendorIdProductId}",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of authorized PurchasesTrends for this center, vendor and product",
-                    response = PurchasesTrends.class, responseContainer = "List"),
+                         response = PurchasesTrends.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<PurchasesTrends>> getPurchasesTrendsByCenterIdVendorIdProductId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,

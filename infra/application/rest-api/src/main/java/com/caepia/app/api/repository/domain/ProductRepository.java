@@ -1,5 +1,6 @@
 package com.caepia.app.api.repository.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.model.domain.ProductPK;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
      * @param logisticChainId identifier for the product
      * @return information about requested product
      */
-    Iterable<Product> findByCenterIdAndVendorIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId, Integer productId, Integer logisticChainId);
+    Iterable<ModelEntity> findByCenterIdAndVendorIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId, Integer productId, Integer logisticChainId);
 
 
     /**
@@ -30,7 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, ProductPK>, Pr
      * @param productId identifier for the product
      * @return information about requested product
      */
-    Iterable<Product> findByCenterIdAndVendorIdAndId(Integer centerId, Integer vendorId, Integer productId);
+    Iterable<ModelEntity> findByCenterIdAndVendorIdAndId(Integer centerId, Integer vendorId, Integer productId);
 
 
     /* Without pagination */

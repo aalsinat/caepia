@@ -1,5 +1,6 @@
 package com.caepia.app.api.controller.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -51,23 +52,26 @@ public abstract class AbstractController {
 
     /**
      * Method for
+     *
      * @param source
      * @param properties
      * @param <T>
      * @return
      */
-    protected <T> Iterable<T> includeProperties(Iterable<T> source, List<String> properties) {
+    protected Iterable<ModelEntity> includeProperties(Iterable<ModelEntity> source, List<String> properties) {
         if (source instanceof List) {
             return StreamSupport.stream(source.spliterator(), false)
-                                .map(item -> this.filterProperties(item, properties))
+                                .map(item -> item.filter(properties))
                                 .collect(Collectors.toList());
         } else {
-            List<T> listOfFoos = ((PageImpl<T>) source).getContent().stream()
-                                                       .map(item -> this.filterProperties(item, properties))
-                                                       .collect(Collectors.toList());
-            return new PageImpl<>(listOfFoos, PageRequest
-                    .of(((PageImpl<T>) source).getNumber(), ((PageImpl<T>) source).getSize(), ((PageImpl<T>) source)
-                            .getSort()), listOfFoos.size());
+            List<ModelEntity> listOfFoos = ((PageImpl<ModelEntity>) source).getContent().stream()
+                                                                           .map(item -> item.filter(properties))
+                                                                           .collect(Collectors.toList());
+            return new PageImpl<>(listOfFoos, PageRequest.of(
+                    ((PageImpl<ModelEntity>) source).getNumber(),
+                    ((PageImpl<ModelEntity>) source).getSize(),
+                    ((PageImpl<ModelEntity>) source).getSort()),
+                    listOfFoos.size());
         }
     }
 

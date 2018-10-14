@@ -2,6 +2,7 @@ package com.caepia.app.api.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -9,8 +10,9 @@ import javax.persistence.*;
 @Entity
 @IdClass(VendorPK.class)
 @Table(name = "vApiCenterVendors")
+@EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Vendor {
+public class Vendor extends ModelEntity {
     @Id
     @Column(name = "PK_CostCenter")
     private Integer centerId;
@@ -86,6 +88,5 @@ public class Vendor {
 
     @Column(name = "swCatalogFixed")
     private Integer swCatalogFixed;
-
 
 }

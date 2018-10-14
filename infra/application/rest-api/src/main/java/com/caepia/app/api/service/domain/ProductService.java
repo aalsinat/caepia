@@ -2,6 +2,7 @@ package com.caepia.app.api.service.domain;
 
 import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.exception.UpdateProductBookmarkException;
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.repository.domain.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +43,13 @@ public class ProductService {
      * @param size              size of the requested page
      * @return list of all products
      */
-    public Iterable<Product> getProductsByVendorAndCenter(Integer centerId, Integer vendorId,
-                                                          Optional<Integer> status,
-                                                          Optional<Integer> logisticChainType,
-                                                          Optional<Integer> categoryL3,
-                                                          Optional<Integer> isBookmarked,
-                                                          Optional<Integer> page,
-                                                          Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public Iterable<ModelEntity> getProductsByVendorAndCenter(Integer centerId, Integer vendorId,
+                                                              Optional<Integer> status,
+                                                              Optional<Integer> logisticChainType,
+                                                              Optional<Integer> categoryL3,
+                                                              Optional<Integer> isBookmarked,
+                                                              Optional<Integer> page,
+                                                              Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         StringBuilder methodName = new StringBuilder(PRODUCTS_BY_VENDOR_AND_CENTER);
         List parameters = new ArrayList(Arrays.asList(centerId, vendorId));
 
@@ -74,8 +75,8 @@ public class ProductService {
      * @param logisticChainId identifier for the product
      * @return information about requested product
      */
-    public Iterable<Product> getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
-                                                                                    Integer productId, Integer logisticChainId) {
+    public Iterable<ModelEntity> getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(Integer centerId, Integer vendorId,
+                                                                                        Integer productId, Integer logisticChainId) {
         return productRepository
                 .findByCenterIdAndVendorIdAndIdAndLogisticChainId(centerId, vendorId, productId, logisticChainId);
     }
@@ -88,8 +89,8 @@ public class ProductService {
      * @param productId identifier for the product
      * @return information about requested product
      */
-    public Iterable<Product> getProductByVendorIdAndCenterIdAndId(Integer centerId, Integer vendorId,
-                                                                  Integer productId) {
+    public Iterable<ModelEntity> getProductByVendorIdAndCenterIdAndId(Integer centerId, Integer vendorId,
+                                                                      Integer productId) {
         return productRepository
                 .findByCenterIdAndVendorIdAndId(centerId, vendorId, productId);
     }
@@ -153,7 +154,7 @@ public class ProductService {
      * @param productId    identifier for the product
      * @param isBookmarked true if product is marked as bookmark, false otherwise
      */
-    public Iterable<Product> updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
+    public Iterable<ModelEntity> updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
         StoredProcedureResult result = productRepository.updateBookmark(vendorId, centerId, productId, isBookmarked);
         if (result.getErrorCode() == 0) {
             return this.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, 1);
@@ -179,14 +180,14 @@ public class ProductService {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    Iterable<Product> dynamicRepositoryCall(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    Iterable<ModelEntity> dynamicRepositoryCall(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         final Class<?>[] types = Arrays.asList(parameters).stream()
                                        .map(this::getClassNameFromParameter)
                                        .collect(Collectors.toList())
                                        .toArray(new Class<?>[parameters.length]);
         Method method = repository.getClass().getMethod(methodName, types);
 
-        return (Iterable<Product>) method.invoke(repository, parameters);
+        return (Iterable<ModelEntity>) method.invoke(repository, parameters);
     }
 
     /**
