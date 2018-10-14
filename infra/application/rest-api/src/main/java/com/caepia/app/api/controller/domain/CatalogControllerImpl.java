@@ -45,21 +45,16 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
-        // TODO: Filter vendor entity properties to return only those requested using field parameter
-        Iterable<Vendor> authorizedVendors;
 
+        Iterable<Vendor> authorizedVendors;
         if (super.isStatusFilter(status)) {
             authorizedVendors = super.isPageRequest(page, size) ?
-                                vendorService.getVendorsByCenterIdAndStatus(centerId, status, super
-                                        .transformDefaultPage(page.get()), size.get()) :
+                                vendorService.getVendorsByCenterIdAndStatus(centerId, status, super.transformDefaultPage(page.get()), size.get()) :
                                 vendorService.getVendorsByCenterIdAndStatus(centerId, status);
         } else {
             authorizedVendors = super.isPageRequest(page, size) ?
-                                vendorService
-                                        .getVendorsByCenterId(centerId, super.transformDefaultPage(page.get()), size
-                                                .get()) :
+                                vendorService.getVendorsByCenterId(centerId, super.transformDefaultPage(page.get()), size.get()) :
                                 vendorService.getVendorsByCenterId(centerId);
-
         }
         // Filter vendor entity properties to return only those requested using field parameter
         authorizedVendors = fields.isPresent() ?
