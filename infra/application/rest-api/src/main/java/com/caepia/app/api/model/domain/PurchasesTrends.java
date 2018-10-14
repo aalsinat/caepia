@@ -21,7 +21,8 @@ public class PurchasesTrends {
     @Column(name = "PK_Vendor")
     private Integer vendorId;
 
-    @Column(name = "GraphType", nullable = true)
+    @Id
+    @Column(name = "GraphType")
     private Integer graphType;
 
     @Column(name = "BeginMonth", nullable = true)

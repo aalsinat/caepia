@@ -20,4 +20,8 @@ public class PurchasesTrendsPK implements Serializable {
     @Column(name = "PK_Vendor")
     private Integer vendorId;
 
+    @Id
+    @Column(name = "GraphType")
+    private Integer graphType;
+
 }
