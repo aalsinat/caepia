@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 @Api(tags = "Orders", description = "List of orders resources")
@@ -26,7 +27,10 @@ public interface OrderController {
             @ApiResponse(code = 403, message = "Orders not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
             @ApiParam(value = "Order identifier", required = true) Integer orderId,
+            @ApiParam(value = "getType") Optional<String> getType,
+            @ApiParam(value = "categoryL3") Optional<Integer> categoryL3,
+            @ApiParam(value = "swBookmark") Optional<Integer> swBookmark,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
-            @ApiParam(value = "Size of requested page") Optional<Integer> size);
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,12 +41,17 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     @GetMapping(value = "/order/{orderId}/rows")
     public ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
             @PathVariable Integer orderId,
+            @RequestParam(value = "getType", required = false) Optional<String> getType,
+            @RequestParam(value = "categoryL3", required = false) Optional<Integer> categoryL3,
+            @RequestParam(value = "swBookmark", required = false) Optional<Integer> swBookmark,
             @RequestParam(value = "page", required = false) Optional<Integer> page,
-            @RequestParam(value = "size", required = false) Optional<Integer> size) {
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
-        Iterable<OrderRow> orderRows = super.isPageRequest(page, size) ?
+     /*   Iterable<OrderRow> orderRows = super.isPageRequest(page, size) ?
                 orderService.getOrdersRowsByOrderId(orderId, super.transformDefaultPage(page.get()), size.get()) :
-                orderService.getOrdersRowsByOrderId(orderId);
+                orderService.getOrdersRowsByOrderId(orderId); */
+
+            Iterable<OrderRow> orderRows = orderService.getOrdersRowsByOrderId(orderId, getType, categoryL3, swBookmark, page, size );
         return ResponseEntity.ok(orderRows);
     }
 

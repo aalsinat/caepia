@@ -56,7 +56,7 @@ public class OrderRow {
     private String getType;
 
     @Column(name = "FK_CategoryL3")
-    private Integer categoryL3;
+    private Integer categoryL3Id;
 
     @Column(name = "swBookmark")
     private Integer swBookmark;

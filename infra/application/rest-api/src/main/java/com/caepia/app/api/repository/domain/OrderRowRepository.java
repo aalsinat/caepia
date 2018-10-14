@@ -37,4 +37,53 @@ public interface OrderRowRepository extends JpaRepository<OrderRow, Integer> {
     Page<OrderRow> findByOrderId(Integer orderId, Pageable page);
 
 
+
+    Iterable<OrderRow> getAllByOrderId(Integer orderId);
+
+    /*
+        Starting with status filter
+     */
+
+
+    Iterable<OrderRow> getAllByOrderIdAndGetType(Integer orderId, String getType);
+
+    Iterable<OrderRow> getAllByOrderIdAndGetTypeAndCategoryL3Id(Integer orderId, String getType, Integer categoryL3);
+
+    Iterable<OrderRow> getAllByOrderIdAndGetTypeAndCategoryL3IdAndSwBookmark(Integer orderId, String getType, Integer categoryL3, Integer swBookmark);
+
+    Iterable<OrderRow> getAllByOrderIdAndGetTypeAndSwBookmark(Integer orderId, String getType, Integer swBookmark);
+
+    Iterable<OrderRow> getAllByOrderIdAndCategoryL3Id(Integer orderId, Integer categoryL3);
+
+    Iterable<OrderRow> getAllByOrderIdAndCategoryL3IdAndSwBookmark(Integer orderId, Integer categoryL3, Integer swBookmark);
+
+    Iterable<OrderRow> getAllByOrderIdAndSwBookmark(Integer orderId, Integer swBookmark);
+
+
+
+    /*
+        With pagination
+     */
+
+    /*
+        Without filters
+     */
+
+    Page<OrderRow> getAllByOrderId(Integer orderId, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndGetType(Integer orderId, String getType, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndGetTypeAndCategoryL3Id(Integer orderId, String getType, Integer categoryL3, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndGetTypeAndCategoryL3IdAndSwBookmark(Integer orderId, String getType, Integer categoryL3, Integer swBookmark, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndGetTypeAndSwBookmark(Integer orderId, String getType, Integer swBookmark, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndCategoryL3Id(Integer orderId, Integer categoryL3, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndCategoryL3IdAndSwBookmark(Integer orderId, Integer categoryL3, Integer swBookmark, Pageable page);
+
+    Page<OrderRow> getAllByOrderIdAndSwBookmark(Integer orderId, Integer swBookmark, Pageable page);
+
+
 }
