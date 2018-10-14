@@ -77,43 +77,6 @@ public abstract class AbstractController {
 
 
     /**
-     * Support method for filter object properties using a list of requested ones.
-     *
-     * @param source     object whose properties must be filtered
-     * @param properties list of required properties
-     * @return source object with only filtered properties
-     */
-    protected <T> T filterProperties(T source, List<String> properties) {
-        // Create ObjectMapper instance
-        ObjectMapper mapper = new ObjectMapper();
-
-        // Converting POJO to Map
-        Map<String, Object> map = mapper.convertValue(source, new TypeReference<Map<String, Object>>() {
-        });
-
-        // Fitlering POJO properties
-        Map<String, Object> filtered = map.entrySet().stream()
-                                          .filter(entry -> this.itemInList(entry.getKey(), properties))
-                                          .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        // Convert Map to POJO
-        T anotherFoo = (T) mapper.convertValue(filtered, source.getClass());
-        return anotherFoo;
-    }
-
-
-    /**
-     * Support method to search for a particular item within a list.
-     *
-     * @param item item to be found
-     * @param list list of elements to search in
-     * @return {@literal true} if item is within the list, {@literal false} otherwise
-     */
-    private boolean itemInList(String item, List<String> list) {
-        return list.stream().anyMatch(itemList -> itemList.equalsIgnoreCase(item));
-    }
-
-
-    /**
      * Support method for retrieving a list from a comma-separated string
      *
      * @param inline a string with comma separated elements
