@@ -1,7 +1,11 @@
 package com.caepia.app.api.service.domain;
 
+import com.caepia.app.api.dto.StoredProcedureResult;
+import com.caepia.app.api.exception.SendOrderException;
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
+import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.repository.domain.OrderHeaderRepository;
 import com.caepia.app.api.repository.domain.OrderRowRepository;
 import lombok.RequiredArgsConstructor;
@@ -478,7 +482,7 @@ public class OrderService {
      * @param orderId identifier for the order
      * @return information about requested product
      */
-    public OrderHeader getOrderByOrderId(Integer orderId) {
+    public ModelEntity getOrderByOrderId(Integer orderId) {
         return orderHeaderRepository.findByOrderId(orderId);
     }
 
@@ -537,11 +541,28 @@ public class OrderService {
 
         this.log.debug("Calling repository method: %s", methodName.toString());
 
-
         return this.dynamicRepositoryCall(this.orderRowRepository, methodName.toString(), parameters.toArray(new Object[parameters.size()]));
 
 
     }
+
+
+    /**
+     * Updates bookmark flag for a particular {@link Product} supplied by a specific {@code Vendor} for the provided {@code Center}.
+     *
+     * @param orderId     identifier for the order
+     * @param userId     identifier for the user
+     *
+     */
+    public ModelEntity sendOrder(Integer orderId, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.sendOrder(orderId, userId);
+        if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order %d hasn't been  updated by user %d.", orderId, userId);
+        }
+    }
+
 
 
 

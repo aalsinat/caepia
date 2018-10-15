@@ -31,6 +31,7 @@ public class JwtUserDetails implements UserDetailsService {
         return JwtUser.builder()
                       .username(userAccount.getUsername())
                       .password(userAccount.getPassword())
+                      .userId(userInfo.getUserId())
                       .name(userInfo.getName())
                       .surname(userInfo.getSurname())
                       .email(userInfo.getEmail())

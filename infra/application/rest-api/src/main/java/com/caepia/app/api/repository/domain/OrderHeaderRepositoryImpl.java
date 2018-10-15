@@ -1,0 +1,31 @@
+package com.caepia.app.api.repository.domain;
+
+import com.caepia.app.api.dto.StoredProcedureResult;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
+
+@Repository
+public class OrderHeaderRepositoryImpl implements OrderHeaderManagementRepository {
+    @PersistenceContext(unitName = "application")
+    private EntityManager entityManager;
+
+    @Override
+    public StoredProcedureResult sendOrder(Integer orderId, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("sendOrder")
+                                                       .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                                                       .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                                    .errorCode((Integer) result[0])
+                                    .errorMessage(String.valueOf(result[1]))
+                                    .build();
+    }
+}

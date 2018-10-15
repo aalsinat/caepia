@@ -20,6 +20,8 @@ public class JwtUser implements UserDetails {
     private String username;
     private String name;
     @JsonIgnore
+    private Integer userId;
+    @JsonIgnore
     private String surname;
     private String password;
     private String email;

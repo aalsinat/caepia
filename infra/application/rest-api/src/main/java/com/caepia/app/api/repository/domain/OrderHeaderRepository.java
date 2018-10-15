@@ -1,5 +1,6 @@
 package com.caepia.app.api.repository.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.text.SimpleDateFormat;
 
 @Repository
-public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Integer> {
+public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Integer>, OrderHeaderManagementRepository {
 
 
     /**
@@ -19,7 +20,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderId identifier for the center
      * @return information about requested product
      */
-    public OrderHeader findByOrderId(Integer orderId);
+    public ModelEntity findByOrderId(Integer orderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.

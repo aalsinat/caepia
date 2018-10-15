@@ -1,6 +1,8 @@
 package com.caepia.app.api.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
@@ -9,7 +11,12 @@ import javax.persistence.*;
 @Entity
 @IdClass(OrderHeaderPK.class)
 @Table(name = "vApiOrdersHeader")
-public class OrderHeader {
+@EqualsAndHashCode(callSuper = false)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "sendOrder",
+                procedureName = "spApiPutSendOrder")})
+public class OrderHeader extends ModelEntity {
     @Id
     @Column(name = "PK_Order")
     private Integer orderId;

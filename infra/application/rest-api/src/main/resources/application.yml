@@ -71,5 +71,6 @@ OrderController:
   getOrdersByCenterId: Retrieves a list of orders header for a particular center
   getOrderByOrderId: Retrieves header information about a particular order
   getOrdersRowsByOrderId: Retrieves rows information about a particular order
+  sendOrder: Execute the send order operative
 DocumentController:
   getAllDocuments: Retrieves a list of documents

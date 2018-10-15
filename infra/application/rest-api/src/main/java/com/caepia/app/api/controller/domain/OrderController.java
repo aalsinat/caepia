@@ -1,12 +1,14 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
@@ -17,7 +19,7 @@ public interface OrderController {
 
     @ApiOperation(value = "${OrderController.getOrderByOrderId}", httpMethod = "GET",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<OrderHeader> getOrderByOrderId(@PathVariable Integer orderId);
+    ResponseEntity<ModelEntity> getOrderByOrderId(@PathVariable Integer orderId);
 
 
     @ApiOperation(value = "${OrderController.getOrdersRowsByOrderId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -33,4 +35,8 @@ public interface OrderController {
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
+
+    @ApiOperation(value = "${OrderController.sendOrder}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId);
 }

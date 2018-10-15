@@ -1,5 +1,6 @@
 package com.caepia.app.api.controller.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import com.caepia.app.api.security.JwtUser;
@@ -7,10 +8,7 @@ import com.caepia.app.api.service.domain.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -24,7 +22,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @GetMapping(value = "/order/{orderId}/header")
-    public ResponseEntity<OrderHeader> getOrderByOrderId(@PathVariable Integer orderId) {
+    public ResponseEntity<ModelEntity> getOrderByOrderId(@PathVariable Integer orderId) {
         return ResponseEntity.ok(orderService.getOrderByOrderId(orderId));
     }
 
@@ -55,6 +53,16 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
         return ResponseEntity.ok(orderRows);
     }
 
+
+    @Override
+    @PatchMapping(value = "/order/{orderId}/send")
+    public ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId) {
+        Integer userId = this.getLogedUserId();
+        return ResponseEntity.ok(orderService.sendOrder(orderId, userId));
+
+    }
+
+
     // -----------------------------
     //  Class support methods
     // -----------------------------
@@ -68,6 +76,11 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     private boolean isEligible(Integer centerId) {
         return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
     }
+
+    private Integer getLogedUserId() {
+        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getUserId();
+    }
+
 
 }
 
