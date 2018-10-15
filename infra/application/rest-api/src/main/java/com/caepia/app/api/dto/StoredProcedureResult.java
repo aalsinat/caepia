@@ -8,4 +8,5 @@ import lombok.Data;
 public class StoredProcedureResult {
     private Integer errorCode;
     private String errorMessage;
+    private Integer resultCode;
 }

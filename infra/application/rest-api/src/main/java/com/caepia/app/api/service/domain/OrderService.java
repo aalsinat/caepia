@@ -548,7 +548,7 @@ public class OrderService {
 
 
     /**
-     * Updates bookmark flag for a particular {@link Product} supplied by a specific {@code Vendor} for the provided {@code Center}.
+     * Updates order status for a particular {@link OrderHeader} supplied.
      *
      * @param orderId     identifier for the order
      * @param userId     identifier for the user
@@ -560,6 +560,30 @@ public class OrderService {
             return this.getOrderByOrderId(orderId);
         } else {
             throw new SendOrderException("Order %d hasn't been  updated by user %d.", orderId, userId);
+        }
+    }
+
+
+    /**
+     * Create a new {@link OrderHeader} for a existing center .
+     *
+     * @param costCenter    identifier for the center
+     * @param orderDate   order date
+     * @param vendor     identifier for the vendor
+     * @param deliveryPlanDate    delivery plan date
+     * @param comments  comments
+     * @param userId   identifier for the user
+     *
+     */
+
+
+    public ModelEntity createOrderHeader(Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.createOrderHeader(costCenter, orderDate, vendor, deliveryPlanDate, comments, userId);
+        if (result.getErrorCode() == 0) {
+            Integer orderId = result.getResultCode();
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
         }
     }
 
