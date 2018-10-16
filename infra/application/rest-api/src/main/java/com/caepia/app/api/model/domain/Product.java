@@ -105,10 +105,11 @@ public class Product extends ModelEntity {
     private String vendorDesc;
 
     @Column(name = "VendorFeatures", nullable = true)
-    private Integer vendorFeatures;
+    private String vendorFeatures;
 
     @Column(name = "VendorCategory", nullable = true)
     private String vendorCategory;
 
 
 }
+
