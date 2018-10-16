@@ -2,6 +2,7 @@ package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
 import com.caepia.app.api.dto.orderHeaderDataDTO;
+import com.caepia.app.api.dto.orderRowDataDTO;
 import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
@@ -44,4 +45,13 @@ public interface OrderController {
     @ApiOperation(value =  "${OrderController.createOrderHeader}", httpMethod = "POST",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<ModelEntity> createOrderHeader(@ApiParam("Order information") orderHeaderDataDTO order);
+
+    @ApiOperation(value =  "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") orderHeaderDataDTO order);
+
+    @ApiOperation(value =  "${OrderController.createOrderRow}", httpMethod = "POST",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> createOrderRow(@ApiParam("Order information") orderRowDataDTO order);
+
 }

@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.orderHeaderDataDTO;
+import com.caepia.app.api.dto.orderRowDataDTO;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderHeader;
@@ -83,6 +84,44 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     }
 
+    @Override
+    @PostMapping(value = "/order/{orderId}/header")
+    public ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @RequestBody orderHeaderDataDTO order) {
+
+        Integer userId = this.getLogedUserId();
+        Integer costCenter = order.getCostCenter();
+        String orderDate = order.getOrderDate();
+        Integer vendor = order.getVendor();
+        String deliveryPlanDate = order.getDeliveryPlanDate();
+        String comments = order.getComments();
+
+        if (!isEligible(costCenter))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", costCenter);
+
+        return ResponseEntity.ok(orderService.updateOrderHeader(orderId, costCenter, orderDate ,vendor,deliveryPlanDate, comments, userId));
+
+
+    }
+
+
+    @Override
+    @PostMapping(value = "/orders/Row")
+    public ResponseEntity<ModelEntity> createOrderRow(@RequestBody orderRowDataDTO order) {
+
+        Integer userId = this.getLogedUserId();
+        Integer orderId = order.getOrderId();
+        String productName = order.getProductName();
+        Integer categoryL3 = order.getCategoryL3();
+        Integer units = order.getUnits();
+        Float packQuantity = order.getPackQuantity();
+        Float cost = order.getCost();
+
+        String comments = order.getComments();
+
+        return ResponseEntity.ok(orderService.createOrderRow(orderId, productName, categoryL3, units, packQuantity, cost, comments, userId));
+
+
+    }
 
     // -----------------------------
     //  Class support methods

@@ -587,7 +587,24 @@ public class OrderService {
         }
     }
 
+    public ModelEntity updateOrderHeader(Integer orderId, Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.updateOrderHeader(orderId, costCenter, orderDate, vendor, deliveryPlanDate, comments, userId);
+        if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        }
+    }
 
+
+    public ModelEntity createOrderRow(Integer orderId, String productName, Integer categoryL3, Integer units, Float packQuantity, Float cost,  String comments, Integer userId) {
+        StoredProcedureResult result = orderRowRepository.createOrderRow(orderId, productName, categoryL3, units, packQuantity, cost,  comments, userId);
+        if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        }
+    }
 
 
         /* ------------------------ */

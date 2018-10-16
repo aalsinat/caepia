@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.text.SimpleDateFormat;
 
-@ApiModel(description = "Order header request information", value = "OrderHeader")
+@ApiModel(description = "Order header request information", value = "OrderHeaderData")
 public class orderHeaderDataDTO {
     @ApiModelProperty(position = 1, required = true)
     private Integer costCenter;

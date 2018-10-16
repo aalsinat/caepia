@@ -7,5 +7,7 @@ public interface OrderHeaderManagementRepository {
 
     StoredProcedureResult createOrderHeader(Integer costCenter, String orderDate, Integer vendor, String deliveryPlanDate, String comments, Integer userId);
 
+    StoredProcedureResult updateOrderHeader(Integer orderId, Integer costCenter, String orderDate, Integer vendor, String deliveryPlanDate, String comments, Integer userId);
+
 
 }

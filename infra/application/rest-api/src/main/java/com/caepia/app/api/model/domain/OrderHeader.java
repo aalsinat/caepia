@@ -17,7 +17,9 @@ import javax.persistence.*;
         @NamedStoredProcedureQuery(name = "sendOrder",
                 procedureName = "spApiPutSendOrder"),
         @NamedStoredProcedureQuery(name = "createOrderHeader",
-                procedureName = "spApiPostOrderHeader")})
+                procedureName = "spApiPostOrderHeader"),
+        @NamedStoredProcedureQuery(name = "updateOrderHeader",
+                procedureName = "spApiPutOrderHeader")})
 public class OrderHeader extends ModelEntity {
     @Id
     @Column(name = "PK_Order")

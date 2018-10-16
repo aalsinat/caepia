@@ -50,4 +50,26 @@ public class OrderHeaderRepositoryImpl implements OrderHeaderManagementRepositor
                 .build();
     }
 
+    @Override
+    public StoredProcedureResult updateOrderHeader(Integer orderID, Integer costCenter, String orderDate, Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("createOrderHeader")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(4, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(5, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(6, Integer.class, ParameterMode.IN);
+        query.setParameter(0, costCenter).setParameter(1, costCenter).setParameter(2, orderDate).setParameter(3, vendor).setParameter(4, deliveryPlanDate).setParameter(5, comments).setParameter(6, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                .build();
+    }
+
+
 }

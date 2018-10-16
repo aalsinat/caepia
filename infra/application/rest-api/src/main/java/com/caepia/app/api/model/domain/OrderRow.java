@@ -1,13 +1,22 @@
 package com.caepia.app.api.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+
+
+
 
 @Data
 @Entity
 @IdClass(OrderRowPK.class)
 @Table(name = "vApiOrdersRows")
+@EqualsAndHashCode(callSuper = false)
+@NamedStoredProcedureQueries(value = {
+      @NamedStoredProcedureQuery(name = "createOrderRow",
+                procedureName = "spApiPostVendorProduct")})
 public class OrderRow {
     @Id
     @Column(name = "PK_Order")
