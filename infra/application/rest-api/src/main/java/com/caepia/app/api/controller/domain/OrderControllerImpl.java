@@ -104,10 +104,9 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PostMapping(value = "/orders/row")
-    public ResponseEntity<ModelEntity> createOrderRow(@RequestBody OrderRowDataDTO order) {
+    public ResponseEntity<ModelEntity> createOrderRow(@PathVariable Integer orderId, @RequestBody OrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
-        Integer orderId = order.getOrderId();
         String productName = order.getProductName();
         Integer categoryL3 = order.getCategoryL3();
         Integer units = order.getUnits();
@@ -120,6 +119,21 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
 
     }
+
+    @Override
+    @PatchMapping(value = "/orders/{orderId}/row/{rowId}")
+    public ResponseEntity<ModelEntity> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody OrderRowDataDTO order) {
+
+        Integer userId = this.getLogedUserId();
+        Float packQuantity = order.getPackQuantity();
+        String comments = order.getComments();
+
+
+        return ResponseEntity.ok(orderService.updateOrderRow(orderId, rowId, packQuantity, comments, userId));
+
+
+    }
+
 
     // -----------------------------
     //  Class support methods

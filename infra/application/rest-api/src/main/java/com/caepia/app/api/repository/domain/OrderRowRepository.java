@@ -1,5 +1,6 @@
 package com.caepia.app.api.repository.domain;
 
+import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderRow;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public interface OrderRowRepository extends JpaRepository<OrderRow, Integer>, Or
      * @param rowId row number of the order
      * @return information about requested order
      */
-    public OrderRow findByOrderIdAndRowId(Integer orderId, Integer rowId);
+    public ModelEntity findByOrderIdAndRowId(Integer orderId, Integer rowId);
 
     /**
      * Query for fetching all authorized {@link OrderRow}s for a particular {@code Center}.

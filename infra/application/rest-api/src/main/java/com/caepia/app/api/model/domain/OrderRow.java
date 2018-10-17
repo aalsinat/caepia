@@ -15,9 +15,11 @@ import javax.persistence.*;
 @Table(name = "vApiOrdersRows")
 @EqualsAndHashCode(callSuper = false)
 @NamedStoredProcedureQueries(value = {
-      @NamedStoredProcedureQuery(name = "createOrderRow",
-                procedureName = "spApiPostVendorProduct")})
-public class OrderRow {
+    @NamedStoredProcedureQuery(name = "createOrderRow",
+                procedureName = "spApiPostVendorProduct"),
+    @NamedStoredProcedureQuery(name = "updateOrderRow",
+            procedureName = "spApiPutOrderRow")})
+public class OrderRow extends ModelEntity{
     @Id
     @Column(name = "PK_Order")
     private Integer orderId;

@@ -50,6 +50,11 @@ public interface OrderController {
 
     @ApiOperation(value = "${OrderController.createOrderRow}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> createOrderRow(@ApiParam("Order information") OrderRowDataDTO order);
+    ResponseEntity<ModelEntity> createOrderRow(@PathVariable Integer orderId, @ApiParam("Order row information") OrderRowDataDTO order);
+
+    @ApiOperation(value = "${OrderController.updateOrderRow}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
+
 
 }

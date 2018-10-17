@@ -600,12 +600,21 @@ public class OrderService {
     public ModelEntity createOrderRow(Integer orderId, String productName, Integer categoryL3, Integer units, Float packQuantity, Float cost,  String comments, Integer userId) {
         StoredProcedureResult result = orderRowRepository.createOrderRow(orderId, productName, categoryL3, units, packQuantity, cost,  comments, userId);
         if (result.getErrorCode() == 0) {
-            return this.getOrderByOrderId(orderId);
+            Integer rowId = result.getResultCode();
+            return orderRowRepository.findByOrderIdAndRowId(orderId,rowId);
         } else {
             throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
         }
     }
 
+    public ModelEntity updateOrderRow(Integer orderId, Integer rowId, Float packQuantity, String comments, Integer userId) {
+        StoredProcedureResult result = orderRowRepository.updateOrderRow(orderId, rowId, packQuantity,  comments, userId);
+        if (result.getErrorCode() == 0) {
+            return orderRowRepository.findByOrderIdAndRowId(orderId,rowId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        }
+    }
 
         /* ------------------------ */
     /*    Support methods       return this.dynamicRepositoryCall(this.productRepository, methodName.toString(), parameters.toArray(new Object[parameters.size()]));*/

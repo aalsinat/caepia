@@ -37,4 +37,23 @@ public class OrderRowRepositoryImpl implements OrderRowManagementRepository {
                                     .resultCode((Integer) result[2])
                                     .build();
     }
+
+    @Override
+    public StoredProcedureResult updateOrderRow(Integer orderId, Integer rowId, Float packQuantity,  String comments, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateOrderRow")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, Float.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(4, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, rowId).setParameter(2, packQuantity).setParameter(3, comments).setParameter(4, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                .build();
+    }
 }
