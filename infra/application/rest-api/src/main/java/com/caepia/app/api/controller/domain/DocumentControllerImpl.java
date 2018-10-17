@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.model.domain.Document;
+import com.caepia.app.api.model.domain.ProductUnits;
 import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.DocumentService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,6 +37,20 @@ public class DocumentControllerImpl extends AbstractController implements Docume
 
         Iterable<Document> orderRows = documentService.getAllDocuments();
         return ResponseEntity.ok(orderRows);
+    }
+
+
+    /**
+     * Get all authorized {@link ProductUnits}s
+     *
+     * @return
+     */
+    @Override
+    @GetMapping(value = "/documents/productUnits")
+    public ResponseEntity<Iterable<ProductUnits>> getAllProductUnits() {
+
+        Iterable<ProductUnits> productUnits = documentService.getAllProductUnits();
+        return ResponseEntity.ok(productUnits);
     }
 
     // -----------------------------
