@@ -1,16 +1,14 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
-import com.caepia.app.api.dto.orderHeaderDataDTO;
-import com.caepia.app.api.dto.orderRowDataDTO;
+import com.caepia.app.api.dto.OrderHeaderDataDTO;
+import com.caepia.app.api.dto.OrderRowDataDTO;
 import com.caepia.app.api.model.domain.ModelEntity;
-import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
@@ -39,19 +37,19 @@ public interface OrderController {
 
 
     @ApiOperation(value = "${OrderController.sendOrder}", httpMethod = "PATCH",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId);
 
-    @ApiOperation(value =  "${OrderController.createOrderHeader}", httpMethod = "POST",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> createOrderHeader(@ApiParam("Order information") orderHeaderDataDTO order);
+    @ApiOperation(value = "${OrderController.createOrderHeader}", httpMethod = "POST",
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> createOrderHeader(@ApiParam("Order information") OrderHeaderDataDTO order);
 
-    @ApiOperation(value =  "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") orderHeaderDataDTO order);
+    @ApiOperation(value = "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") OrderHeaderDataDTO order);
 
-    @ApiOperation(value =  "${OrderController.createOrderRow}", httpMethod = "POST",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> createOrderRow(@ApiParam("Order information") orderRowDataDTO order);
+    @ApiOperation(value = "${OrderController.createOrderRow}", httpMethod = "POST",
+                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> createOrderRow(@ApiParam("Order information") OrderRowDataDTO order);
 
 }

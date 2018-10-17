@@ -2,11 +2,11 @@ package com.caepia.app.api.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.text.SimpleDateFormat;
+import lombok.Getter;
 
 @ApiModel(description = "Order header request information", value = "OrderHeaderData")
-public class orderHeaderDataDTO {
+@Getter
+public class OrderHeaderDataDTO {
     @ApiModelProperty(position = 1, required = true)
     private Integer costCenter;
 
@@ -21,22 +21,6 @@ public class orderHeaderDataDTO {
 
     @ApiModelProperty(position = 5)
     private String comments;
-
-    public Integer getCostCenter() {
-        return this.costCenter;
-    }
-
-    public String getOrderDate() {
-        return this.orderDate;
-    }
-
-    public Integer getVendor() {
-        return this.vendor;
-    }
-
-    public String getDeliveryPlanDate() {
-        return this.deliveryPlanDate;
-    }
 
     public String getComments() {
         return this.comments == null ? "" : this.comments;

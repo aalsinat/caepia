@@ -1,10 +1,9 @@
 package com.caepia.app.api.controller.domain;
 
-import com.caepia.app.api.dto.orderHeaderDataDTO;
-import com.caepia.app.api.dto.orderRowDataDTO;
+import com.caepia.app.api.dto.OrderHeaderDataDTO;
+import com.caepia.app.api.dto.OrderRowDataDTO;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.ModelEntity;
-import com.caepia.app.api.model.domain.OrderHeader;
 import com.caepia.app.api.model.domain.OrderRow;
 import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.OrderService;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -68,7 +66,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PostMapping(value = "/orders/header")
-    public ResponseEntity<ModelEntity> createOrderHeader(@RequestBody orderHeaderDataDTO order) {
+    public ResponseEntity<ModelEntity> createOrderHeader(@RequestBody OrderHeaderDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Integer costCenter = order.getCostCenter();
@@ -85,8 +83,8 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     }
 
     @Override
-    @PostMapping(value = "/order/{orderId}/header")
-    public ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @RequestBody orderHeaderDataDTO order) {
+    @PatchMapping(value = "/orders/{orderId}/header")
+    public ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @RequestBody OrderHeaderDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Integer costCenter = order.getCostCenter();
@@ -105,8 +103,8 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
 
     @Override
-    @PostMapping(value = "/orders/Row")
-    public ResponseEntity<ModelEntity> createOrderRow(@RequestBody orderRowDataDTO order) {
+    @PostMapping(value = "/orders/row")
+    public ResponseEntity<ModelEntity> createOrderRow(@RequestBody OrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Integer orderId = order.getOrderId();
