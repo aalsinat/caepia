@@ -8,6 +8,7 @@ import com.caepia.app.api.model.domain.OrderRow;
 import com.caepia.app.api.model.domain.Product;
 import com.caepia.app.api.repository.domain.OrderHeaderRepository;
 import com.caepia.app.api.repository.domain.OrderRowRepository;
+import com.caepia.app.api.repository.domain.OrderWhatsAppRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderHeaderRepository orderHeaderRepository;
     private final OrderRowRepository orderRowRepository;
+    private final OrderWhatsAppRepository orderWhatsAppRepository;
+
 
     private final String ORDERS_ROW = "getAllByOrderId";
     private final String ORDERS_CENTER_VENDOR = "findAllByCenterIdAndVendorId";
@@ -56,7 +59,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId ,orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqual(centerId ,orderDate);
     }
 
     /**
@@ -79,7 +82,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId,productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId,productionOrderId, orderDate);
     }
 
     /**
@@ -102,7 +105,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(centerId, status, orderDate);
     }
 
     /**
@@ -125,7 +128,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, productionOrderId, orderDate);
     }
 
 
@@ -149,7 +152,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(centerId, owner, orderDate);
     }
 
 
@@ -175,7 +178,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, owner, productionOrderId, orderDate);
     }
 
 
@@ -203,7 +206,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqual(centerId, orderDate, pageable);
     }
 
     /**
@@ -232,7 +235,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, productionOrderId, orderDate, pageable);
     }
 
     /**
@@ -261,7 +264,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(centerId, owner, orderDate, pageable);
     }
 
 
@@ -293,7 +296,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, owner, productionOrderId, orderDate, pageable);
     }
 
     /**
@@ -325,7 +328,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, productionOrderId, orderDate, pageable);
     }
 
 
@@ -355,7 +358,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(centerId, status, orderDate, pageable);
     }
 
 
@@ -400,7 +403,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(centerId, status, owner, orderDate, pageable);
     }
 
     /**
@@ -413,7 +416,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(centerId, status, owner, orderDate);
     }
 
     /**
@@ -444,7 +447,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, owner, productionOrderId, orderDate);
     }
 
     /**
@@ -469,7 +472,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, owner, productionOrderId, orderDate);
     }
 
 
@@ -486,6 +489,20 @@ public class OrderService {
     public ModelEntity getOrderByOrderId(Integer orderId) {
         return orderHeaderRepository.findByOrderId(orderId);
     }
+
+
+
+    /**
+     * Retrieves all {@link OrderWhatsApp}s supplied by a particular {@code Order}.
+     *
+     * @param orderId identifier for the order
+     * @return information about requested product
+     */
+    public ModelEntity ordersWhatsAppParams(Integer orderId) {
+
+        return orderWhatsAppRepository.findByOrderId(orderId);
+    }
+
 
 
 
@@ -537,7 +554,7 @@ public class OrderService {
         methodName.append(status.isPresent() && parameters.add(status.get()) ? "AndStatus" : "")
                 .append(owner.isPresent() && parameters.add(owner.get()) ? "AndOwner" : "")
                 .append(productionOrderId.isPresent() && parameters.add(productionOrderId.get()) ? "AndProductionOrderId" : "")
-                .append(orderDate.isPresent() && parameters.add(orderDate.get()) ? "AndOrderDate" : "")
+                .append(orderDate.isPresent() && parameters.add(orderDate.get()) ? "AndOrderDateGreaterThanEqual" : "")
                 .append(this.isPageRequest(page, size) && parameters
                         .add(PageRequest.of(this.transformDefaultPage(page.get()), size.get())) ? "" : "");
 

@@ -37,6 +37,12 @@ public interface OrderController {
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
 
+    @ApiOperation(value = "${OrderController.ordersWhatsAppParams}", httpMethod = "GET",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> ordersWhatsAppParams(@PathVariable Integer orderId);
+
+
+
     @ApiOperation(value = "${OrderController.sendOrder}", httpMethod = "PATCH",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId);
@@ -56,6 +62,7 @@ public interface OrderController {
     @ApiOperation(value = "${OrderController.updateOrderRow}", httpMethod = "PATCH",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<StoredProcedureResult> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
+
 
 
 }

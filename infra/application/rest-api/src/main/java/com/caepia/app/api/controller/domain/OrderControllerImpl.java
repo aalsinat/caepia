@@ -66,6 +66,13 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
 
     @Override
+    @GetMapping(value = "/order/{orderId}/whatsAppParams")
+    public ResponseEntity<ModelEntity> ordersWhatsAppParams(@PathVariable Integer orderId) {
+        return ResponseEntity.ok(orderService.ordersWhatsAppParams(orderId));
+    }
+
+
+    @Override
     @PostMapping(value = "/orders/header")
     public ResponseEntity<StoredProcedureResult> createOrderHeader(@RequestBody OrderHeaderDataDTO order) {
 
