@@ -2,6 +2,7 @@ package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.OrderHeaderDataDTO;
 import com.caepia.app.api.dto.OrderRowDataDTO;
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderRow;
@@ -66,7 +67,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PostMapping(value = "/orders/header")
-    public ResponseEntity<ModelEntity> createOrderHeader(@RequestBody OrderHeaderDataDTO order) {
+    public ResponseEntity<StoredProcedureResult> createOrderHeader(@RequestBody OrderHeaderDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Integer costCenter = order.getCostCenter();
@@ -84,7 +85,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PatchMapping(value = "/orders/{orderId}/header")
-    public ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @RequestBody OrderHeaderDataDTO order) {
+    public ResponseEntity<StoredProcedureResult> updateOrderHeader(@PathVariable Integer orderId, @RequestBody OrderHeaderDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Integer costCenter = order.getCostCenter();
@@ -104,7 +105,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PostMapping(value = "/orders/row")
-    public ResponseEntity<ModelEntity> createOrderRow(@PathVariable Integer orderId, @RequestBody OrderRowDataDTO order) {
+    public ResponseEntity<StoredProcedureResult > createOrderRow(@PathVariable Integer orderId, @RequestBody OrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         String productName = order.getProductName();
@@ -122,7 +123,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PatchMapping(value = "/orders/{orderId}/row/{rowId}")
-    public ResponseEntity<ModelEntity> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody OrderRowDataDTO order) {
+    public ResponseEntity<StoredProcedureResult> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody OrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Float packQuantity = order.getPackQuantity();

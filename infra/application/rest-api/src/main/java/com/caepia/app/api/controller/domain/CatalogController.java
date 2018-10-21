@@ -80,7 +80,7 @@ public interface CatalogController {
             @ApiResponse(code = 200, message = "List of orders for this center", response = OrderHeader.class,
                          responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
+    ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Status filter") Integer status,
             @ApiParam(value = "Owner filter") Integer owner,
@@ -88,6 +88,23 @@ public interface CatalogController {
             @ApiParam(value = "OrderData filter") String orderDate,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size);
+
+
+    @ApiOperation(value = "${OrderController.getOrdersByCenterIdVendorId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of orders for this center", response = OrderHeader.class,
+                    responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterIdVendorId(
+            @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
+            @ApiParam(value = "Status filter") Optional<Integer> status,
+            @ApiParam(value = "Owner filter") Optional<Integer> owner,
+            @ApiParam(value = "ProductionOrderId filter") Optional<Integer> productionOrderId,
+            @ApiParam(value = "OrderData filter") Optional<String> orderDate,
+            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
     @ApiOperation(value = "${CatalogController.getPurchasesTrendsByCenterIdVendorIdProductId}",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -99,5 +116,7 @@ public interface CatalogController {
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
             @ApiParam(value = "Product identifier", required = true) Integer productId);
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.dto.OrderHeaderDataDTO;
 import com.caepia.app.api.dto.OrderRowDataDTO;
 import com.caepia.app.api.model.domain.ModelEntity;
@@ -42,19 +43,19 @@ public interface OrderController {
 
     @ApiOperation(value = "${OrderController.createOrderHeader}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> createOrderHeader(@ApiParam("Order information") OrderHeaderDataDTO order);
+    ResponseEntity<StoredProcedureResult> createOrderHeader(@ApiParam("Order information") OrderHeaderDataDTO order);
 
     @ApiOperation(value = "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") OrderHeaderDataDTO order);
+    ResponseEntity<StoredProcedureResult> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") OrderHeaderDataDTO order);
 
     @ApiOperation(value = "${OrderController.createOrderRow}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> createOrderRow(@PathVariable Integer orderId, @ApiParam("Order row information") OrderRowDataDTO order);
+    ResponseEntity<StoredProcedureResult> createOrderRow(@PathVariable Integer orderId, @ApiParam("Order row information") OrderRowDataDTO order);
 
     @ApiOperation(value = "${OrderController.updateOrderRow}", httpMethod = "PATCH",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
+    ResponseEntity<StoredProcedureResult> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
 
 
 }

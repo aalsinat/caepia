@@ -36,6 +36,7 @@ public class OrderService {
     private final OrderRowRepository orderRowRepository;
 
     private final String ORDERS_ROW = "getAllByOrderId";
+    private final String ORDERS_CENTER_VENDOR = "findAllByCenterIdAndVendorId";
 
     /**
      * Retrieves all authorizes {@link OrderHeader}s for a particular {@code Center}
@@ -43,7 +44,7 @@ public class OrderService {
      * @param centerId identifier for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterId(Integer centerId) {
+    public Iterable<ModelEntity> getOrdersByCenterId(Integer centerId) {
         return orderHeaderRepository.findAllByCenterId(centerId);
     }
 
@@ -54,7 +55,7 @@ public class OrderService {
      * @param orderDate filter for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId ,orderDate);
     }
 
@@ -65,7 +66,7 @@ public class OrderService {
      * @param centerId identifier for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId) {
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderId(centerId,productionOrderId);
     }
 
@@ -77,7 +78,7 @@ public class OrderService {
      * @param orderDate filter for the center
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId,productionOrderId, orderDate);
     }
 
@@ -88,7 +89,7 @@ public class OrderService {
      * @param status status for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatus(Integer centerId, Integer status) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatus(Integer centerId, Integer status) {
         return orderHeaderRepository.findAllByCenterIdAndStatus(centerId, status);
     }
 
@@ -100,7 +101,7 @@ public class OrderService {
      * @param orderDate status for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate);
     }
 
@@ -111,7 +112,7 @@ public class OrderService {
      * @param status status for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId);
     }
 
@@ -123,7 +124,7 @@ public class OrderService {
      * @param orderDate filter for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate);
     }
 
@@ -135,7 +136,7 @@ public class OrderService {
      * @param owner owner for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner) {
         return orderHeaderRepository.findAllByCenterIdAndOwner(centerId, owner);
     }
 
@@ -147,7 +148,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate);
     }
 
@@ -160,7 +161,7 @@ public class OrderService {
      * @param productionOrderId filter for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId) {
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId);
     }
 
@@ -173,7 +174,7 @@ public class OrderService {
      * @param orderDate filter for the order
      * @return
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate);
     }
 
@@ -186,7 +187,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterId(Integer centerId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterId(Integer centerId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterId(centerId, pageable);
     }
@@ -200,7 +201,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOrderDate(centerId, orderDate, pageable);
     }
@@ -214,7 +215,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderId(centerId, productionOrderId, pageable);
     }
@@ -229,7 +230,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDate(centerId, productionOrderId, orderDate, pageable);
     }
@@ -243,7 +244,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwner(centerId, owner, pageable);
     }
@@ -258,7 +259,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDate(centerId, owner, orderDate, pageable);
     }
@@ -274,7 +275,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId, pageable);
     }
@@ -290,7 +291,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(centerId, owner, productionOrderId, orderDate, pageable);
     }
@@ -305,7 +306,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId, pageable);
     }
@@ -322,7 +323,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(centerId, status, productionOrderId, orderDate, pageable);
     }
@@ -337,7 +338,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatus(centerId, status, pageable);
     }
@@ -352,7 +353,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDate(centerId, status, orderDate, pageable);
     }
@@ -369,7 +370,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwner(centerId, status, owner, pageable);
     }
@@ -382,7 +383,7 @@ public class OrderService {
      * @param owner filter owner for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwner(centerId, status, owner);
     }
 
@@ -397,7 +398,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate, pageable);
     }
@@ -411,7 +412,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDate(centerId, status, owner, orderDate);
     }
 
@@ -425,7 +426,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId);
     }
@@ -441,7 +442,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
     }
@@ -454,7 +455,7 @@ public class OrderService {
      * @param owner filter owner for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId);
     }
 
@@ -467,7 +468,7 @@ public class OrderService {
      * @param orderDate filter orderDate for the order
      * @return a page of authorized {@link OrderHeader}s
      */
-    public Iterable<OrderHeader> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate) {
+    public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate) {
         return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(centerId, status, owner, productionOrderId, orderDate);
     }
 
@@ -509,6 +510,43 @@ public class OrderService {
     public Iterable<OrderRow> getOrdersRowsByOrderId(Integer orderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
         return orderRowRepository.findByOrderId(orderId, pageable);
+    }
+
+    /**
+     * Retrieves, page by page, all authorized {@link OrderRow}s for a particular {@code Order}.
+     *
+     * @param centerId identifier for the order
+     * @param page     requested page number
+     * @param size     requested page size
+     * @return a page of authorized {@link OrderRow}s
+     */
+    public Iterable<ModelEntity> getOrderHeaderByCenterIdVendorId(Integer centerId, Integer vendorId,
+                                                                  Optional<Integer> status,
+                                                                  Optional<Integer> owner,
+                                                                  Optional<Integer> productionOrderId,
+                                                                  Optional<String> orderDate,
+                                                                  Optional<Integer> page,
+                                                                  Optional<Integer> size)  throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+
+
+        StringBuilder methodName = new StringBuilder(ORDERS_CENTER_VENDOR);
+        List parameters = new ArrayList(Arrays.asList(centerId));
+
+        parameters.add(vendorId);
+
+        methodName.append(status.isPresent() && parameters.add(status.get()) ? "AndStatus" : "")
+                .append(owner.isPresent() && parameters.add(owner.get()) ? "AndOwner" : "")
+                .append(productionOrderId.isPresent() && parameters.add(productionOrderId.get()) ? "AndProductionOrderId" : "")
+                .append(orderDate.isPresent() && parameters.add(orderDate.get()) ? "AndOrderDate" : "")
+                .append(this.isPageRequest(page, size) && parameters
+                        .add(PageRequest.of(this.transformDefaultPage(page.get()), size.get())) ? "" : "");
+
+        this.log.debug("Calling repository method: %s", methodName.toString());
+
+        return this.dynamicRepositoryCallOrderHeader(this.orderHeaderRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
+
+
+
     }
 
 
@@ -577,43 +615,47 @@ public class OrderService {
      */
 
 
-    public ModelEntity createOrderHeader(Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
+    public StoredProcedureResult createOrderHeader(Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
         StoredProcedureResult result = orderHeaderRepository.createOrderHeader(costCenter, orderDate, vendor, deliveryPlanDate, comments, userId);
-        if (result.getErrorCode() == 0) {
+        return result;
+       /* if (result.getErrorCode() == 0) {
             Integer orderId = result.getResultCode();
             return this.getOrderByOrderId(orderId);
         } else {
             throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
-        }
+        } */
     }
 
-    public ModelEntity updateOrderHeader(Integer orderId, Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
+    public StoredProcedureResult updateOrderHeader(Integer orderId, Integer costCenter, String orderDate , Integer vendor, String deliveryPlanDate, String comments, Integer userId) {
         StoredProcedureResult result = orderHeaderRepository.updateOrderHeader(orderId, costCenter, orderDate, vendor, deliveryPlanDate, comments, userId);
-        if (result.getErrorCode() == 0) {
+        return result;
+        /*  if (result.getErrorCode() == 0) {
             return this.getOrderByOrderId(orderId);
         } else {
             throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
-        }
+        } */
     }
 
 
-    public ModelEntity createOrderRow(Integer orderId, String productName, Integer categoryL3, Integer units, Float packQuantity, Float cost,  String comments, Integer userId) {
+    public StoredProcedureResult createOrderRow(Integer orderId, String productName, Integer categoryL3, Integer units, Float packQuantity, Float cost,  String comments, Integer userId) {
         StoredProcedureResult result = orderRowRepository.createOrderRow(orderId, productName, categoryL3, units, packQuantity, cost,  comments, userId);
-        if (result.getErrorCode() == 0) {
+        return result;
+       /* if (result.getErrorCode() == 0) {
             Integer rowId = result.getResultCode();
             return orderRowRepository.findByOrderIdAndRowId(orderId,rowId);
         } else {
             throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
-        }
+        } */
     }
 
-    public ModelEntity updateOrderRow(Integer orderId, Integer rowId, Float packQuantity, String comments, Integer userId) {
+    public StoredProcedureResult updateOrderRow(Integer orderId, Integer rowId, Float packQuantity, String comments, Integer userId) {
         StoredProcedureResult result = orderRowRepository.updateOrderRow(orderId, rowId, packQuantity,  comments, userId);
-        if (result.getErrorCode() == 0) {
+        return result;
+         /*  if (result.getErrorCode() == 0) {
             return orderRowRepository.findByOrderIdAndRowId(orderId,rowId);
         } else {
             throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
-        }
+        } */
     }
 
         /* ------------------------ */
@@ -639,6 +681,17 @@ public class OrderService {
         Method method = repository.getClass().getMethod(methodName, types);
 
         return (Iterable<OrderRow>) method.invoke(repository, parameters);
+    }
+
+
+    Iterable<ModelEntity> dynamicRepositoryCallOrderHeader(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        final Class<?>[] types = Arrays.asList(parameters).stream()
+                .map(this::getClassNameFromParameter)
+                .collect(Collectors.toList())
+                .toArray(new Class<?>[parameters.length]);
+        Method method = repository.getClass().getMethod(methodName, types);
+
+        return (Iterable<ModelEntity>) method.invoke(repository, parameters);
     }
 
 

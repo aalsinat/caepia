@@ -28,7 +28,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param centerId identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterId(Integer centerId);
+    Iterable<ModelEntity> findAllByCenterId(Integer centerId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -37,7 +37,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndOrderDate(Integer centerId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOrderDate(Integer centerId, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -46,7 +46,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -56,7 +56,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate);
 
 
     /**
@@ -66,7 +66,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param status identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatus(Integer centerId, Integer status);
+    Iterable<ModelEntity> findAllByCenterIdAndStatus(Integer centerId, Integer status);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -76,7 +76,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -86,7 +86,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId filter identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -97,7 +97,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -106,7 +106,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param owner filter owner for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndOwner(Integer centerId, Integer owner);
+    Iterable<ModelEntity> findAllByCenterIdAndOwner(Integer centerId, Integer owner);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -116,7 +116,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter orderDate for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate);
 
 
     /**
@@ -127,7 +127,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId filter productionOrderId for the order
      * @return a list of authorized {@link OrderHeader}s
      */
-    Iterable<OrderHeader> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -138,7 +138,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter orderDate for the order
      * @return a list of authorized {@link OrderHeader}s
      */
-    Iterable<OrderHeader> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate);
 
 
 
@@ -150,7 +150,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param owner identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner);
 
 
     /**
@@ -162,7 +162,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate);
 
 
     /**
@@ -174,7 +174,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId);
 
 
     /**
@@ -187,7 +187,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate);
 
 
 
@@ -199,7 +199,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterId(Integer centerId, Pageable page);
+    Page<ModelEntity> findAllByCenterId(Integer centerId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -209,7 +209,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndOrderDate(Integer centerId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOrderDate(Integer centerId, String orderDate, Pageable page);
 
 
     /**
@@ -220,7 +220,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -231,7 +231,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -241,7 +241,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndOwner(Integer centerId, Integer owner, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwner(Integer centerId, Integer owner, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -252,7 +252,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Pageable page);
 
 
     /**
@@ -264,7 +264,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -276,7 +276,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Pageable page);
 
 
     /**
@@ -287,7 +287,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndStatus(Integer centerId, Integer status, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatus(Integer centerId, Integer status, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -298,7 +298,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -309,72 +309,141 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status,Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status,Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
      * @param status identifier for the order
-     * @param productionOrderId filter identifier for the order
-     * @param orderDate filter identifier for the order
-     * @param page     requested page
-     * @return a page of authorized {@link OrderHeader}s
-     */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status,Integer productionOrderId, String orderDate, Pageable page);
-
-
-    /**
-     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
-     *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
-     * @param page     requested page
-     * @return a page of authorized {@link OrderHeader}s
-     */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner,Pageable page);
-
-    /**
-     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
-     *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
-     * @param orderDate filter identifier for the order
-     * @param page     requested page
-     * @return a page of authorized {@link OrderHeader}s
-     */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Pageable page);
-
-
-    /**
-     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
-     *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
-     * @param productionOrderId filter identifier for the order
-     * @param page     requested page
-     * @return a page of authorized {@link OrderHeader}s
-     */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId ,Pageable page);
-
-
-
-
-    /**
-     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
-     *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
      * @param productionOrderId filter identifier for the order
      * @param orderDate filter identifier for the order
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<OrderHeader> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate ,Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status,Integer productionOrderId, String orderDate, Pageable page);
+
+
+    /**
+     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status identifier for the order
+     * @param owner filter identifier for the order
+     * @param page     requested page
+     * @return a page of authorized {@link OrderHeader}s
+     */
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner,Pageable page);
+
+    /**
+     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status identifier for the order
+     * @param owner filter identifier for the order
+     * @param orderDate filter identifier for the order
+     * @param page     requested page
+     * @return a page of authorized {@link OrderHeader}s
+     */
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Pageable page);
+
+
+    /**
+     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status identifier for the order
+     * @param owner filter identifier for the order
+     * @param productionOrderId filter identifier for the order
+     * @param page     requested page
+     * @return a page of authorized {@link OrderHeader}s
+     */
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId ,Pageable page);
+
+
+
+
+    /**
+     * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param status identifier for the order
+     * @param owner filter identifier for the order
+     * @param productionOrderId filter identifier for the order
+     * @param orderDate filter identifier for the order
+     * @param page     requested page
+     * @return a page of authorized {@link OrderHeader}s
+     */
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate ,Pageable page);
+
+
+ // with centerIdAndVendorId
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorId(Integer centerId, Integer vendorId);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndOrderDate(Integer centerId, Integer vendorId, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndProductionOrderId(Integer centerId, Integer vendorId, Integer productionOrderId);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer productionOrderId, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatus(Integer centerId, Integer vendorId, Integer status);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOrderDate(Integer centerId, Integer vendorId, Integer status, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndProductionOrderId(Integer centerId, Integer vendorId, Integer status, Integer productionOrderId);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer status, Integer productionOrderId, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndOwner(Integer centerId, Integer vendorId, Integer owner);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndOrderDate(Integer centerId, Integer vendorId, Integer owner, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndProductionOrderId(Integer centerId, Integer vendorId, Integer owner, Integer productionOrderId);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer owner, Integer productionOrderId, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwner(Integer centerId, Integer vendorId, Integer status, Integer owner);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer vendorId, Integer status, Integer owner, String orderDate);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer vendorId, Integer status, Integer owner, Integer productionOrderId);
+
+    Iterable<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer status, Integer owner, Integer productionOrderId, String orderDate);
+
+
+    Page<ModelEntity> findAllByCenterIdAndVendorId(Integer centerId, Integer vendorId, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndOrderDate(Integer centerId, Integer vendorId, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndProductionOrderId(Integer centerId, Integer vendorId, Integer productionOrderId, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer productionOrderId, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndOwner(Integer centerId, Integer vendorId, Integer owner, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndOrderDate(Integer centerId, Integer vendorId, Integer owner, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndProductionOrderId(Integer centerId, Integer vendorId, Integer owner, Integer productionOrderId, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer owner, Integer productionOrderId, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatus(Integer centerId, Integer vendorId, Integer status, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOrderDate(Integer centerId, Integer vendorId, Integer status, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndProductionOrderId(Integer centerId, Integer vendorId, Integer status,Integer productionOrderId, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer vendorId, Integer status,Integer productionOrderId, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwner(Integer centerId, Integer vendorId, Integer status, Integer owner,Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer vendorId, Integer status, Integer owner, String orderDate, Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer vendorId, Integer status, Integer owner, Integer productionOrderId ,Pageable page);
+
+    Page<ModelEntity> findAllByCenterIdAndVendorIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer vendorId, Integer status, Integer owner, Integer productionOrderId, String orderDate ,Pageable page);
+
 
 
 }

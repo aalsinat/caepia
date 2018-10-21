@@ -171,18 +171,58 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     }
 
 
+
     /**
      * Get all authorized {@link OrderHeader}s for a particular {@code Center}
      *
      * @param centerId identifier for the center
+     * @param vendorId identifier for the vendor
      * @param status   identifier for the order
      * @param page     requested page number
      * @param size     size of requested page
      * @return
      */
     @Override
+    @GetMapping(value = "/centers/{centerId}/vendors/{vendorId}/orders")
+    public ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterIdVendorId(
+            @PathVariable Integer centerId,
+            @PathVariable Integer vendorId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "status", required = false)  Optional<Integer> status,
+            @RequestParam(value = "owner", required = false)  Optional<Integer> owner,
+            @RequestParam(value = "productionOrderId", required = false)  Optional<Integer> productionOrderId,
+            @RequestParam(value = "orderDate", required = false)  Optional<String> orderDate,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+
+        Iterable<ModelEntity> ordersByVendorAndCenter = orderService
+                .getOrderHeaderByCenterIdVendorId(centerId, vendorId, status, owner, productionOrderId, orderDate, page, size);
+
+        ordersByVendorAndCenter = fields.isPresent() ? super
+                .includeProperties(ordersByVendorAndCenter, super.getListFromString(fields.get())) : ordersByVendorAndCenter;
+        return ResponseEntity.ok(ordersByVendorAndCenter);
+
+
+
+
+    }
+
+
+        /**
+         * Get all authorized {@link OrderHeader}s for a particular {@code Center}
+         *
+         * @param centerId identifier for the center
+         * @param status   identifier for the order
+         * @param page     requested page number
+         * @param size     size of requested page
+         * @return
+         */
+    @Override
     @GetMapping(value = "/centers/{centerId}/orders")
-    public ResponseEntity<Iterable<OrderHeader>> getOrdersByCenterId(
+    public ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterId(
             @PathVariable Integer centerId,
             @RequestParam(value = "status", required = false) Integer status,
             @RequestParam(value = "owner", required = false) Integer owner,
@@ -195,7 +235,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
         // TODO: Filter vendor entity properties to return only those requested using field parameter
 
 
-        Iterable<OrderHeader> orders;
+        Iterable<ModelEntity> orders;
 
         if (super.isStatusFilter(status)) {
             if (super.isOwnerFilter(owner)) {
@@ -348,6 +388,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
         return ResponseEntity.ok(purchasesTrends);
     }
+
+
 
 
     // -----------------------------
