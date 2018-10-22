@@ -9,5 +9,10 @@ public interface OrderHeaderManagementRepository {
 
     StoredProcedureResult updateOrderHeader(Integer orderId, Integer costCenter, String orderDate, Integer vendor, String deliveryPlanDate, String comments, Integer userId);
 
+    StoredProcedureResult copyOrder(Integer orderId, Integer userId);
+
+    StoredProcedureResult cancelOrder(Integer orderId, Integer userId);
+
+    StoredProcedureResult receiveOrder(Integer orderId, Integer userId);
 
 }

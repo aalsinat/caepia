@@ -677,6 +677,36 @@ public class OrderService {
         } */
     }
 
+    public StoredProcedureResult copyOrder(Integer orderId, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.copyOrder(orderId, userId);
+        return result;
+        /*  if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        } */
+    }
+
+    public StoredProcedureResult cancelOrder(Integer orderId, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.cancelOrder(orderId, userId);
+        return result;
+        /*  if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        } */
+    }
+
+    public StoredProcedureResult receiveOrder(Integer orderId, Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.receiveOrder(orderId, userId);
+        return result;
+        /*  if (result.getErrorCode() == 0) {
+            return this.getOrderByOrderId(orderId);
+        } else {
+            throw new SendOrderException("Order hasn't been created by user %d. ERROR: ", userId, result.getErrorCode());
+        } */
+    }
+
         /* ------------------------ */
     /*    Support methods       return this.dynamicRepositoryCall(this.productRepository, methodName.toString(), parameters.toArray(new Object[parameters.size()]));*/
     /* ------------------------ */

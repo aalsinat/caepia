@@ -63,6 +63,17 @@ public interface OrderController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<StoredProcedureResult> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
 
+    @ApiOperation(value = "${OrderController.copyOrder}", httpMethod = "POST",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> copyOrder(@PathVariable Integer orderId);
+
+    @ApiOperation(value = "${OrderController.cancelOrder}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> cancelOrder(@PathVariable Integer orderId);
+
+    @ApiOperation(value = "${OrderController.receiveOrder}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> receiveOrder(@PathVariable Integer orderId);
 
 
 }

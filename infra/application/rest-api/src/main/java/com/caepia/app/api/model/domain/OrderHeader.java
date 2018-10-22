@@ -19,7 +19,13 @@ import javax.persistence.*;
         @NamedStoredProcedureQuery(name = "createOrderHeader",
                 procedureName = "spApiPostOrderHeader"),
         @NamedStoredProcedureQuery(name = "updateOrderHeader",
-                procedureName = "spApiPutOrderHeader")})
+                procedureName = "spApiPutOrderHeader"),
+        @NamedStoredProcedureQuery(name = "copyOrder",
+                procedureName = "spApiPostCopyOrder"),
+        @NamedStoredProcedureQuery(name = "cancelOrder",
+                procedureName = "spApiPutCancelOrder"),
+        @NamedStoredProcedureQuery(name = "receiveOrder",
+                procedureName = "spApiPutReceiveOrder")})
 public class OrderHeader extends ModelEntity {
     @Id
     @Column(name = "PK_Order")

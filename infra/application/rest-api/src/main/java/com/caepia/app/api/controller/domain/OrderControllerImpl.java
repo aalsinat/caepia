@@ -143,6 +143,43 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     }
 
 
+    @Override
+    @PostMapping(value = "/orders/{orderId}/copy")
+    public ResponseEntity<StoredProcedureResult> copyOrder(@PathVariable Integer orderId) {
+
+        Integer userId = this.getLogedUserId();
+
+        return ResponseEntity.ok(orderService.copyOrder(orderId, userId));
+
+
+    }
+
+
+    @Override
+    @PatchMapping(value = "/orders/{orderId}/cancel")
+    public ResponseEntity<StoredProcedureResult> cancelOrder(@PathVariable Integer orderId) {
+
+        Integer userId = this.getLogedUserId();
+
+        return ResponseEntity.ok(orderService.cancelOrder(orderId, userId));
+
+
+    }
+
+    @Override
+    @PatchMapping(value = "/orders/{orderId}/receive")
+    public ResponseEntity<StoredProcedureResult> receiveOrder(@PathVariable Integer orderId) {
+
+        Integer userId = this.getLogedUserId();
+
+        return ResponseEntity.ok(orderService.receiveOrder(orderId, userId));
+
+
+    }
+
+
+
+
     // -----------------------------
     //  Class support methods
     // -----------------------------

@@ -72,4 +72,54 @@ public class OrderHeaderRepositoryImpl implements OrderHeaderManagementRepositor
     }
 
 
+    @Override
+    public StoredProcedureResult copyOrder(Integer orderId, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("copyOrder")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                .resultCode((Integer)result[2])
+                .build();
+    }
+
+    @Override
+    public StoredProcedureResult cancelOrder(Integer orderId, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("cancelOrder")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+            //    .resultCode((Integer)result[2])
+                .build();
+    }
+
+    @Override
+    public StoredProcedureResult receiveOrder(Integer orderId, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("receiveOrder")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                //    .resultCode((Integer)result[2])
+                .build();
+    }
 }
