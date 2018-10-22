@@ -560,7 +560,7 @@ public class OrderService {
 
         this.log.debug("Calling repository method: %s", methodName.toString());
 
-        return this.dynamicRepositoryCallOrderHeader(this.orderHeaderRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
+        return this.dynamicRepositoryCall(this.orderHeaderRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
 
 
 
@@ -578,7 +578,7 @@ public class OrderService {
      * @param size     requested page size
      * @return a page of authorized {@link OrderRow}s
      */
-    public Iterable<OrderRow> getOrdersRowsByOrderId(Integer orderId,
+    public Iterable<ModelEntity> getOrdersRowsByOrderId(Integer orderId,
                                                      Optional<String> getType,
                                                      Optional<Integer> categoryL3,
                                                      Optional<Integer> swBookmark,
@@ -722,18 +722,7 @@ public class OrderService {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    Iterable<OrderRow> dynamicRepositoryCall(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        final Class<?>[] types = Arrays.asList(parameters).stream()
-                .map(this::getClassNameFromParameter)
-                .collect(Collectors.toList())
-                .toArray(new Class<?>[parameters.length]);
-        Method method = repository.getClass().getMethod(methodName, types);
-
-        return (Iterable<OrderRow>) method.invoke(repository, parameters);
-    }
-
-
-    Iterable<ModelEntity> dynamicRepositoryCallOrderHeader(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    Iterable<ModelEntity> dynamicRepositoryCall(JpaRepository repository, String methodName, Object... parameters) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         final Class<?>[] types = Arrays.asList(parameters).stream()
                 .map(this::getClassNameFromParameter)
                 .collect(Collectors.toList())

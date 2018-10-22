@@ -14,6 +14,7 @@ import javax.persistence.*;
 @IdClass(OrderRowPK.class)
 @Table(name = "vApiOrdersRows")
 @EqualsAndHashCode(callSuper = false)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
     @NamedStoredProcedureQuery(name = "createOrderRow",
                 procedureName = "spApiPostVendorProduct"),

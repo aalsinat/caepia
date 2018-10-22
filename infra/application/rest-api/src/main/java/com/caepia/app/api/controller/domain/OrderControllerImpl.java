@@ -39,8 +39,9 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
      */
     @Override
     @GetMapping(value = "/order/{orderId}/rows")
-    public ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
+    public ResponseEntity<Iterable<ModelEntity>> getOrdersRowsByOrderId(
             @PathVariable Integer orderId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
             @RequestParam(value = "getType", required = false) Optional<String> getType,
             @RequestParam(value = "categoryL3", required = false) Optional<Integer> categoryL3,
             @RequestParam(value = "swBookmark", required = false) Optional<Integer> swBookmark,
@@ -51,7 +52,10 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
                 orderService.getOrdersRowsByOrderId(orderId, super.transformDefaultPage(page.get()), size.get()) :
                 orderService.getOrdersRowsByOrderId(orderId); */
 
-            Iterable<OrderRow> orderRows = orderService.getOrdersRowsByOrderId(orderId, getType, categoryL3, swBookmark, page, size );
+            Iterable<ModelEntity> orderRows = orderService.getOrdersRowsByOrderId(orderId, getType, categoryL3, swBookmark, page, size );
+
+        orderRows = fields.isPresent() ? super
+                .includeProperties(orderRows, super.getListFromString(fields.get())) : orderRows;
         return ResponseEntity.ok(orderRows);
     }
 

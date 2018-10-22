@@ -28,8 +28,9 @@ public interface OrderController {
             @ApiResponse(code = 200, message = "List of row orders for this order", response = OrderRow.class,
                          responseContainer = "List"),
             @ApiResponse(code = 403, message = "Orders not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<OrderRow>> getOrdersRowsByOrderId(
+    ResponseEntity<Iterable<ModelEntity>> getOrdersRowsByOrderId(
             @ApiParam(value = "Order identifier", required = true) Integer orderId,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "getType") Optional<String> getType,
             @ApiParam(value = "categoryL3") Optional<Integer> categoryL3,
             @ApiParam(value = "swBookmark") Optional<Integer> swBookmark,
