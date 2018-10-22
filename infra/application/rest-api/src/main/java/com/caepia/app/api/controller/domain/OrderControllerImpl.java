@@ -58,7 +58,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PatchMapping(value = "/order/{orderId}/send")
-    public ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId) {
+    public ResponseEntity<StoredProcedureResult> sendOrder(@PathVariable Integer orderId) {
         Integer userId = this.getLogedUserId();
         return ResponseEntity.ok(orderService.sendOrder(orderId, userId));
 
@@ -111,7 +111,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
 
     @Override
-    @PostMapping(value = "/orders/row")
+    @PostMapping(value = "/orders/{orderId}/row")
     public ResponseEntity<StoredProcedureResult > createOrderRow(@PathVariable Integer orderId, @RequestBody OrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();

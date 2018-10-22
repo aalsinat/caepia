@@ -45,7 +45,7 @@ public interface OrderController {
 
     @ApiOperation(value = "${OrderController.sendOrder}", httpMethod = "PATCH",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> sendOrder(@PathVariable Integer orderId);
+    ResponseEntity<StoredProcedureResult> sendOrder(@PathVariable Integer orderId);
 
     @ApiOperation(value = "${OrderController.createOrderHeader}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

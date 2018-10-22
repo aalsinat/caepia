@@ -493,7 +493,7 @@ public class OrderService {
 
 
     /**
-     * Retrieves all {@link OrderWhatsApp}s supplied by a particular {@code Order}.
+     * Retrieves all {@link ModelEntity}s supplied by a particular {@code Order}.
      *
      * @param orderId identifier for the order
      * @return information about requested product
@@ -609,13 +609,15 @@ public class OrderService {
      * @param userId     identifier for the user
      *
      */
-    public ModelEntity sendOrder(Integer orderId, Integer userId) {
+    public StoredProcedureResult sendOrder(Integer orderId, Integer userId) {
         StoredProcedureResult result = orderHeaderRepository.sendOrder(orderId, userId);
-        if (result.getErrorCode() == 0) {
+        return result;
+      /*  if (result.getErrorCode() == 0) {
             return this.getOrderByOrderId(orderId);
         } else {
             throw new SendOrderException("Order %d hasn't been  updated by user %d.", orderId, userId);
         }
+        */
     }
 
 
