@@ -82,6 +82,7 @@ public interface CatalogController {
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "Status filter") Integer status,
             @ApiParam(value = "Owner filter") Integer owner,
             @ApiParam(value = "ProductionOrderId filter") Integer productionOrderId,

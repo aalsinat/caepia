@@ -224,6 +224,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     @GetMapping(value = "/centers/{centerId}/orders")
     public ResponseEntity<Iterable<ModelEntity>> getOrdersByCenterId(
             @PathVariable Integer centerId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
             @RequestParam(value = "status", required = false) Integer status,
             @RequestParam(value = "owner", required = false) Integer owner,
             @RequestParam(value = "productionOrderId", required = false) Integer productionOrderId,
@@ -370,6 +371,9 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             }
 
         }
+
+        orders = fields.isPresent() ? super
+                .includeProperties(orders, super.getListFromString(fields.get())) : orders;
         return ResponseEntity.ok(orders);
     }
 
