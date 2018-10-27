@@ -1,7 +1,7 @@
 package com.caepia.app.api.service.domain;
 
 import com.caepia.app.api.model.domain.ModelEntity;
-import com.caepia.app.api.repository.domain.ProductionOrderRepository;
+import com.caepia.app.api.repository.domain.SalesProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,40 +22,35 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SalesProductService {
-    private final ProductionOrderRepository productionOrderRepository;
+    private final SalesProductRepository salesProductRepository;
 
 
-    private final String SALES_PRODUCT_PRODUCTION_ORDER_CENTER = "findAllByCenterIdAndProductionOrderId";
+    private final String SALES_PRODUCT_PRODUCTION_ORDER_CENTER = "findAllByProductionOrderId";
 
 
 
     /**
      * Retrieves, page by page, all authorized {@link ModelEntity}s for a particular {@code Order}.
      *
-     * @param centerId identifier for the center
      * @param productionOrderId identifier for the production order
      * @param page     requested page number
      * @param size     requested page size
      * @return a page of authorized {@link ModelEntity}s
      */
-    public Iterable<ModelEntity> getSalesProductsByCenterIdAndProductionOrders(Integer centerId,
-                                                                  Integer productionOrderId,
+    public Iterable<ModelEntity> getSalesProductsByProductionOrders(Integer productionOrderId,
                                                                   Optional<Integer> page,
                                                                   Optional<Integer> size)  throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
 
         StringBuilder methodName = new StringBuilder(SALES_PRODUCT_PRODUCTION_ORDER_CENTER);
-        List parameters = new ArrayList(Arrays.asList(centerId));
-
-
-        parameters.add(productionOrderId);
+        List parameters = new ArrayList(Arrays.asList(productionOrderId));
 
         methodName.append(this.isPageRequest(page, size) && parameters
                         .add(PageRequest.of(this.transformDefaultPage(page.get()), size.get())) ? "" : "");
 
         this.log.debug("Calling repository method: %s", methodName.toString());
 
-        return this.dynamicRepositoryCall(this.productionOrderRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
+        return this.dynamicRepositoryCall(this.salesProductRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
 
 
 

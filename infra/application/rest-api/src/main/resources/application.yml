@@ -75,3 +75,5 @@ OrderController:
   createOrderHeader: Create new order
 DocumentController:
   getAllDocuments: Retrieves a list of documents
+ProductionOrder:
+  createProductionOrder: Create new production order

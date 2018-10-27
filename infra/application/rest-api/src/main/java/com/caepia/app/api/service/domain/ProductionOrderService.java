@@ -2,6 +2,7 @@ package com.caepia.app.api.service.domain;
 
 import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.ModelEntity;
+import com.caepia.app.api.model.domain.ProductionOrder;
 
 import com.caepia.app.api.repository.domain.ProductionOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -64,6 +65,24 @@ public class ProductionOrderService {
 
 
     }
+
+
+
+    /**
+     * Create a new {@link ProductionOrder} for a existing center .
+     *
+     * @param costCenter    identifier for the center
+     * @param userId   identifier for the user
+     *
+     */
+
+
+    public StoredProcedureResult createProductionOrder(Integer costCenter, Integer userId) {
+        StoredProcedureResult result = productionOrderRepository.createProductionOrder(costCenter,  userId);
+
+        return result;
+    }
+
 
 
 

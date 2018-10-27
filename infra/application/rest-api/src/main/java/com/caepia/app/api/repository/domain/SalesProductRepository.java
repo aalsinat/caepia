@@ -16,21 +16,19 @@ public interface SalesProductRepository extends JpaRepository<SalesProduct, Inte
     /**
      * Query for fetching all authorized {@link SalesProduct}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
      * @param productionOrderId identifier for the productionOrder
      * @return a list of authorized {@link SalesProduct}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderIdAndSalesProductId(Integer centerId, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByProductionOrderId( Integer productionOrderId);
 
     /**
      * Query for fetching, page by page, all authorizes {@link SalesProduct}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
      * @param productionOrderId identifier for the productionOrder
      * @param page     requested page
      * @return a page of authorized {@link SalesProduct}s
      */
-    Page<ModelEntity> findAllByCenterIdAndProductionOrderIdAndSalesProductId(Integer centerId, Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByProductionOrderId(Integer productionOrderId, Pageable page);
 
 
 }

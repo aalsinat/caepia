@@ -11,9 +11,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 public class SalesProductPK implements Serializable {
     @Id
-    @Column(name = "PK_CostCenter")
-    private Integer centerId;
-    @Id
     @Column(name = "PK_ProductionOrder")
     private Integer productionOrderId;
     @Id

@@ -15,9 +15,6 @@ import javax.persistence.*;
 
 public class SalesProduct extends ModelEntity {
     @Id
-    @Column(name = "PK_CostCenter")
-    private Integer centerId;
-    @Id
     @Column(name = "PK_ProductionOrder")
     private Integer productionOrderId;
     @Id

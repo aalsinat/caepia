@@ -133,17 +133,6 @@ public interface CatalogController {
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
-    @ApiOperation(value = "${CatalogController.getSalesProductsByCenterIdAndProductionOrders}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of salesProduct for this center and this productionOrder", response = ModelEntity.class,
-                    responseContainer = "List"),
-            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<ModelEntity>> getSalesProductsByCenterIdAndProductionOrders(
-            @ApiParam(value = "Center identifier", required = true) Integer centerId,
-            @ApiParam(value = "Production Order identifier", required = true) Integer prodOrderId,
-            @ApiParam(value = "Selected fields") Optional<String> fields,
-            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
-            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
 
 }
