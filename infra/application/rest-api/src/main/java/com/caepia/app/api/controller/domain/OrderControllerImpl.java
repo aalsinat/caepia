@@ -197,11 +197,7 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
     private boolean isEligible(Integer centerId) {
         return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
     }
-
-    private Integer getLogedUserId() {
-        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getUserId();
-    }
-
+    
 
 }
 

@@ -1,5 +1,6 @@
 package com.caepia.app.api.controller.domain;
 
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.*;
 import com.caepia.app.api.security.JwtUser;
@@ -431,7 +432,19 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
 
     }
+    @Override
+    @PostMapping(value = "/centers/{centerId}/productionOrders")
+    public ResponseEntity<StoredProcedureResult> createProductionOrder(@PathVariable Integer centerId) {
 
+        Integer userId = this.getLogedUserId();
+
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+
+        return ResponseEntity.ok(productionOrderService.createProductionOrder(centerId, userId));
+
+
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.model.domain.ModelEntity;
+import com.caepia.app.api.security.JwtUser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -119,4 +120,10 @@ public abstract class AbstractController {
     public SecurityContext getContext() {
         return SecurityContextHolder.getContext();
     }
+
+
+    protected Integer getLogedUserId() {
+        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getUserId();
+    }
+
 }

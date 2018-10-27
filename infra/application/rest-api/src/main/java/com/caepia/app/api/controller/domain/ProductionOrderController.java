@@ -30,9 +30,20 @@ public interface ProductionOrderController {
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
 
-    @ApiOperation(value = "${ProductionOrder.createProductionOrder}", httpMethod = "POST",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> createProductionOrder(@PathVariable Integer centerId);
+    @ApiOperation(value = "${CatalogController.getProductsByProductionOrders}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of salesProduct for this center and this productionOrder", response = ModelEntity.class,
+                    responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<ModelEntity>> getProductsByProductionOrders(
+            @ApiParam(value = "Production Order identifier", required = true) Integer prodOrderId,
+            @ApiParam(value = "mode", required = false, defaultValue = "0") Integer mode,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
+            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+
+
+
 
 
 

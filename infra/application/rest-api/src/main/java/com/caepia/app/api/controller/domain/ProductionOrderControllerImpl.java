@@ -8,6 +8,7 @@ import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.ProductionOrderService;
 import com.caepia.app.api.service.domain.SalesProductService;
+import com.caepia.app.api.service.domain.ProductReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ProductionOrderControllerImpl extends AbstractController implements
 
     private final ProductionOrderService productionOrderService;
     private final SalesProductService salesProductService;
-
+    private final ProductReceiptService productReceiptService;
 
     /**
      * Get all authorized {@link ModelEntity}s for a particular {@code Center}
@@ -47,24 +48,46 @@ public class ProductionOrderControllerImpl extends AbstractController implements
                 .includeProperties(salesProduct, super.getListFromString(fields.get())) : salesProduct;
         return ResponseEntity.ok(salesProduct);
 
-
-
-
     }
 
+    /**
+     * Get all authorized {@link ModelEntity}s for a particular {@code Center}
+     *
+     * @param prodOrderId   identifier for the order
+     * @param page     requested page number
+     * @param size     size of requested page
+     * @return
+     */
     @Override
-    @PostMapping(value = "/centers/{centerId}/productionOrders")
-    public ResponseEntity<StoredProcedureResult> createProductionOrder(@PathVariable Integer centerId) {
+    @GetMapping(value = "/productionOrders/{prodOrderId}/products")
+    public ResponseEntity<Iterable<ModelEntity>> getProductsByProductionOrders(
+            @PathVariable Integer prodOrderId,
+            @RequestParam(value = "mode", required = false, defaultValue = "0") Integer mode,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
-        Integer userId = this.getLogedUserId();
+        Iterable<ModelEntity> listItems;
 
-        if (!isEligible(centerId))
-            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        if (mode.intValue() == 0) {
+            listItems = salesProductService.getSalesProductsByProductionOrders(prodOrderId, page, size);
 
-        return ResponseEntity.ok(productionOrderService.createProductionOrder(centerId, userId));
+        }
+        else {
+            listItems = productReceiptService.getProductsReceiptByProductionOrders(prodOrderId, page, size);
+        }
 
+
+
+        listItems = fields.isPresent() ? super
+                .includeProperties(listItems, super.getListFromString(fields.get())) : listItems;
+        return ResponseEntity.ok(listItems);
 
     }
+
+
+
+
 
 
 
@@ -81,11 +104,6 @@ public class ProductionOrderControllerImpl extends AbstractController implements
     private boolean isEligible(Integer centerId) {
         return ((JwtUser) getContext().getAuthentication().getPrincipal()).getCenters().stream().map(s -> s.getCostCenter()).anyMatch(centerId::equals);
     }
-
-    private Integer getLogedUserId() {
-        return ((JwtUser) getContext().getAuthentication().getPrincipal()).getUserId();
-    }
-
 
 }
 
