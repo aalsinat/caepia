@@ -118,7 +118,6 @@ public interface CatalogController {
             @ApiParam(value = "Vendor identifier", required = true) Integer vendorId,
             @ApiParam(value = "Product identifier", required = true) Integer productId);
 
-    // /centers/{centerId}/productionOrders
 
     @ApiOperation(value = "${CatalogController.getProductionOrdersByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
@@ -131,6 +130,18 @@ public interface CatalogController {
             @ApiParam(value = "Status filter") Optional<Integer> status,
             @ApiParam(value = "Owner filter") Optional<Integer> owner,
             @ApiParam(value = "OrderData filter") Optional<String> orderDate,
+            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+
+    @ApiOperation(value = "${CatalogController.getSalesProductsByCenterIdAndProductionOrders}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of salesProduct for this center and this productionOrder", response = ModelEntity.class,
+                    responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<ModelEntity>> getSalesProductsByCenterIdAndProductionOrders(
+            @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Production Order identifier", required = true) Integer prodOrderId,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 

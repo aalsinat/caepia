@@ -8,6 +8,8 @@ import com.caepia.app.api.service.domain.ProductService;
 import com.caepia.app.api.service.domain.PurchasesTrendsService;
 import com.caepia.app.api.service.domain.ProductionOrderService;
 import com.caepia.app.api.service.domain.VendorService;
+import com.caepia.app.api.service.domain.SalesProductService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     private final ProductionOrderService productionOrderService;
     private final OrderService orderService;
     private final PurchasesTrendsService purchasesTrendsService;
-
+    private final SalesProductService salesProductService;
     /**
      * Get all authorized {@link Vendor}s for a particular {@code Center}
      *
@@ -397,7 +399,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
 
     /**
-     * Get all authorized {@link OrderHeader}s for a particular {@code Center}
+     * Get all authorized {@link ModelEntity}s for a particular {@code Center}
      *
      * @param centerId identifier for the center
      * @param status   identifier for the order
@@ -431,6 +433,39 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     }
 
+
+    /**
+     * Get all authorized {@link ModelEntity}s for a particular {@code Center}
+     *
+     * @param centerId identifier for the center
+     * @param prodOrderId   identifier for the order
+     * @param page     requested page number
+     * @param size     size of requested page
+     * @return
+     */
+    @Override
+    @GetMapping(value = "centers/{centerId}/productionOrders/{prodOrderId}/salesProducts")
+    public ResponseEntity<Iterable<ModelEntity>> getSalesProductsByCenterIdAndProductionOrders(
+            @PathVariable Integer centerId,
+            @PathVariable Integer prodOrderId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+
+        Iterable<ModelEntity> salesProduct = salesProductService
+                .getSalesProductsByCenterIdAndProductionOrders(centerId, prodOrderId, page, size);
+
+        salesProduct = fields.isPresent() ? super
+                .includeProperties(salesProduct, super.getListFromString(fields.get())) : salesProduct;
+        return ResponseEntity.ok(salesProduct);
+
+
+
+
+    }
 
 
     // -----------------------------
