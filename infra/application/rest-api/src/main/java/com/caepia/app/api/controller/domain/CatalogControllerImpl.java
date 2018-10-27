@@ -6,6 +6,7 @@ import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.OrderService;
 import com.caepia.app.api.service.domain.ProductService;
 import com.caepia.app.api.service.domain.PurchasesTrendsService;
+import com.caepia.app.api.service.domain.ProductionOrderService;
 import com.caepia.app.api.service.domain.VendorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     private final VendorService vendorService;
     private final ProductService productService;
+    private final ProductionOrderService productionOrderService;
     private final OrderService orderService;
     private final PurchasesTrendsService purchasesTrendsService;
 
@@ -393,6 +395,41 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
         return ResponseEntity.ok(purchasesTrends);
     }
 
+
+    /**
+     * Get all authorized {@link OrderHeader}s for a particular {@code Center}
+     *
+     * @param centerId identifier for the center
+     * @param status   identifier for the order
+     * @param page     requested page number
+     * @param size     size of requested page
+     * @return
+     */
+    @Override
+    @GetMapping(value = "/centers/{centerId}/productionOrders")
+    public ResponseEntity<Iterable<ModelEntity>> getProductionOrdersByCenterId(
+            @PathVariable Integer centerId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "status", required = false)  Optional<Integer> status,
+            @RequestParam(value = "owner", required = false)  Optional<Integer> owner,
+            @RequestParam(value = "orderDate", required = false)  Optional<String> orderDate,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+
+        Iterable<ModelEntity> productionOrders = productionOrderService
+                .getProductionOrdersByCenterId(centerId, status, owner, orderDate, page, size);
+
+        productionOrders = fields.isPresent() ? super
+                .includeProperties(productionOrders, super.getListFromString(fields.get())) : productionOrders;
+        return ResponseEntity.ok(productionOrders);
+
+
+
+
+    }
 
 
 
