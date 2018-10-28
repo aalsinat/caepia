@@ -7,13 +7,13 @@ server:
     context-path: /api
 auth:
   datasource:
-    url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaLoginDB
+    url: jdbc:sqlserver://52.1.112.243;database=CaepiaLoginDB
     username: CaepiaLoginAppUsr
     password: CLAUusr2018login
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 app:
   datasource:
-    url: jdbc:sqlserver://ec2-52-91-55-108.compute-1.amazonaws.com;database=CaepiaDemoBD
+    url: jdbc:sqlserver://52.1.112.243;database=CaepiaDemoBD
     username: CaepiaDemoAppUsr
     password: CDAUusr2018demo
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -71,5 +71,12 @@ OrderController:
   getOrdersByCenterId: Retrieves a list of orders header for a particular center
   getOrderByOrderId: Retrieves header information about a particular order
   getOrdersRowsByOrderId: Retrieves rows information about a particular order
+  sendOrder: Execute the send order operative
+  createOrderHeader: Create new order
 DocumentController:
   getAllDocuments: Retrieves a list of documents
+ProductionOrder:
+  createProductionOrder: Create new production order
+  changeStatusProductionOrder: Change status of production order
+  updateProductionOrderRow: Update production order
+  updateSalesProductRow: Update sales product
