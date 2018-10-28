@@ -17,7 +17,7 @@ import javax.persistence.*;
         @NamedStoredProcedureQuery(name = "createProductionOrder",
                 procedureName = "spApiPostProductOrderHeader"),
         @NamedStoredProcedureQuery(name = "changeStatus",
-                procedureName = "spApiPostProductOrderHeader")})
+                procedureName = "spApiPutStatusProductOrder")})
 
 
 

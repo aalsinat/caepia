@@ -4,7 +4,7 @@ import com.caepia.app.api.dto.StoredProcedureResult;
 
 public interface ProductionOrderManagementRepository {
 
-    StoredProcedureResult changeStatusProductionOrder(Integer orderId, Integer status, Integer userId);
+    StoredProcedureResult changeStatusProductionOrder(Integer productionOrderId, Integer status, Integer userId);
 
     StoredProcedureResult createProductionOrder(Integer costCenter, Integer userId);
 

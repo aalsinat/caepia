@@ -16,14 +16,13 @@ public class SalesProductRepositoryImpl implements SalesProductManagementReposit
 
 
     @Override
-    public StoredProcedureResult updateSalesProductRow(Integer productionOrderId, Integer rowId, Float packQuantity, String comments, Integer userId) {
+    public StoredProcedureResult updateSalesProductRow(Integer productionOrderId, Integer rowId, Float packQuantity, Integer userId) {
         StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateSalesProductRow")
                 .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(2, Float.class, ParameterMode.IN)
-                .registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
-                .registerStoredProcedureParameter(4, Integer.class, ParameterMode.IN);
-        query.setParameter(0, productionOrderId).setParameter(1, rowId).setParameter(2, packQuantity).setParameter(3, comments).setParameter(4, userId);
+                .registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN);
+        query.setParameter(0, productionOrderId).setParameter(1, rowId).setParameter(2, packQuantity).setParameter(3, userId);
         query.execute();
         Object[] result = (Object[]) query.getSingleResult();
 

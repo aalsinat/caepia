@@ -58,17 +58,16 @@ public class SalesProductService {
     /**
      * Update a new {@link SalesProduct} for a existing center .
      *
-     * @param orderId    identifier for the center
+     * @param productionOrderId    identifier for the center
      * @param rowId
      * @param quantity
-     * @param comments
      * @param userId   identifier for the user
      *
      */
 
 
-    public StoredProcedureResult updateSalesProductRow(Integer orderId, Integer rowId, Float quantity, String comments, Integer userId) {
-        StoredProcedureResult result = salesProductRepository.updateSalesProductRow(orderId, rowId, quantity, comments, userId);
+    public StoredProcedureResult updateSalesProductRow(Integer productionOrderId, Integer rowId, Float quantity, Integer userId) {
+        StoredProcedureResult result = salesProductRepository.updateSalesProductRow(productionOrderId, rowId, quantity, userId);
 
         return result;
     }

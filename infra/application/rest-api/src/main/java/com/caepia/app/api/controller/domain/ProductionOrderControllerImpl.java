@@ -89,7 +89,7 @@ public class ProductionOrderControllerImpl extends AbstractController implements
     }
 
     @Override
-    @PatchMapping(value = "/productionOrders/{prodOrderId}/changeStatus")
+    @PatchMapping(value = "/productionOrders/{productionOrderId}/changeStatus")
     public ResponseEntity<StoredProcedureResult> changeStatusProductionOrder(@PathVariable Integer productionOrderId, @RequestBody StatusDataDTO statusData) {
 
         Integer userId = this.getLogedUserId();
@@ -102,29 +102,28 @@ public class ProductionOrderControllerImpl extends AbstractController implements
 
 
     @Override
-    @PatchMapping(value = "/productionOrders/{prodOrderId}/product/{RowId}/Row")
-    public ResponseEntity<StoredProcedureResult> updateProductionOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
+    @PatchMapping(value = "/productionOrders/{productionOrderId}/product/{rowId}/Row")
+    public ResponseEntity<StoredProcedureResult> updateProductionOrderRow(@PathVariable Integer productionOrderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Float packQuantity = order.getQuantity();
         String comments = order.getComments();
 
 
-        return ResponseEntity.ok(productReceiptService.updateProductionOrderRow(orderId, rowId, packQuantity, comments, userId));
+        return ResponseEntity.ok(productReceiptService.updateProductionOrderRow(productionOrderId, rowId, packQuantity, comments, userId));
 
 
     }
 
     @Override
-    @PatchMapping(value = "/productionOrders/{prodOrderId}/salesProduct/{RowId}/Row")
-    public ResponseEntity<StoredProcedureResult> updateSalesProductRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
+    @PatchMapping(value = "/productionOrders/{productionOrderId}/salesProduct/{rowId}/Row")
+    public ResponseEntity<StoredProcedureResult> updateSalesProductRow(@PathVariable Integer productionOrderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
 
         Integer userId = this.getLogedUserId();
         Float quantity = order.getQuantity();
-        String comments = order.getComments();
 
 
-        return ResponseEntity.ok(salesProductService.updateSalesProductRow(orderId, rowId, quantity, comments, userId));
+        return ResponseEntity.ok(salesProductService.updateSalesProductRow(productionOrderId, rowId, quantity, userId));
 
 
     }

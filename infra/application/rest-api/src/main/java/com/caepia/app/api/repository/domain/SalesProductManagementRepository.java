@@ -5,7 +5,7 @@ import com.caepia.app.api.dto.StoredProcedureResult;
 public interface SalesProductManagementRepository {
 
 
-    StoredProcedureResult updateSalesProductRow(Integer productionOrderId, Integer rowId, Float quantity, String comments, Integer userId);
+    StoredProcedureResult updateSalesProductRow(Integer productionOrderId, Integer rowId, Float quantity, Integer userId);
 
 
 
