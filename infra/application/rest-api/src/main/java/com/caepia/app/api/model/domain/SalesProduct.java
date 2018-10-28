@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Table(name = "vAPIProdOrdersSalesProducts")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "updateSalesProductRow",
+                procedureName = "spApiPutProdOrderSalesProduct")})
 
 public class SalesProduct extends ModelEntity {
     @Id

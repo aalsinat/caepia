@@ -1,6 +1,8 @@
 package com.caepia.app.api.service.domain;
 
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.ModelEntity;
+import com.caepia.app.api.model.domain.SalesProduct;
 import com.caepia.app.api.repository.domain.SalesProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,6 @@ public class SalesProductService {
                                                                   Optional<Integer> page,
                                                                   Optional<Integer> size)  throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
-
         StringBuilder methodName = new StringBuilder(SALES_PRODUCT_PRODUCTION_ORDER_CENTER);
         List parameters = new ArrayList(Arrays.asList(productionOrderId));
 
@@ -52,8 +53,24 @@ public class SalesProductService {
 
         return this.dynamicRepositoryCall(this.salesProductRepository,methodName.toString(),parameters.toArray(new Object[parameters.size()]));
 
+    }
+
+    /**
+     * Update a new {@link SalesProduct} for a existing center .
+     *
+     * @param orderId    identifier for the center
+     * @param rowId
+     * @param quantity
+     * @param comments
+     * @param userId   identifier for the user
+     *
+     */
 
 
+    public StoredProcedureResult updateSalesProductRow(Integer orderId, Integer rowId, Float quantity, String comments, Integer userId) {
+        StoredProcedureResult result = salesProductRepository.updateSalesProductRow(orderId, rowId, quantity, comments, userId);
+
+        return result;
     }
 
 

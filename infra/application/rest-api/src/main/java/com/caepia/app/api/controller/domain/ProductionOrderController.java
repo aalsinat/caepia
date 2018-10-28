@@ -2,8 +2,9 @@ package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
 import com.caepia.app.api.dto.OrderHeaderDataDTO;
-import com.caepia.app.api.dto.OrderRowDataDTO;
+import com.caepia.app.api.dto.ProductionOrderRowDataDTO;
 import com.caepia.app.api.dto.StoredProcedureResult;
+import com.caepia.app.api.dto.StatusDataDTO;
 import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderRow;
 import io.swagger.annotations.*;
@@ -42,74 +43,22 @@ public interface ProductionOrderController {
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
 
-
-
-
-
-
-
-
-    /*
-
-    @ApiOperation(value = "${OrderController.getOrderByOrderId}", httpMethod = "GET",
-                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> getOrderByOrderId(@PathVariable Integer orderId);
-
-
-    @ApiOperation(value = "${OrderController.getOrdersRowsByOrderId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "List of row orders for this order", response = OrderRow.class,
-                         responseContainer = "List"),
-            @ApiResponse(code = 403, message = "Orders not authorized to current user", response = ApiError.class)})
-    ResponseEntity<Iterable<ModelEntity>> getOrdersRowsByOrderId(
-            @ApiParam(value = "Order identifier", required = true) Integer orderId,
-            @ApiParam(value = "Selected fields") Optional<String> fields,
-            @ApiParam(value = "getType") Optional<String> getType,
-            @ApiParam(value = "categoryL3") Optional<Integer> categoryL3,
-            @ApiParam(value = "swBookmark") Optional<Integer> swBookmark,
-            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
-            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
-
-
-    @ApiOperation(value = "${OrderController.ordersWhatsAppParams}", httpMethod = "GET",
+    @ApiOperation(value = "${ProductionOrder.changeStatusProductionOrder}", httpMethod = "PATCH",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<ModelEntity> ordersWhatsAppParams(@PathVariable Integer orderId);
+    ResponseEntity<StoredProcedureResult> changeStatusProductionOrder(@PathVariable Integer productionOrderId, @ApiParam("status information") StatusDataDTO order);
 
 
-
-    @ApiOperation(value = "${OrderController.sendOrder}", httpMethod = "PATCH",
-                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> sendOrder(@PathVariable Integer orderId);
-
-    @ApiOperation(value = "${OrderController.createOrderHeader}", httpMethod = "POST",
-                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> createOrderHeader(@ApiParam("Order information") OrderHeaderDataDTO order);
-
-    @ApiOperation(value = "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
-                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") OrderHeaderDataDTO order);
-
-    @ApiOperation(value = "${OrderController.createOrderRow}", httpMethod = "POST",
-                  produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> createOrderRow(@PathVariable Integer orderId, @ApiParam("Order row information") OrderRowDataDTO order);
-
-    @ApiOperation(value = "${OrderController.updateOrderRow}", httpMethod = "PATCH",
+    @ApiOperation(value = "${ProductionOrder.updateProductionOrderRow}", httpMethod = "PATCH",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> updateOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @ApiParam("Order row information") OrderRowDataDTO order);
+    ResponseEntity<StoredProcedureResult> updateProductionOrderRow(@PathVariable Integer productionOrderId, @PathVariable Integer rowId, @ApiParam("Production order Row information") ProductionOrderRowDataDTO order);
 
-    @ApiOperation(value = "${OrderController.copyOrder}", httpMethod = "POST",
+    @ApiOperation(value = "${ProductionOrder.updateSalesProductRow}", httpMethod = "PATCH",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> copyOrder(@PathVariable Integer orderId);
-
-    @ApiOperation(value = "${OrderController.cancelOrder}", httpMethod = "PATCH",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> cancelOrder(@PathVariable Integer orderId);
-
-    @ApiOperation(value = "${OrderController.receiveOrder}", httpMethod = "PATCH",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> receiveOrder(@PathVariable Integer orderId);
+    ResponseEntity<StoredProcedureResult> updateSalesProductRow(@PathVariable Integer productionOrderId, @PathVariable Integer rowId, @ApiParam("Sales Product Row information") ProductionOrderRowDataDTO order);
 
 
-*/
+
+
+
 
 }

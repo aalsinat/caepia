@@ -1,9 +1,12 @@
 package com.caepia.app.api.controller.domain;
 
 
+import com.caepia.app.api.dto.StatusDataDTO;
 import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.ModelEntity;
+
+import com.caepia.app.api.dto.ProductionOrderRowDataDTO;
 
 import com.caepia.app.api.security.JwtUser;
 import com.caepia.app.api.service.domain.ProductionOrderService;
@@ -85,10 +88,46 @@ public class ProductionOrderControllerImpl extends AbstractController implements
 
     }
 
+    @Override
+    @PatchMapping(value = "/productionOrders/{prodOrderId}/changeStatus")
+    public ResponseEntity<StoredProcedureResult> changeStatusProductionOrder(@PathVariable Integer productionOrderId, @RequestBody StatusDataDTO statusData) {
+
+        Integer userId = this.getLogedUserId();
+        Integer status = statusData.getStatus();
+
+        return ResponseEntity.ok(productionOrderService.changeStatusProductionOrder(productionOrderId, status, userId));
 
 
+    }
 
 
+    @Override
+    @PatchMapping(value = "/productionOrders/{prodOrderId}/product/{RowId}/Row")
+    public ResponseEntity<StoredProcedureResult> updateProductionOrderRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
+
+        Integer userId = this.getLogedUserId();
+        Float packQuantity = order.getQuantity();
+        String comments = order.getComments();
+
+
+        return ResponseEntity.ok(productReceiptService.updateProductionOrderRow(orderId, rowId, packQuantity, comments, userId));
+
+
+    }
+
+    @Override
+    @PatchMapping(value = "/productionOrders/{prodOrderId}/salesProduct/{RowId}/Row")
+    public ResponseEntity<StoredProcedureResult> updateSalesProductRow(@PathVariable Integer orderId, @PathVariable Integer rowId, @RequestBody ProductionOrderRowDataDTO order) {
+
+        Integer userId = this.getLogedUserId();
+        Float quantity = order.getQuantity();
+        String comments = order.getComments();
+
+
+        return ResponseEntity.ok(salesProductService.updateSalesProductRow(orderId, rowId, quantity, comments, userId));
+
+
+    }
 
 
     // -----------------------------

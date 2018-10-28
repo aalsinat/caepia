@@ -1,6 +1,9 @@
 package com.caepia.app.api.service.domain;
 
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.ModelEntity;
+import com.caepia.app.api.model.domain.ProductsReceipt;
+
 import com.caepia.app.api.repository.domain.ProductReceiptRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +57,24 @@ public class ProductReceiptService {
 
 
 
+    }
+
+    /**
+     * Update a new {@link ProductsReceipt} for a existing center .
+     *
+     * @param orderId    identifier for the center
+     * @param rowId
+     * @param packQuantity
+     * @param comments
+     * @param userId   identifier for the user
+     *
+     */
+
+
+    public StoredProcedureResult updateProductionOrderRow(Integer orderId, Integer rowId, Float packQuantity, String comments, Integer userId) {
+        StoredProcedureResult result = productReceiptRepository.updateProductionOrderRow(orderId, rowId, packQuantity, comments, userId);
+
+        return result;
     }
 
 

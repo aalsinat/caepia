@@ -12,6 +12,9 @@ import javax.persistence.*;
 @Table(name = "vAPIProdOrdersProductsByReceipt")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "updateProductionOrderRow",
+                procedureName = "spApiPutProdOrderProduct")})
 
 public class ProductsReceipt extends ModelEntity {
 
@@ -87,7 +90,6 @@ public class ProductsReceipt extends ModelEntity {
 
     @Column(name = "MinimumOrder")
     private Float minimumOrder;
-
 
 
 }

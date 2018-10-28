@@ -15,7 +15,11 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "createProductionOrder",
-                procedureName = "spApiPostCreateProductOrder")})
+                procedureName = "spApiPostProductOrderHeader"),
+        @NamedStoredProcedureQuery(name = "changeStatus",
+                procedureName = "spApiPostProductOrderHeader")})
+
+
 
 public class ProductionOrder extends ModelEntity {
     @Id

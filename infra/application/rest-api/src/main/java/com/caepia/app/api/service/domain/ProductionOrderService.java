@@ -84,6 +84,13 @@ public class ProductionOrderService {
     }
 
 
+    public StoredProcedureResult changeStatusProductionOrder(Integer productionOrderId, Integer status, Integer userId) {
+        StoredProcedureResult result = productionOrderRepository.changeStatusProductionOrder(productionOrderId, status, userId);
+
+        return result;
+    }
+
+
 
 
     /* ------------------------ */
