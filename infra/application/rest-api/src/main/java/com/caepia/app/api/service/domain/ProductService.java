@@ -154,13 +154,15 @@ public class ProductService {
      * @param productId    identifier for the product
      * @param isBookmarked true if product is marked as bookmark, false otherwise
      */
-    public Iterable<ModelEntity> updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
+    public StoredProcedureResult updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
         StoredProcedureResult result = productRepository.updateBookmark(vendorId, centerId, productId, isBookmarked);
-        if (result.getErrorCode() == 0) {
+
+        return result;
+     /*   if (result.getErrorCode() == 0) {
             return this.getProductByVendorIdAndCenterIdAndIdAndLogisticChainId(centerId, vendorId, productId, 1);
         } else {
             throw new UpdateProductBookmarkException("Product %d not provided by vendor %d to center %d.", centerId, vendorId, productId);
-        }
+        } */
     }
 
 

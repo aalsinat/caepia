@@ -164,7 +164,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
 
     @Override
     @PatchMapping(value = "/centers/{centerId}/vendors/{vendorId}/products/{productId}")
-    public ResponseEntity<Iterable<ModelEntity>> updateBookmark(@PathVariable Integer centerId,
+    public ResponseEntity<StoredProcedureResult> updateBookmark(@PathVariable Integer centerId,
                                                                 @PathVariable Integer vendorId,
                                                                 @PathVariable Integer productId,
                                                                 @RequestParam(value = "isBookmarked") Integer isBookmarked) {

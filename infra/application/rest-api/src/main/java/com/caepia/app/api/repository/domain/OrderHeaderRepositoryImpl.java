@@ -26,6 +26,8 @@ public class OrderHeaderRepositoryImpl implements OrderHeaderManagementRepositor
         return StoredProcedureResult.builder()
                                     .errorCode((Integer) result[0])
                                     .errorMessage(String.valueOf(result[1]))
+                                    .whatsAppBody(String.valueOf(result[2]))
+                                    .whatsAppTel(String.valueOf(result[3]))
                                     .build();
     }
 

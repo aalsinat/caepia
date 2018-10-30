@@ -56,15 +56,15 @@ public class ProductionOrderControllerImpl extends AbstractController implements
     /**
      * Get all authorized {@link ModelEntity}s for a particular {@code Center}
      *
-     * @param prodOrderId   identifier for the order
+     * @param productionOrderId   identifier for the order
      * @param page     requested page number
      * @param size     size of requested page
      * @return
      */
     @Override
-    @GetMapping(value = "/productionOrders/{prodOrderId}/products")
+    @GetMapping(value = "/productionOrders/{productionOrderId}/products")
     public ResponseEntity<Iterable<ModelEntity>> getProductsByProductionOrders(
-            @PathVariable Integer prodOrderId,
+            @PathVariable Integer productionOrderId,
             @RequestParam(value = "mode", required = false, defaultValue = "0") Integer mode,
             @RequestParam(value = "fields", required = false) Optional<String> fields,
             @RequestParam(value = "page", required = false) Optional<Integer> page,
@@ -73,11 +73,11 @@ public class ProductionOrderControllerImpl extends AbstractController implements
         Iterable<ModelEntity> listItems;
 
         if (mode.intValue() == 0) {
-            listItems = salesProductService.getSalesProductsByProductionOrders(prodOrderId, page, size);
+            listItems = salesProductService.getSalesProductsByProductionOrders(productionOrderId, page, size);
 
         }
         else {
-            listItems = productReceiptService.getProductsReceiptByProductionOrders(prodOrderId, page, size);
+            listItems = productReceiptService.getProductsReceiptByProductionOrders(productionOrderId, page, size);
         }
 
 

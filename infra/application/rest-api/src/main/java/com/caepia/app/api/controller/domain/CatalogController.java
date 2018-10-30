@@ -71,7 +71,7 @@ public interface CatalogController {
 
     @ApiOperation(value = "${CatalogController.changeVendorProductBookmark}", httpMethod = "PATCH",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<Iterable<ModelEntity>> updateBookmark(@PathVariable Integer centerId,
+    ResponseEntity<StoredProcedureResult> updateBookmark(@PathVariable Integer centerId,
                                                      @PathVariable Integer vendorId,
                                                      @PathVariable Integer productId,
                                                      @RequestParam(value = "isBookmarked", required = true) Integer isBookmarked);
