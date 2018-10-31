@@ -9,19 +9,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@IdClass(ProductionOrderPK.class)
 @Table(name = "vAPIProdOrdersHeader")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "createProductionOrder",
-                procedureName = "spApiPostProductOrderHeader"),
+                                   procedureName = "spApiPostProductOrderHeader"),
         @NamedStoredProcedureQuery(name = "changeStatus",
-                procedureName = "spApiPutStatusProductOrder")})
-
-
-
+                                   procedureName = "spApiPutStatusProductOrder")})
 public class ProductionOrder extends ModelEntity {
+    // Si la PK es un unic camp, no cal definir una entitat PK
     @Id
     @Column(name = "PK_ProductionOrder")
     private Integer productionOrderId;
@@ -46,6 +43,4 @@ public class ProductionOrder extends ModelEntity {
 
     @Column(name = "CostCenterName")
     private String centerName;
-
-
 }

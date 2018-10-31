@@ -16,9 +16,7 @@ public class ProductsReceiptPK implements Serializable {
     @Id
     @Column(name = "PK_Row")
     private Integer rowId;
-    @Id
-    @Column(name = "PK_SalesProduct")
-    private Integer salesProductId;
-
-
+//    @Id
+//    @Column(name = "PK_SalesProduct")
+//    private Integer salesProductId;
 }

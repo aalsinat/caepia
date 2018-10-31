@@ -14,8 +14,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "updateProductionOrderRow",
-                procedureName = "spApiPutProdOrderProduct")})
-
+                                   procedureName = "spApiPutProdOrderProduct")})
 public class ProductsReceipt extends ModelEntity {
 
     @Id
@@ -24,7 +23,9 @@ public class ProductsReceipt extends ModelEntity {
     @Id
     @Column(name = "PK_Row")
     private Integer rowId;
-    @Id
+    //@Id
+    // La vista te valors nulls en aquest camp de manera que no pot ser mai PK
+    // TODO: Validar amb Eduard que realment es aixi
     @Column(name = "PK_SalesProduct")
     private Integer salesProductId;
 

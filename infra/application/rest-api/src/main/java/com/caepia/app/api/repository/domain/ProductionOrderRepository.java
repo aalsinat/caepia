@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductionOrderRepository extends JpaRepository<ProductionOrder, Integer>, ProductionOrderManagementRepository {
 
-
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
@@ -23,7 +22,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
+     * @param centerId      identifier for the center
      * @param prodOrderDate filter for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
@@ -34,7 +33,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param status identifier for the order
+     * @param status   identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
     Iterable<ModelEntity> findAllByCenterIdAndStatus(Integer centerId, Integer status);
@@ -42,8 +41,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
+     * @param centerId      identifier for the center
+     * @param status        identifier for the order
      * @param prodOrderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
@@ -54,7 +53,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param owner filter owner for the order
+     * @param owner    filter owner for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
     Iterable<ModelEntity> findAllByCenterIdAndOwner(Integer centerId, Integer owner);
@@ -62,8 +61,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param owner filter owner for the order
+     * @param centerId      identifier for the center
+     * @param owner         filter owner for the order
      * @param prodOrderDate filter orderDate for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
@@ -74,8 +73,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner identifier for the order
+     * @param status   identifier for the order
+     * @param owner    identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
     Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner);
@@ -84,9 +83,9 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner identifier for the order
+     * @param centerId      identifier for the center
+     * @param status        identifier for the order
+     * @param owner         identifier for the order
      * @param prodOrderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
@@ -105,9 +104,9 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
+     * @param centerId      identifier for the center
      * @param prodOrderDate filter for the center
-     * @param page     requested page
+     * @param page          requested page
      * @return a page of authorized {@link OrderHeader}s
      */
     Page<ModelEntity> findAllByCenterIdAndProdOrderDateGreaterThanEqual(Integer centerId, String prodOrderDate, Pageable page);
@@ -116,7 +115,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param owner filter owner for the order
+     * @param owner    filter owner for the order
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
@@ -125,10 +124,10 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param owner filter owner for the order
+     * @param centerId      identifier for the center
+     * @param owner         filter owner for the order
      * @param prodOrderDate filter orderDate for the order
-     * @param page     requested page
+     * @param page          requested page
      * @return a page of authorized {@link OrderHeader}s
      */
     Page<ModelEntity> findAllByCenterIdAndOwnerAndProdOrderDateGreaterThanEqual(Integer centerId, Integer owner, String prodOrderDate, Pageable page);
@@ -137,7 +136,7 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param status identifier for the order
+     * @param status   identifier for the order
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
@@ -146,10 +145,10 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
+     * @param centerId      identifier for the center
+     * @param status        identifier for the order
      * @param prodOrderDate filter for the order
-     * @param page     requested page
+     * @param page          requested page
      * @return a page of authorized {@link OrderHeader}s
      */
     Page<ModelEntity> findAllByCenterIdAndStatusAndProdOrderDateGreaterThanEqual(Integer centerId, Integer status, String prodOrderDate, Pageable page);
@@ -159,8 +158,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
+     * @param status   identifier for the order
+     * @param owner    filter identifier for the order
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
@@ -169,17 +168,17 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
      *
-     * @param centerId identifier for the center
-     * @param status identifier for the order
-     * @param owner filter identifier for the order
+     * @param centerId      identifier for the center
+     * @param status        identifier for the order
+     * @param owner         filter identifier for the order
      * @param prodOrderDate filter identifier for the order
-     * @param page     requested page
+     * @param page          requested page
      * @return a page of authorized {@link OrderHeader}s
      */
     Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProdOrderDateGreaterThanEqual(Integer centerId, Integer status, Integer owner, String prodOrderDate, Pageable page);
 
 
- // with centerId
+    // with centerId
 /*
     Iterable<ModelEntity> findAllByCenterId(Integer centerId, Integer vendorId);
 
