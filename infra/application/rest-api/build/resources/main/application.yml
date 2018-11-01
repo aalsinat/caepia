@@ -7,13 +7,13 @@ server:
     context-path: /api
 auth:
   datasource:
-    url: jdbc:sqlserver://52.1.112.243;database=CaepiaLoginDB
+    url: jdbc:sqlserver://35.158.176.210;database=CaepiaLoginDB
     username: CaepiaLoginAppUsr
     password: CLAUusr2018login
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 app:
   datasource:
-    url: jdbc:sqlserver://52.1.112.243;database=CaepiaDemoBD
+    url: jdbc:sqlserver://ec2-35-158-176-210.compute-1.amazonaws.com;database=CaepiaDemoBD
     username: CaepiaDemoAppUsr
     password: CDAUusr2018demo
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
