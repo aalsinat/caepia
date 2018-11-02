@@ -23,9 +23,7 @@ public class ProductsReceipt extends ModelEntity {
     @Id
     @Column(name = "PK_Row")
     private Integer rowId;
-    //@Id
-    // La vista te valors nulls en aquest camp de manera que no pot ser mai PK
-    // TODO: Validar amb Eduard que realment es aixi
+    @Id
     @Column(name = "PK_SalesProduct")
     private Integer salesProductId;
 

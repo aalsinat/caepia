@@ -25,7 +25,7 @@ public interface ProductionOrderController {
                     responseContainer = "List"),
             @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<ModelEntity>> getSalesProductsByProductionOrders(
-            @ApiParam(value = "Production Order identifier", required = true) Integer prodOrderId,
+            @ApiParam(value = "Production Order identifier", required = true) Integer productionOrderId,
             @ApiParam(value = "Selected fields") Optional<String> fields,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
             @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;

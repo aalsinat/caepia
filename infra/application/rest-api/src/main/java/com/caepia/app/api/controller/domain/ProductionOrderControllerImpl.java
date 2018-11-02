@@ -32,20 +32,20 @@ public class ProductionOrderControllerImpl extends AbstractController implements
     /**
      * Get all authorized {@link ModelEntity}s for a particular {@code Center}
      *
-     * @param prodOrderId   identifier for the order
+     * @param productionOrderId   identifier for the order
      * @param page     requested page number
      * @param size     size of requested page
      * @return
      */
     @Override
-    @GetMapping(value = "/productionOrders/{prodOrderId}/salesProducts")
+    @GetMapping(value = "/productionOrders/{productionOrderId}/salesProducts")
     public ResponseEntity<Iterable<ModelEntity>> getSalesProductsByProductionOrders(
-            @PathVariable Integer prodOrderId,
+            @PathVariable Integer productionOrderId,
             @RequestParam(value = "fields", required = false) Optional<String> fields,
             @RequestParam(value = "page", required = false) Optional<Integer> page,
             @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
-        Iterable<ModelEntity> salesProduct = salesProductService.getSalesProductsByProductionOrders(prodOrderId, page, size);
+        Iterable<ModelEntity> salesProduct = salesProductService.getSalesProductsByProductionOrders(productionOrderId, page, size);
 
         salesProduct = fields.isPresent() ? super
                 .includeProperties(salesProduct, super.getListFromString(fields.get())) : salesProduct;
