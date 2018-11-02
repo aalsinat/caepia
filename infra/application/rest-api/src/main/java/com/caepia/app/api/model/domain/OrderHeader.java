@@ -40,8 +40,12 @@ public class OrderHeader extends ModelEntity {
     @Column(name = "FK_vendor")
     private Integer vendorId;
 
+    @Column(name = "StrOrderDateFromNow")
+    private String orderDateFromNow;
+
     @Column(name = "OrderDate")
     private String orderDate;
+
 
     @Column(name = "TotalAmount")
     private Float TotalAmount;

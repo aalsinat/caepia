@@ -32,6 +32,10 @@ public class ProductionOrder extends ModelEntity {
     @Column(name = "ProdOrderDate")
     private String prodOrderDate;
 
+    @Column(name = "StrProdOrderDateFromNow")
+    private String prodOrderDateFromNow;
+
+
     @Column(name = "Status")
     private Integer status;
 

@@ -14,7 +14,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "updateBookmark",
-                                   procedureName = "spApiPutCatalogBookmark")})
+                                   procedureName = "spApiPutCatalogSetBookmark")})
 public class Product extends ModelEntity {
     @Id
     @Column(name = "PK_CostCenter")

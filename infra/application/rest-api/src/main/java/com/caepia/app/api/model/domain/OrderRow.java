@@ -70,6 +70,9 @@ public class OrderRow extends ModelEntity{
     @Column(name = "FK_CategoryL3")
     private Integer categoryL3Id;
 
+    @Column(name = "CategoryL3Name")
+    private String categoryL3Name;
+
     @Column(name = "swBookmark")
     private Integer swBookmark;
 

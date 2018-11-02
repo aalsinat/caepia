@@ -171,7 +171,8 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Check if requested vendor really exists and is authorized to Center.
-        return ResponseEntity.ok(productService.updateBookmark(centerId, vendorId, productId, isBookmarked));
+        Integer userId = this.getLogedUserId();
+        return ResponseEntity.ok(productService.updateBookmark(centerId, vendorId, productId, isBookmarked, userId));
     }
 
 

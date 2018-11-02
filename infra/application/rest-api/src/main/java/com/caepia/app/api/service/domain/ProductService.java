@@ -154,8 +154,8 @@ public class ProductService {
      * @param productId    identifier for the product
      * @param isBookmarked true if product is marked as bookmark, false otherwise
      */
-    public StoredProcedureResult updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked) {
-        StoredProcedureResult result = productRepository.updateBookmark(vendorId, centerId, productId, isBookmarked);
+    public StoredProcedureResult updateBookmark(Integer centerId, Integer vendorId, Integer productId, Integer isBookmarked, Integer userId) {
+        StoredProcedureResult result = productRepository.updateBookmark(vendorId, centerId, productId, isBookmarked, userId);
 
         return result;
      /*   if (result.getErrorCode() == 0) {

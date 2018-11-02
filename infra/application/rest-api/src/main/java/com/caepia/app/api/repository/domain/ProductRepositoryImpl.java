@@ -15,14 +15,15 @@ public class ProductRepositoryImpl implements ProductManagementRepository {
 
     @Override
     public StoredProcedureResult updateBookmark(Integer vendorId, Integer centerId, Integer productId,
-                                                Integer isBookmarked) {
+                                                Integer isBookmarked, Integer userId) {
         StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateBookmark")
                                                        .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
                                                        .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
                                                        .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN)
-                                                       .registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN);
+                                                       .registerStoredProcedureParameter(3, Integer.class, ParameterMode.IN)
+                                                       .registerStoredProcedureParameter(4, Integer.class, ParameterMode.IN);
         query.setParameter(0, vendorId).setParameter(1, centerId).setParameter(2, productId)
-             .setParameter(3, isBookmarked);
+             .setParameter(3, isBookmarked).setParameter(4, userId);
         query.execute();
         Object[] result = (Object[]) query.getSingleResult();
 
