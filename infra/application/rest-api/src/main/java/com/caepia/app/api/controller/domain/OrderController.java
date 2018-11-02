@@ -50,11 +50,11 @@ public interface OrderController {
 
     @ApiOperation(value = "${OrderController.createOrderHeader}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> createOrderHeader(@ApiParam("Order information") OrderHeaderDataDTO order);
+    ResponseEntity<StoredProcedureResult> createOrderHeader(@ApiParam("Order header information") OrderHeaderDataDTO order);
 
     @ApiOperation(value = "${OrderController.updateOrderHeader}", httpMethod = "PATCH",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<StoredProcedureResult> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order information") OrderHeaderDataDTO order);
+    ResponseEntity<StoredProcedureResult> updateOrderHeader(@PathVariable Integer orderId, @ApiParam("Order header information") OrderHeaderDataDTO order);
 
     @ApiOperation(value = "${OrderController.createOrderRow}", httpMethod = "POST",
                   produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

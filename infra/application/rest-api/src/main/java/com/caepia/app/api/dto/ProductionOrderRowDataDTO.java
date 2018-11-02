@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
-@ApiModel(description = "Production Order request information", value = "OrderHeaderData")
+@ApiModel(description = "Production Order request information", value = "Production Order Row")
 @Getter
 public class ProductionOrderRowDataDTO {
     @ApiModelProperty(position = 1, required = true)
