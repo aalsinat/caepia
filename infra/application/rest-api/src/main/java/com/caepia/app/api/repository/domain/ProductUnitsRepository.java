@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface ProductUnitsRepository extends JpaRepository<ProductUnits, Integer> {
 
 
+    Iterable<ProductUnits> findAllByOrderByName();
+
 
 
 

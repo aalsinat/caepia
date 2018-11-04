@@ -48,7 +48,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterId(Integer centerId) {
-        return orderHeaderRepository.findAllByCenterId(centerId);
+        return orderHeaderRepository.findAllByCenterIdOrderByOrderDateDesc(centerId);
     }
 
     /**
@@ -59,7 +59,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqual(centerId ,orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId ,orderDate);
     }
 
     /**
@@ -70,7 +70,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId) {
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderId(centerId,productionOrderId);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdOrderByOrderDateDesc(centerId,productionOrderId);
     }
 
     /**
@@ -82,7 +82,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId,productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId,productionOrderId, orderDate);
     }
 
     /**
@@ -93,7 +93,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatus(Integer centerId, Integer status) {
-        return orderHeaderRepository.findAllByCenterIdAndStatus(centerId, status);
+        return orderHeaderRepository.findAllByCenterIdAndStatusOrderByOrderDateDesc(centerId, status);
     }
 
     /**
@@ -105,7 +105,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(centerId, status, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, orderDate);
     }
 
     /**
@@ -116,7 +116,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdOrderByOrderDateDesc(centerId, status, productionOrderId);
     }
 
     /**
@@ -128,7 +128,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, productionOrderId, orderDate);
     }
 
 
@@ -140,7 +140,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner) {
-        return orderHeaderRepository.findAllByCenterIdAndOwner(centerId, owner);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerOrderByOrderDateDesc(centerId, owner);
     }
 
     /**
@@ -152,7 +152,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(centerId, owner, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, owner, orderDate);
     }
 
 
@@ -165,7 +165,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId) {
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdOrderByOrderDateDesc(centerId, owner, productionOrderId);
     }
 
     /**
@@ -178,7 +178,7 @@ public class OrderService {
      * @return
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, owner, productionOrderId, orderDate);
     }
 
 
@@ -192,7 +192,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterId(Integer centerId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterId(centerId, pageable);
+        return orderHeaderRepository.findAllByCenterIdOrderByOrderDateDesc(centerId, pageable);
     }
 
     /**
@@ -206,7 +206,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOrderDate(Integer centerId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqual(centerId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, orderDate, pageable);
     }
 
     /**
@@ -220,7 +220,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderId(centerId, productionOrderId, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdOrderByOrderDateDesc(centerId, productionOrderId, pageable);
     }
 
     /**
@@ -235,7 +235,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndProductionOrderIdAndOrderDate(Integer centerId, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, productionOrderId, orderDate, pageable);
     }
 
     /**
@@ -249,7 +249,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwner(Integer centerId, Integer owner, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwner(centerId, owner, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerOrderByOrderDateDesc(centerId, owner, pageable);
     }
 
     /**
@@ -264,7 +264,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndOrderDate(Integer centerId, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(centerId, owner, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, owner, orderDate, pageable);
     }
 
 
@@ -280,7 +280,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderId(centerId, owner, productionOrderId, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdOrderByOrderDateDesc(centerId, owner, productionOrderId, pageable);
     }
 
     /**
@@ -296,7 +296,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, owner, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, owner, productionOrderId, orderDate, pageable);
     }
 
     /**
@@ -311,7 +311,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderId(centerId, status, productionOrderId, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdOrderByOrderDateDesc(centerId, status, productionOrderId, pageable);
     }
 
 
@@ -328,7 +328,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, productionOrderId, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, productionOrderId, orderDate, pageable);
     }
 
 
@@ -343,7 +343,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatus(Integer centerId, Integer status, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatus(centerId, status, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusOrderByOrderDateDesc(centerId, status, pageable);
     }
 
     /**
@@ -358,7 +358,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOrderDate(Integer centerId, Integer status, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(centerId, status, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, orderDate, pageable);
     }
 
 
@@ -375,7 +375,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwner(centerId, status, owner, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerOrderByOrderDateDesc(centerId, status, owner, pageable);
     }
 
     /**
@@ -387,7 +387,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwner(centerId, status, owner);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerOrderByOrderDateDesc(centerId, status, owner);
     }
 
     /**
@@ -403,7 +403,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(centerId, status, owner, orderDate, pageable);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, owner, orderDate, pageable);
     }
 
     /**
@@ -416,7 +416,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndOrderDate(Integer centerId, Integer status, Integer owner, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(centerId, status, owner, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, owner, orderDate);
     }
 
     /**
@@ -431,7 +431,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdOrderByOrderDateDesc(centerId, status, owner, productionOrderId);
     }
 
     /**
@@ -447,7 +447,7 @@ public class OrderService {
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, owner, productionOrderId, orderDate);
     }
 
     /**
@@ -459,7 +459,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(centerId, status, owner, productionOrderId);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdOrderByOrderDateDesc(centerId, status, owner, productionOrderId);
     }
 
     /**
@@ -472,7 +472,7 @@ public class OrderService {
      * @return a page of authorized {@link OrderHeader}s
      */
     public Iterable<ModelEntity> getOrdersByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDate(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate) {
-        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(centerId, status, owner, productionOrderId, orderDate);
+        return orderHeaderRepository.findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(centerId, status, owner, productionOrderId, orderDate);
     }
 
 

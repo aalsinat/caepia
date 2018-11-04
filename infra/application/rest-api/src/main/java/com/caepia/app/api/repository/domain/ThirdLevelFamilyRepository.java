@@ -46,5 +46,23 @@ public interface ThirdLevelFamilyRepository extends JpaRepository<ThirdLevelFami
      */
     Iterable<ThirdLevelFamily> findAllByCenterIdAndVendorId(Integer centerId, Integer vendorId);
 
+    /**
+     * Query for fetching, page by page, all authorizes {@link ThirdLevelFamilyRepository}s for a particular {@code Center}.
+     *
+     * @param centerId identifier for the center
+     * @param vendorId       identifier for the found vendor
+     * @param page     requested page
+     * @return a page of authorized {@link ThirdLevelFamilyRepository}s
+     */
+    Page<ThirdLevelFamily> findAllByCenterIdAndVendorIdOrderByCategoryName(Integer centerId, Integer vendorId, Pageable page);
+
+    /**
+     * Query for fetching information about an authorized {@link ThirdLevelFamilyRepository} to a particular {@code Center}.
+     *
+     * @param centerId identifier for a center
+     * @param vendorId       identifier for the found vendor
+     * @return information about requested vendor
+     */
+    Iterable<ThirdLevelFamily> findAllByCenterIdAndVendorIdOrderByCategoryName(Integer centerId, Integer vendorId);
 
 }

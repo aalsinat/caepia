@@ -13,7 +13,7 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
      *
      * @return a list of authorized {@link Document}s.
      */
-   // Iterable<Document> findAll();
+    Iterable<Document> findAllByOrderByStatusId();
 
 
 }

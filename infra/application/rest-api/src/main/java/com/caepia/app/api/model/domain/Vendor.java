@@ -24,7 +24,7 @@ public class Vendor extends ModelEntity {
     private String centerName;
 
     @Column(name = "VendorName")
-    private String name;
+    private String vendorName;
 
     @Column(name = "NIF")
     private String taxId;

@@ -23,7 +23,7 @@ public class VendorService {
      * @return
      */
     public Iterable<ModelEntity> getVendorsByCenterId(Integer centerId) {
-        return vendorRepository.findAllByCenterId(centerId);
+        return vendorRepository.findAllByCenterIdOrderByVendorName(centerId);
     }
 
 
@@ -49,7 +49,7 @@ public class VendorService {
      */
     public Iterable<ModelEntity> getVendorsByCenterId(Integer centerId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return vendorRepository.findAllByCenterId(centerId, pageable);
+        return vendorRepository.findAllByCenterIdOrderByVendorName(centerId, pageable);
     }
 
     /**
@@ -90,7 +90,7 @@ public class VendorService {
 
     public Iterable<ThirdLevelFamily> getVendorThirdLevelFamilyByCenterIdAndVendorId(Integer centerId, Integer vendorId, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page.intValue(), size.intValue());
-        return thirdLevelFamilyRepository.findAllByCenterIdAndVendorId(centerId, vendorId, pageable);
+        return thirdLevelFamilyRepository.findAllByCenterIdAndVendorIdOrderByCategoryName(centerId, vendorId, pageable);
     }
 
     /**
@@ -101,6 +101,6 @@ public class VendorService {
      * @return information about requested {@link Vendor}
      */
     public Iterable<ThirdLevelFamily> getVendorThirdLevelFamilyByCenterIdAndVendorId(Integer centerId, Integer vendorId) {
-        return thirdLevelFamilyRepository.findAllByCenterIdAndVendorId(centerId, vendorId);
+        return thirdLevelFamilyRepository.findAllByCenterIdAndVendorIdOrderByCategoryName(centerId, vendorId);
     }
 }

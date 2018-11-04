@@ -28,7 +28,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param centerId identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterId(Integer centerId);
+    Iterable<ModelEntity> findAllByCenterIdOrderByOrderDateDesc(Integer centerId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -37,7 +37,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndOrderDateGreaterThanEqual(Integer centerId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -46,7 +46,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -56,7 +56,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the center
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer productionOrderId, String orderDate);
 
 
     /**
@@ -66,7 +66,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param status identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatus(Integer centerId, Integer status);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusOrderByOrderDateDesc(Integer centerId, Integer status);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -76,7 +76,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(Integer centerId, Integer status, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -86,7 +86,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId filter identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer status, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -97,7 +97,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer status, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, Integer productionOrderId, String orderDate);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -106,7 +106,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param owner filter owner for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndOwner(Integer centerId, Integer owner);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerOrderByOrderDateDesc(Integer centerId, Integer owner);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -116,7 +116,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter orderDate for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(Integer centerId, Integer owner, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer owner, String orderDate);
 
 
     /**
@@ -127,7 +127,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId filter productionOrderId for the order
      * @return a list of authorized {@link OrderHeader}s
      */
-    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer owner, Integer productionOrderId);
 
     /**
      * Query for fetching all authorized {@link OrderHeader}s for a particular {@code Center}.
@@ -138,7 +138,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate filter orderDate for the order
      * @return a list of authorized {@link OrderHeader}s
      */
-    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer owner, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer owner, Integer productionOrderId, String orderDate);
 
 
 
@@ -150,7 +150,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param owner identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner);
 
 
     /**
@@ -162,7 +162,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(Integer centerId, Integer status, Integer owner, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner, String orderDate);
 
 
     /**
@@ -174,7 +174,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param productionOrderId identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderId(Integer centerId, Integer status, Integer owner, Integer productionOrderId);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner, Integer productionOrderId);
 
 
     /**
@@ -187,7 +187,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param orderDate identifier for the order
      * @return a list of authorized {@link OrderHeader}s.
      */
-    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate);
+    Iterable<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner, Integer productionOrderId, String orderDate);
 
 
 
@@ -199,7 +199,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterId(Integer centerId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdOrderByOrderDateDesc(Integer centerId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -209,7 +209,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndOrderDateGreaterThanEqual(Integer centerId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, String orderDate, Pageable page);
 
 
     /**
@@ -220,7 +220,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndProductionOrderId(Integer centerId, Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -231,7 +231,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer productionOrderId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer productionOrderId, String orderDate, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -241,7 +241,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndOwner(Integer centerId, Integer owner, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerOrderByOrderDateDesc(Integer centerId, Integer owner, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -252,7 +252,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqual(Integer centerId, Integer owner, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer owner, String orderDate, Pageable page);
 
 
     /**
@@ -264,7 +264,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderId(Integer centerId, Integer owner, Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer owner, Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -276,7 +276,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndOwnerAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer owner, Integer productionOrderId, String orderDate, Pageable page);
 
 
     /**
@@ -287,7 +287,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatus(Integer centerId, Integer status, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusOrderByOrderDateDesc(Integer centerId, Integer status, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -298,7 +298,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatusAndOrderDateGreaterThanEqual(Integer centerId, Integer status, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, String orderDate, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -309,7 +309,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderId(Integer centerId, Integer status,Integer productionOrderId, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdOrderByOrderDateDesc(Integer centerId, Integer status,Integer productionOrderId, Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -321,7 +321,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqual(Integer centerId, Integer status,Integer productionOrderId, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndProductionOrderIdAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status,Integer productionOrderId, String orderDate, Pageable page);
 
 
     /**
@@ -333,7 +333,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatusAndOwner(Integer centerId, Integer status, Integer owner,Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner,Pageable page);
 
     /**
      * Query for fetching, page by page, all authorizes {@link OrderHeader}s for a particular {@code Center}.
@@ -345,7 +345,7 @@ public interface OrderHeaderRepository extends JpaRepository<OrderHeader, Intege
      * @param page     requested page
      * @return a page of authorized {@link OrderHeader}s
      */
-    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqual(Integer centerId, Integer status, Integer owner, String orderDate, Pageable page);
+    Page<ModelEntity> findAllByCenterIdAndStatusAndOwnerAndOrderDateGreaterThanEqualOrderByOrderDateDesc(Integer centerId, Integer status, Integer owner, String orderDate, Pageable page);
 
 
     /**

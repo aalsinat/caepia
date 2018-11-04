@@ -23,7 +23,7 @@ public class DocumentService {
      * @return
      */
     public Iterable<Document> getAllDocuments() {
-        return documentRepository.findAll();
+        return documentRepository.findAllByOrderByStatusId();
     }
 
 
@@ -34,6 +34,6 @@ public class DocumentService {
      */
 
     public Iterable<ProductUnits> getAllProductUnits() {
-        return productUnitsRepository.findAll();
+        return productUnitsRepository.findAllByOrderByName();
     }
 }
