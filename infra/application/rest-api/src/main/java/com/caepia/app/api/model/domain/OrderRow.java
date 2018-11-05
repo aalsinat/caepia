@@ -94,7 +94,8 @@ public class OrderRow extends ModelEntity{
     @Column(name = "VendorDesc")
     private String vendorDesc;
 
-
+    @Column(name = "Comments")
+    private String comments;
 
 
 }
