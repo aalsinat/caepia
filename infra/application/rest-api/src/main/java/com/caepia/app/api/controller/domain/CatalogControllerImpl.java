@@ -9,6 +9,7 @@ import com.caepia.app.api.service.domain.ProductService;
 import com.caepia.app.api.service.domain.PurchasesTrendsService;
 import com.caepia.app.api.service.domain.ProductionOrderService;
 import com.caepia.app.api.service.domain.VendorService;
+import com.caepia.app.api.service.domain.DeliveryNoteService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     private final ProductionOrderService productionOrderService;
     private final OrderService orderService;
     private final PurchasesTrendsService purchasesTrendsService;
+    private final DeliveryNoteService deliveryNoteService;
 
     /**
      * Get all authorized {@link Vendor}s for a particular {@code Center}
@@ -443,6 +445,42 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
 
         return ResponseEntity.ok(productionOrderService.createProductionOrder(centerId, userId));
+
+
+    }
+
+
+
+
+    /**
+     * Get all authorized {@link ModelEntity}s for a particular {@code Center}
+     *
+     * @param centerId identifier for the center
+     * @param page     requested page number
+     * @param size     size of requested page
+     * @return
+     */
+    @Override
+    @GetMapping(value = "/centers/{centerId}/deliveryNotes")
+    public ResponseEntity<Iterable<ModelEntity>> getDeliveryNotesByCenterId(
+            @PathVariable Integer centerId,
+            @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "page", required = false) Optional<Integer> page,
+            @RequestParam(value = "size", required = false) Optional<Integer> size) {
+        if (!isEligible(centerId))
+            throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
+        // TODO: Filter vendor entity properties to return only those requested using field parameter
+
+
+        Iterable<ModelEntity> deliveryNotes = super.isPageRequest(page, size) ?
+                deliveryNoteService.getDeliveryNotesByCenterId(centerId, super.transformDefaultPage(page.get()), size.get()) :
+                deliveryNoteService.getDeliveryNotesByCenterId(centerId);
+
+        deliveryNotes = fields.isPresent() ? super
+                .includeProperties(deliveryNotes, super.getListFromString(fields.get())) : deliveryNotes;
+        return ResponseEntity.ok(deliveryNotes);
+
+
 
 
     }

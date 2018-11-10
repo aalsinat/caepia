@@ -138,5 +138,17 @@ public interface CatalogController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<StoredProcedureResult> createProductionOrder(@PathVariable Integer centerId);
 
+    @ApiOperation(value = "${CatalogController.getProductionOrdersByCenterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "List of deliveryNotes for this center", response = ModelEntity.class,
+                    responseContainer = "List"),
+            @ApiResponse(code = 403, message = "Center not authorized to current user", response = ApiError.class)})
+    ResponseEntity<Iterable<ModelEntity>> getDeliveryNotesByCenterId(
+            @ApiParam(value = "Center identifier", required = true) Integer centerId,
+            @ApiParam(value = "Selected fields") Optional<String> fields,
+            @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
+            @ApiParam(value = "Size of requested page") Optional<Integer> size);
+
+
 
 }
