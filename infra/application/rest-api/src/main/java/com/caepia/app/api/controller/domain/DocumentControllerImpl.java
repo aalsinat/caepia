@@ -1,5 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
+import com.caepia.app.api.dto.LogDataDTO;
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.Document;
 import com.caepia.app.api.model.domain.ProductUnits;
 import com.caepia.app.api.security.JwtUser;
@@ -9,10 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.AbstractMap;
 import java.util.List;
@@ -51,6 +50,25 @@ public class DocumentControllerImpl extends AbstractController implements Docume
 
         Iterable<ProductUnits> productUnits = documentService.getAllProductUnits();
         return ResponseEntity.ok(productUnits);
+    }
+
+    @Override
+    @PostMapping(value = "/documents/log")
+    public ResponseEntity<StoredProcedureResult> createLogEntry(@RequestBody LogDataDTO log) {
+
+        Integer userId = this.getLogedUserId();
+        Integer logEventType = log.getLogEventType();
+        Integer logProces = log.getLogProces();
+        String description = log.getDescription();
+        String extraInfo = log.getExtraInfo();
+        String deviceInfo = log.getDeviceInfo();
+
+        return ResponseEntity.ok(documentService.createLogEntry(logProces, logEventType ,description,extraInfo, deviceInfo, userId));
+
+
+
+
+
     }
 
     // -----------------------------

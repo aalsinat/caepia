@@ -1,5 +1,6 @@
 package com.caepia.app.api.service.domain;
 
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.Document;
 import com.caepia.app.api.repository.domain.DocumentRepository;
 
@@ -35,5 +36,12 @@ public class DocumentService {
 
     public Iterable<ProductUnits> getAllProductUnits() {
         return productUnitsRepository.findAllByOrderByName();
+    }
+
+
+    public StoredProcedureResult createLogEntry(Integer logProces, Integer logEventType, String description, String extraInfo, String deviceInfo, Integer userId) {
+        StoredProcedureResult result = documentRepository.createLogEntry(logProces, logEventType, description, extraInfo, deviceInfo, userId);
+        return result;
+
     }
 }

@@ -465,22 +465,22 @@ public class CatalogControllerImpl extends AbstractController implements Catalog
     public ResponseEntity<Iterable<ModelEntity>> getDeliveryNotesByCenterId(
             @PathVariable Integer centerId,
             @RequestParam(value = "fields", required = false) Optional<String> fields,
+            @RequestParam(value = "filterDate", required = false) Optional<String> filterDate,
+            @RequestParam(value = "owner", required = false)  Optional<Integer> owner,
+            @RequestParam(value = "status", required = false) Optional<Integer> status,
+            @RequestParam(value = "order", required = false) Optional<Integer> orderId,
             @RequestParam(value = "page", required = false) Optional<Integer> page,
-            @RequestParam(value = "size", required = false) Optional<Integer> size) {
+            @RequestParam(value = "size", required = false) Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (!isEligible(centerId))
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", centerId);
         // TODO: Filter vendor entity properties to return only those requested using field parameter
 
 
-        Iterable<ModelEntity> deliveryNotes = super.isPageRequest(page, size) ?
-                deliveryNoteService.getDeliveryNotesByCenterId(centerId, super.transformDefaultPage(page.get()), size.get()) :
-                deliveryNoteService.getDeliveryNotesByCenterId(centerId);
+        Iterable<ModelEntity> deliveryNotes = deliveryNoteService.getDeliveryNotesByCenterId(centerId, filterDate, owner, status, orderId, page, size);
 
         deliveryNotes = fields.isPresent() ? super
                 .includeProperties(deliveryNotes, super.getListFromString(fields.get())) : deliveryNotes;
         return ResponseEntity.ok(deliveryNotes);
-
-
 
 
     }

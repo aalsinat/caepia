@@ -146,8 +146,13 @@ public interface CatalogController {
     ResponseEntity<Iterable<ModelEntity>> getDeliveryNotesByCenterId(
             @ApiParam(value = "Center identifier", required = true) Integer centerId,
             @ApiParam(value = "Selected fields") Optional<String> fields,
+            @ApiParam(value = "Date filter") Optional<String> filterDate,
+            @ApiParam(value = "Owner filter") Optional<Integer> owner,
+            @ApiParam(value = "Status filter") Optional<Integer> status,
+            @ApiParam(value = "Order filter") Optional<Integer> orderId,
             @ApiParam(value = "Page number, starting from zero") Optional<Integer> page,
-            @ApiParam(value = "Size of requested page") Optional<Integer> size);
+            @ApiParam(value = "Size of requested page") Optional<Integer> size) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+
 
 
 

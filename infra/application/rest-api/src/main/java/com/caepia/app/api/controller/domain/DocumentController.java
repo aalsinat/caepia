@@ -1,6 +1,8 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
+import com.caepia.app.api.dto.LogDataDTO;
+import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.model.domain.Document;
 import com.caepia.app.api.model.domain.ProductUnits;
 import io.swagger.annotations.*;
@@ -23,5 +25,10 @@ public interface DocumentController {
             @ApiResponse(code = 200, message = "List of product units", response = Document.class, responseContainer = "List"),
             @ApiResponse(code = 403, message = "Documents not authorized to current user", response = ApiError.class)})
     ResponseEntity<Iterable<ProductUnits>> getAllProductUnits();
+
+
+    @ApiOperation(value = "${DocumentController.createLogEntry}", httpMethod = "POST",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> createLogEntry(@ApiParam("Log Data information") LogDataDTO order);
 
 }
