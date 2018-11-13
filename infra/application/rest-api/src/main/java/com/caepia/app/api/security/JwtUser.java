@@ -25,6 +25,7 @@ public class JwtUser implements UserDetails {
     private String surname;
     private String password;
     private String email;
+    private Integer clientId;
     private Collection<UserCenter> centers;
     private Collection<UserParameter> parameters;
     private Collection<UserPermission> permissions;

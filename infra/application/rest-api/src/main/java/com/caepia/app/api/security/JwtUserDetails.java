@@ -35,6 +35,7 @@ public class JwtUserDetails implements UserDetailsService {
                       .name(userInfo.getName())
                       .surname(userInfo.getSurname())
                       .email(userInfo.getEmail())
+                      .clientId(userAccount.getClientId())
                       .centers(userInfo.getCenters())
                       .parameters(userInfo.getParameters())
                       .permissions(userInfo.getPermissions())
