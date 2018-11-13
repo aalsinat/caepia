@@ -16,8 +16,8 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.caepia.app.api.repository.authentication",
-                       entityManagerFactoryRef = "authenticationEntityManagerFactory",
-                       transactionManagerRef = "authenticationTransactionManager")
+        entityManagerFactoryRef = "authenticationEntityManagerFactory",
+        transactionManagerRef = "authenticationTransactionManager")
 public class AuthenticationConfiguration {
     @Bean
     @Primary
@@ -34,7 +34,8 @@ public class AuthenticationConfiguration {
 
     @Bean
     @Primary
-    public LocalContainerEntityManagerFactoryBean authenticationEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean authenticationEntityManagerFactory(
+            EntityManagerFactoryBuilder builder) {
         return builder.dataSource(authDataSource()).packages("com.caepia.app.api.model.authentication")
                       .persistenceUnit("authentication").build();
     }
