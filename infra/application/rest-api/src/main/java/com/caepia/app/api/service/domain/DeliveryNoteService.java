@@ -156,6 +156,17 @@ public class DeliveryNoteService {
     }
 
 
+    public StoredProcedureResult updateDeliveryNotesRow(Integer deliveryNoteId, Integer rowId, Float docPackQuantity, String comments, Integer userId) {
+        StoredProcedureResult result = deliveryNoteRowRepository.updateDeliveryNotesRow(deliveryNoteId, rowId, docPackQuantity , comments, userId);
+        return result;
+
+    }
+
+    public StoredProcedureResult issueDeliveryNotesRow(Integer deliveryNoteId, Integer rowId, Float docPackQuantity, Float docQuantity, Float deliveryQuantity, Float amount, Integer swChecked, Integer issueType,String comments, Integer userId) {
+        StoredProcedureResult result = deliveryNoteRowRepository.issueDeliveryNotesRow(deliveryNoteId, rowId, docPackQuantity, docQuantity, deliveryQuantity, amount, swChecked, issueType, comments, userId);
+        return result;
+
+    }
 
     /* ------------------------ */
     /*    Support methods       return this.dynamicRepositoryCall(this.productRepository, methodName.toString(), parameters.toArray(new Object[parameters.size()]));*/

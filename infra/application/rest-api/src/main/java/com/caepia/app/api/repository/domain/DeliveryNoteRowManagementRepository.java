@@ -6,7 +6,9 @@ public interface DeliveryNoteRowManagementRepository {
 
     StoredProcedureResult createDeliveryNoteRow(Integer deliveryNoteId, String productName , Integer categoryL3, Integer units, Float packQuantity, Float cost, String comments, Integer userId);
 
-  //  StoredProcedureResult updateDeliveryNotesHeader(Integer deliveryNoteId, String deliveryNoteDate, String vendorNumDoc, String vendorDate, Integer sourceOrder, Integer invoice, String comments, Integer userId);
+    StoredProcedureResult updateDeliveryNotesRow(Integer deliveryNoteId, Integer rowId, Float docPackQuantity, String comments, Integer userId);
+
+    StoredProcedureResult issueDeliveryNotesRow(Integer deliveryNoteId, Integer rowId, Float docPackQuantity, Float docQuantity, Float deliveryQuantity, Float amount, Integer swChecked, Integer issueType,String comments, Integer userId);
 
 
 }

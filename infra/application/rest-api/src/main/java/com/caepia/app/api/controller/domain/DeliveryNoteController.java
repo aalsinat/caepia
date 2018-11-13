@@ -4,6 +4,8 @@ import com.caepia.app.api.dto.ApiError;
 import com.caepia.app.api.dto.DeliveryNoteHeaderDataDTO;
 import com.caepia.app.api.dto.DeliveryNoteRowDataDTO;
 import com.caepia.app.api.dto.DeliveryNoteHeaderPutDataDTO;
+import com.caepia.app.api.dto.DeliveryNoteRowPutDataDTO;
+import com.caepia.app.api.dto.DeliveryNoteRowIssueDataDTO;
 
 
 import com.caepia.app.api.dto.StoredProcedureResult;
@@ -63,5 +65,15 @@ public interface DeliveryNoteController {
     @ApiOperation(value = "${DeliveryNotes.createDeliveryNotesOrw}", httpMethod = "POST",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<StoredProcedureResult> createDeliveryNoteRow(@ApiParam("DeliveryNote Row information") DeliveryNoteRowDataDTO order);
+
+    @ApiOperation(value = "${DeliveryNotes.updateDeliveryNotesRow}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> updateDeliveryNotesRow(@PathVariable Integer deliveryNoteId, @PathVariable Integer rowId, @ApiParam("delivery note order information") DeliveryNoteRowPutDataDTO order);
+
+    @ApiOperation(value = "${DeliveryNotes.issueDeliveryNotesRow}", httpMethod = "PATCH",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> issueDeliveryNotesRow(@PathVariable Integer deliveryNoteId, @PathVariable Integer rowId, @ApiParam("delivery note order issue information") DeliveryNoteRowIssueDataDTO order);
+
+
 
 }

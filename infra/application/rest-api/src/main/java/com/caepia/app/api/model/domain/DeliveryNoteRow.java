@@ -15,7 +15,11 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NamedStoredProcedureQueries(value = {
         @NamedStoredProcedureQuery(name = "createDeliveryNoteRow",
-                procedureName = "spApiPostDeliveryNoteRow")})
+                procedureName = "spApiPostDeliveryNoteRow"),
+        @NamedStoredProcedureQuery(name = "updateDeliveryNoteRow",
+                procedureName = "spApiPutDeliveryNoteRow"),
+        @NamedStoredProcedureQuery(name = "issueDeliveryNotesRow",
+                procedureName = "spApiPutIssueDeliveryNoteRow")})
 
 public class DeliveryNoteRow extends ModelEntity{
 

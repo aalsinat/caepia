@@ -1,10 +1,6 @@
 package com.caepia.app.api.controller.domain;
 
-import com.caepia.app.api.dto.DeliveryNoteHeaderDataDTO;
-import com.caepia.app.api.dto.DeliveryNoteRowDataDTO;
-import com.caepia.app.api.dto.DeliveryNoteHeaderPutDataDTO;
-import com.caepia.app.api.dto.OrderRowDataDTO;
-import com.caepia.app.api.dto.StoredProcedureResult;
+import com.caepia.app.api.dto.*;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
 import com.caepia.app.api.model.domain.ModelEntity;
 import com.caepia.app.api.model.domain.OrderRow;
@@ -129,7 +125,40 @@ public class DeliveryNoteControllerImpl extends AbstractController implements De
         return ResponseEntity.ok(deliveryNoteService.createDeliveryNoteRow(deliveryNoteId, productName ,categoryL3,units, packQuantity, cost, comments, userId));
     }
 
+    @Override
+    @PatchMapping(value = "/deliveryNotes/{deliveryNoteId}/row/{rowId}")
+    public ResponseEntity<StoredProcedureResult> updateDeliveryNotesRow(@PathVariable Integer deliveryNoteId, @PathVariable Integer rowId, @RequestBody DeliveryNoteRowPutDataDTO deliveryNote) {
 
+        Integer userId = this.getLogedUserId();
+
+        Float docPackQuantity = deliveryNote.getDocPackQuantity();
+        String comments = deliveryNote.getComments();
+
+
+        return ResponseEntity.ok(deliveryNoteService.updateDeliveryNotesRow(deliveryNoteId, rowId, docPackQuantity, comments, userId));
+
+
+    }
+
+    @Override
+    @PatchMapping(value = "/deliveryNotes/{deliveryNoteId}/rowIssue/{rowId}")
+    public ResponseEntity<StoredProcedureResult> issueDeliveryNotesRow(@PathVariable Integer deliveryNoteId, @PathVariable Integer rowId, @RequestBody DeliveryNoteRowIssueDataDTO deliveryNote) {
+
+        Integer userId = this.getLogedUserId();
+
+        Float docPackQuantity = deliveryNote.getDocPackQuantity();
+        Float docQuantity = deliveryNote.getDocQuantity();
+        Float deliveryQuantity = deliveryNote.getDeliveryQuantity();
+        Float amount = deliveryNote.getAmount();
+        Integer swChecked = deliveryNote.getSwChecked();
+        Integer issueType = deliveryNote.getIssueType();
+        String comments = deliveryNote.getComments();
+
+
+        return ResponseEntity.ok(deliveryNoteService.issueDeliveryNotesRow(deliveryNoteId, rowId, docPackQuantity, docQuantity, deliveryQuantity, amount, swChecked, issueType, comments, userId));
+
+
+    }
 
 
     // -----------------------------
