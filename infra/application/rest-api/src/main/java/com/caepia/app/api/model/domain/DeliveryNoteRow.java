@@ -13,6 +13,9 @@ import javax.persistence.*;
 @Table(name = "vApiDeliveryNotesRows")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(name = "createDeliveryNoteRow",
+                procedureName = "spApiPostDeliveryNoteRow")})
 
 public class DeliveryNoteRow extends ModelEntity{
 

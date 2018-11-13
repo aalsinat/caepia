@@ -4,26 +4,29 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
-@ApiModel(description = "Order row request information", value = "OrderRowData")
+@ApiModel(description = "Order row request information", value = "DeliveryRowData")
 @Getter
-public class OrderRowDataDTO {
+public class DeliveryNoteRowDataDTO {
 
     @ApiModelProperty(position = 1)
-    private String productName;
+    private Integer deliveryNoteId;
 
     @ApiModelProperty(position = 2)
-    private Integer categoryL3;
+    private String productName;
 
     @ApiModelProperty(position = 3)
-    private Integer units;
+    private Integer categoryL3;
 
     @ApiModelProperty(position = 4)
-    private Float packQuantity;
+    private Integer units;
 
     @ApiModelProperty(position = 5)
-    private Float cost;
+    private Float packQuantity;
 
     @ApiModelProperty(position = 6)
+    private Float cost;
+
+    @ApiModelProperty(position = 7)
     private String comments;
 
     public String getComments() {
@@ -33,3 +36,4 @@ public class OrderRowDataDTO {
 
 
 }
+

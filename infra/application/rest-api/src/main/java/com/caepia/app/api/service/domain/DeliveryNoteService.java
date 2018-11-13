@@ -149,6 +149,12 @@ public class DeliveryNoteService {
     }
 
 
+    public StoredProcedureResult createDeliveryNoteRow(Integer deliveryNoteId, String productName , Integer categoryL3, Integer units, Float packQuantity, Float cost, String comments, Integer userId) {
+        StoredProcedureResult result = deliveryNoteRowRepository.createDeliveryNoteRow(deliveryNoteId, productName ,categoryL3,units, packQuantity, cost, comments, userId);
+        return result;
+
+    }
+
 
 
     /* ------------------------ */

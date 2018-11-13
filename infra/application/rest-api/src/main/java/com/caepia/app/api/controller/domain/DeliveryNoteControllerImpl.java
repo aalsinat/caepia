@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.DeliveryNoteHeaderDataDTO;
+import com.caepia.app.api.dto.DeliveryNoteRowDataDTO;
 import com.caepia.app.api.dto.DeliveryNoteHeaderPutDataDTO;
 import com.caepia.app.api.dto.OrderRowDataDTO;
 import com.caepia.app.api.dto.StoredProcedureResult;
@@ -105,6 +106,29 @@ public class DeliveryNoteControllerImpl extends AbstractController implements De
 
         return ResponseEntity.ok(deliveryNoteService.updateDeliveryNotesStatus(deliveryNoteId, status, userId));
     }
+
+
+    @Override
+    @PostMapping(value = "/deliveryNotes/row")
+    public ResponseEntity<StoredProcedureResult> createDeliveryNoteRow(@RequestBody DeliveryNoteRowDataDTO deliveryNote) {
+
+        Integer userId = this.getLogedUserId();
+
+        Integer deliveryNoteId = deliveryNote.getDeliveryNoteId();
+        String productName = deliveryNote.getProductName();
+        Integer categoryL3 = deliveryNote.getCategoryL3();
+        Integer units = deliveryNote.getUnits();
+
+        Float packQuantity = deliveryNote.getPackQuantity();
+
+        Float cost = deliveryNote.getCost();
+
+        String comments = deliveryNote.getComments();
+
+
+        return ResponseEntity.ok(deliveryNoteService.createDeliveryNoteRow(deliveryNoteId, productName ,categoryL3,units, packQuantity, cost, comments, userId));
+    }
+
 
 
 

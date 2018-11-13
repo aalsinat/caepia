@@ -2,6 +2,7 @@ package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.ApiError;
 import com.caepia.app.api.dto.DeliveryNoteHeaderDataDTO;
+import com.caepia.app.api.dto.DeliveryNoteRowDataDTO;
 import com.caepia.app.api.dto.DeliveryNoteHeaderPutDataDTO;
 
 
@@ -57,5 +58,10 @@ public interface DeliveryNoteController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<StoredProcedureResult> updateDeliveryNotesStatus(@PathVariable Integer deliveryNoteId,
                                                          @RequestParam(value = "status", required = true) Integer status);
+
+
+    @ApiOperation(value = "${DeliveryNotes.createDeliveryNotesOrw}", httpMethod = "POST",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<StoredProcedureResult> createDeliveryNoteRow(@ApiParam("DeliveryNote Row information") DeliveryNoteRowDataDTO order);
 
 }
