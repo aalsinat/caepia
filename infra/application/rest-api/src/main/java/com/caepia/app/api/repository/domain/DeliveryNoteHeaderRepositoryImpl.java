@@ -16,7 +16,7 @@ public class DeliveryNoteHeaderRepositoryImpl implements DeliveryNoteHeaderManag
 
     @Override
     public StoredProcedureResult createDeliveryNoteHeader(Integer costCenter, String deliveryNoteDate , Integer vendor, String vendorNumDoc, String vendorDate, String comments, Integer userId) {
-        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("createOrderHeader")
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("createDeliveryNoteHeader")
                 .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN)
@@ -36,5 +36,43 @@ public class DeliveryNoteHeaderRepositoryImpl implements DeliveryNoteHeaderManag
                 .build();
     }
 
+    @Override
+    public StoredProcedureResult updateDeliveryNotesHeader(Integer deliveryNoteId, String deliveryNoteDate, String vendorNumDoc , String vendorDate, Integer sourceOrder, Integer invoice, String comments, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateDeliveryNoteHeader")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(4, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(5, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(6, String.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(7, Integer.class, ParameterMode.IN);
+        query.setParameter(0, deliveryNoteId).setParameter(1, deliveryNoteDate).setParameter(2, vendorNumDoc).setParameter(3, vendorDate).setParameter(4, sourceOrder).setParameter(5, invoice).setParameter(6, comments).setParameter(7, userId);;
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                .build();
+    }
+
+    @Override
+    public StoredProcedureResult updateDeliveryNotesStatus(Integer deliveryNoteId, Integer status, Integer userId) {
+        StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("updateDeliveryNotesStatus")
+                .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN);
+        query.setParameter(0, deliveryNoteId).setParameter(1, status).setParameter(2, userId);
+        query.execute();
+        Object[] result = (Object[]) query.getSingleResult();
+
+
+        return StoredProcedureResult.builder()
+                .errorCode((Integer) result[0])
+                .errorMessage(String.valueOf(result[1]))
+                .build();
+    }
 
 }

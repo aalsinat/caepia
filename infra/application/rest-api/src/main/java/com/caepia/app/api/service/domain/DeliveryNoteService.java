@@ -126,6 +126,29 @@ public class DeliveryNoteService {
     }
 
 
+    public StoredProcedureResult updateDeliveryNotesHeader(Integer deliveryNoteId, String deliveryNoteDate, String vendorNumDoc , String vendorDate, Integer sourceOrder, Integer invoice, String comments, Integer userId) {
+        StoredProcedureResult result = deliveryNoteHeaderRepository.updateDeliveryNotesHeader(deliveryNoteId, deliveryNoteDate, vendorNumDoc, vendorDate, sourceOrder, invoice , comments, userId);
+        return result;
+
+    }
+
+
+
+    /**
+     * Updates status flag for a particular {@link DeliveryNoteHeader} supplied by a specific {@code deliveryNoteId}.
+     *
+     * @param deliveryNoteId     identifier for the deliveryNote
+     * @param status     status to change
+     * @param userId    identifier for the user
+     *
+     */
+    public StoredProcedureResult updateDeliveryNotesStatus(Integer deliveryNoteId, Integer status, Integer userId) {
+        StoredProcedureResult result = deliveryNoteHeaderRepository.updateDeliveryNotesStatus(deliveryNoteId, status, userId);
+
+        return result;
+    }
+
+
 
 
     /* ------------------------ */

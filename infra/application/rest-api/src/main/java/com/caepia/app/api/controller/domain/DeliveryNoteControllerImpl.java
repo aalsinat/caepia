@@ -1,6 +1,7 @@
 package com.caepia.app.api.controller.domain;
 
 import com.caepia.app.api.dto.DeliveryNoteHeaderDataDTO;
+import com.caepia.app.api.dto.DeliveryNoteHeaderPutDataDTO;
 import com.caepia.app.api.dto.OrderRowDataDTO;
 import com.caepia.app.api.dto.StoredProcedureResult;
 import com.caepia.app.api.exception.CenterNotAccessibleException;
@@ -74,9 +75,37 @@ public class DeliveryNoteControllerImpl extends AbstractController implements De
             throw new CenterNotAccessibleException("Center not authorized to current logged in user", costCenter);
 
         return ResponseEntity.ok(deliveryNoteService.createDeliveryNoteHeader(costCenter, deliveryNoteDate ,vendor,vendorNumDoc, vendorDate, comments, userId));
+    }
+
+
+    @Override
+    @PatchMapping(value = "/deliveryNotes/{deliveryNoteId}/header")
+    public ResponseEntity<StoredProcedureResult> updateDeliveryNotesHeader(@PathVariable Integer deliveryNoteId, @RequestBody DeliveryNoteHeaderPutDataDTO deliveryNote) {
+
+        Integer userId = this.getLogedUserId();
+        String deliveryNoteDate = deliveryNote.getDeliveryNoteDate();
+        String vendorNumDoc = deliveryNote.getVendorNumDoc();
+        String vendorDate = deliveryNote.getVendorDate();
+        Integer sourceOrder = deliveryNote.getSourceOrder();
+        Integer invoice = deliveryNote.getInvoice();
+        String comments = deliveryNote.getComments();
+
+
+        return ResponseEntity.ok(deliveryNoteService.updateDeliveryNotesHeader(deliveryNoteId, deliveryNoteDate, vendorNumDoc ,vendorDate,sourceOrder, invoice, comments, userId));
 
 
     }
+
+
+    @Override
+    @PatchMapping(value = "/deliveryNotes/{deliveryNoteId}/status")
+    public ResponseEntity<StoredProcedureResult> updateDeliveryNotesStatus(@PathVariable Integer deliveryNoteId,
+                                                                @RequestParam(value = "status") Integer status) {
+        Integer userId = this.getLogedUserId();
+
+        return ResponseEntity.ok(deliveryNoteService.updateDeliveryNotesStatus(deliveryNoteId, status, userId));
+    }
+
 
 
     // -----------------------------
