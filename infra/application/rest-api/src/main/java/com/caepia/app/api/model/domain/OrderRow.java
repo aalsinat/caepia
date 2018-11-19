@@ -82,6 +82,9 @@ public class OrderRow extends ModelEntity{
     @Column(name = "PackItems")
     private Float packItems;
 
+    @Column(name = "PackItemsType")
+    private Integer packItemsType;
+
     @Column(name = "CurrentCostTrend")
     private Integer currentCostTrend;
 

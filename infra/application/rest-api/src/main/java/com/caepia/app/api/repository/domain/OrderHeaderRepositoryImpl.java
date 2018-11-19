@@ -14,11 +14,12 @@ public class OrderHeaderRepositoryImpl implements OrderHeaderManagementRepositor
     private EntityManager entityManager;
 
     @Override
-    public StoredProcedureResult sendOrder(Integer orderId, Integer userId) {
+    public StoredProcedureResult sendOrder(Integer orderId, Integer modeWarning, Integer userId) {
         StoredProcedureQuery query = this.entityManager.createNamedStoredProcedureQuery("sendOrder")
                                                        .registerStoredProcedureParameter(0, Integer.class, ParameterMode.IN)
-                                                       .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN);
-        query.setParameter(0, orderId).setParameter(1, userId);
+                                                       .registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
+                                                       .registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN);
+        query.setParameter(0, orderId).setParameter(1, userId).setParameter(2, modeWarning);
         query.execute();
         Object[] result = (Object[]) query.getSingleResult();
 

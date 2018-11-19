@@ -609,8 +609,8 @@ public class OrderService {
      * @param userId     identifier for the user
      *
      */
-    public StoredProcedureResult sendOrder(Integer orderId, Integer userId) {
-        StoredProcedureResult result = orderHeaderRepository.sendOrder(orderId, userId);
+    public StoredProcedureResult sendOrder(Integer orderId, Integer modeWarning,  Integer userId) {
+        StoredProcedureResult result = orderHeaderRepository.sendOrder(orderId, modeWarning, userId);
         return result;
       /*  if (result.getErrorCode() == 0) {
             return this.getOrderByOrderId(orderId);

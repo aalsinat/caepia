@@ -62,9 +62,9 @@ public class OrderControllerImpl extends AbstractController implements OrderCont
 
     @Override
     @PatchMapping(value = "/order/{orderId}/send")
-    public ResponseEntity<StoredProcedureResult> sendOrder(@PathVariable Integer orderId) {
+    public ResponseEntity<StoredProcedureResult> sendOrder(@PathVariable Integer orderId,  @RequestParam(value = "modeWarning", required = true) Integer modeWarning) {
         Integer userId = this.getLogedUserId();
-        return ResponseEntity.ok(orderService.sendOrder(orderId, userId));
+        return ResponseEntity.ok(orderService.sendOrder(orderId, modeWarning, userId));
 
     }
 
