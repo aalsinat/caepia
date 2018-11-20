@@ -35,7 +35,7 @@ public class JwtUser implements UserDetails {
     private Collection<UserPermission> permissions;
 
     public String getName() {
-        return String.format("%s, %s", name, surname);
+        return (surname != null) ? String.format("%s, %s", name, surname) : name;
     }
 
 
@@ -47,7 +47,8 @@ public class JwtUser implements UserDetails {
 
     public Map<Object, Object> getPermissions() {
         return this.permissions.stream()
-                               .map(permissions -> new SimpleEntry<>(permissions.getProfile(), permissions.getActions()))
+                               .map(permissions -> new SimpleEntry<>(permissions.getProfile(), permissions
+                                       .getActions()))
                                .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
