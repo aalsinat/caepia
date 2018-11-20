@@ -87,3 +87,5 @@ ProductionOrder:
   changeStatusProductionOrder: Change status of production order
   updateProductionOrderRow: Update production order
   updateSalesProductRow: Update sales product
+DeliveryNotes:
+  getDeliveryNotesRowsByDeliveryNoteId: Retrieves a list of delivery notes rows

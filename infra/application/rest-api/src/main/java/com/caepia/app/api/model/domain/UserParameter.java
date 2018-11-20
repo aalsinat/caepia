@@ -17,4 +17,7 @@ public class UserParameter {
 
     @Column(name = "PK_Param")
     private String paramId;
+
+    @Column(name ="Value")
+    private String value;
 }

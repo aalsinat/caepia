@@ -1,5 +1,6 @@
 package com.caepia.app.api.security;
 
+import com.caepia.app.api.model.authentication.ApplicationPermision;
 import com.caepia.app.api.model.authentication.Permission;
 import com.caepia.app.api.model.domain.UserCenter;
 import com.caepia.app.api.model.domain.UserParameter;
@@ -10,8 +11,11 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
@@ -35,13 +39,16 @@ public class JwtUser implements UserDetails {
     }
 
 
-    public List<String> getParameters() {
-        return this.parameters.stream().map(UserParameter::getParamId).collect(Collectors.toList());
+    public Map<Object, Object> getParameters() {
+        return this.parameters.stream()
+                              .map(params -> new SimpleEntry<>(params.getParamId(), params.getValue()))
+                              .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
-    public List<String> getPermissions() {
-        return this.permissions.stream().map(Permission::new).map(Permission::getAuthority)
-                               .collect(Collectors.toList());
+    public Map<Object, Object> getPermissions() {
+        return this.permissions.stream()
+                               .map(permissions -> new SimpleEntry<>(permissions.getProfile(), permissions.getActions()))
+                               .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
     @Override
