@@ -13,6 +13,15 @@ public interface DeliveryNoteHeaderRepository extends JpaRepository<DeliveryNote
 
 
     /**
+     * Query for fetching information about an authorized {@link DeliveryNoteHeader} to a particular {@code Order}}.
+     *
+     * @param deliveryNotesId identifier for the center
+     * @return information about requested product
+     */
+    public ModelEntity findByDeliveryNoteId(Integer deliveryNotesId);
+
+
+    /**
      * Query for fetching, page by page, all authorizes {@link DeliveryNoteHeader}s for a particular {@code Center}.
      *
      * @param centerId identifier for the center

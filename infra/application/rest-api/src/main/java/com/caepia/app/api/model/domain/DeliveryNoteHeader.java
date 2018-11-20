@@ -75,5 +75,10 @@ public class DeliveryNoteHeader extends ModelEntity {
     @Column(name = "OwnerName")
     private String ownerName;
 
+    @Column(name = "TotalOrderAmount")
+    private Integer totalOrderAmount;
+
+
+
 
 }

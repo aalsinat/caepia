@@ -22,13 +22,13 @@ public class DeliveryNoteControllerImpl extends AbstractController implements De
     private final DeliveryNoteService deliveryNoteService;
 
 
-    /*
+
     @Override
     @GetMapping(value = "/deliveryNotes/{deliveryNotesId}/header")
-    public ResponseEntity<ModelEntity> getOrderByOrderId(@PathVariable Integer orderId) {
-        return ResponseEntity.ok(deliveryNoteService.getOrderByOrderId(orderId));
+    public ResponseEntity<ModelEntity> getDeliveryNotesByOrderId(@PathVariable Integer deliveryNotesId) {
+        return ResponseEntity.ok(deliveryNoteService.getDeliveryNotesByOrderId(deliveryNotesId));
     }
-*/
+
 
     /**
      * Get all authorized {@link OrderRow}s for a particular {@code Order}

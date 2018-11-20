@@ -30,6 +30,12 @@ public interface DeliveryNoteController {
 
 */
 
+    @ApiOperation(value = "${DeliveryNotes.getDeliveryNotesByOrderId}", httpMethod = "GET",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<ModelEntity> getDeliveryNotesByOrderId(@PathVariable Integer deliveryNotesId);
+
+
+
     @ApiOperation(value = "${DeliveryNotes.getDeliveryNotesRowsByDeliveryNoteId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of row orders for this order", response = OrderRow.class,

@@ -32,8 +32,22 @@ public class DeliveryNoteService {
     private final DeliveryNoteRowRepository deliveryNoteRowRepository;
 
 
-    private final String DELIVERY_NOTE_HEADER = "findAllByfindAllByCenterId";
+    private final String DELIVERY_NOTE_HEADER = "findAllByCenterId";
     private final String DELIVERY_NOTE_ROW = "findAllByDeliveryNoteId";
+
+
+
+    /**
+     * Retrieves all {@link OrderHeader}s supplied by a particular {@code Order}.
+     *
+     * @param deliveryNotesId identifier for the DeliveryNotes
+     * @return information about requested product
+     */
+    public ModelEntity getDeliveryNotesByOrderId(Integer deliveryNotesId) {
+        return deliveryNoteHeaderRepository.findByDeliveryNoteId(deliveryNotesId);
+    }
+
+
 
     /**
      * Retrieves, page by page, all authorized {@link DeliveryNoteHeader}s for a particular {@code Center}.
@@ -58,6 +72,7 @@ public class DeliveryNoteService {
                 .append(owner.isPresent() && parameters.add(owner.get()) ? "AndOwner" : "")
                 .append(orderId.isPresent() && parameters.add(orderId.get()) ? "AndOrderId" : "")
                 .append(filterDate.isPresent() && parameters.add(filterDate.get()) ? "AndDeliveryNoteDateGreaterThanEqual" : "")
+                .append("OrderByDeliveryNoteDateDesc")
                 .append(this.isPageRequest(page, size) && parameters
                         .add(PageRequest.of(this.transformDefaultPage(page.get()), size.get())) ? "" : "");
 
