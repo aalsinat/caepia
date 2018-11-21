@@ -1,6 +1,5 @@
 package com.caepia.app.api.controller.authentication;
 
-import com.caepia.app.api.dto.Values;
 import com.caepia.app.api.dto.*;
 import com.caepia.app.api.model.domain.UserInfo;
 import com.caepia.app.api.security.JwtAuthenticationResponse;
@@ -55,11 +54,4 @@ public interface UserController {
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     UserResponseDTO whoami(HttpServletRequest req);
-
-    @ApiOperation(value = "Dummy", response = UserResponseDTO.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 400, message = "Something went wrong"),
-            @ApiResponse(code = 403, message = "Access denied"),
-            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    UserResponseDTO dummy(@ApiParam("values") Values values);
 }

@@ -1,6 +1,5 @@
 package com.caepia.app.api.controller.authentication;
 
-import com.caepia.app.api.dto.Values;
 import com.caepia.app.api.dto.LoginDataDTO;
 import com.caepia.app.api.dto.PasswordDTO;
 import com.caepia.app.api.dto.UserDataDTO;
@@ -86,11 +85,4 @@ public class UserControllerImpl implements UserController {
     public UserResponseDTO whoami(HttpServletRequest req) {
         return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
     }
-
-    @Override
-    @GetMapping(value = "/dummy")
-    public UserResponseDTO dummy(Values values) {
-        return new UserResponseDTO();
-    }
-
 }

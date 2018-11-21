@@ -45,12 +45,17 @@ public class JwtUser implements UserDetails {
                               .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
     }
 
-    public Map<Object, Object> getPermissions() {
-        return this.permissions.stream()
-                               .map(permissions -> new SimpleEntry<>(permissions.getProfile(), permissions
-                                       .getActions()))
-                               .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
+    public List<String> getPermissions() {
+        return this.permissions.stream().map(Permission::new).map(Permission::getAuthority)
+                               .collect(Collectors.toList());
     }
+
+//    public Map<Object, Object> getPermissions() {
+//        return this.permissions.stream()
+//                               .map(permissions -> new SimpleEntry<>(permissions.getProfile(), permissions
+//                                       .getActions()))
+//                               .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue));
+//    }
 
     @Override
     @JsonIgnore
