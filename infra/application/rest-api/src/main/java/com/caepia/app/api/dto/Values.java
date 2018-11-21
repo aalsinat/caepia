@@ -1,4 +1,4 @@
-package com.caepia.app.api.controller.domain;
+package com.caepia.app.api.dto;
 
 public enum Values {
     VALUE_1("Value 1"),

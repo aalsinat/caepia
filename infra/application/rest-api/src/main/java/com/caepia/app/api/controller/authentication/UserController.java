@@ -1,6 +1,6 @@
 package com.caepia.app.api.controller.authentication;
 
-import com.caepia.app.api.controller.domain.Values;
+import com.caepia.app.api.dto.Values;
 import com.caepia.app.api.dto.*;
 import com.caepia.app.api.model.domain.UserInfo;
 import com.caepia.app.api.security.JwtAuthenticationResponse;
